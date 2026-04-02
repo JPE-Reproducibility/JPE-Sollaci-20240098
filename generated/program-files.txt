@@ -1,0 +1,24 @@
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/Stata codes/ebayes.ado
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/Stata codes/fese_fast.ado
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/ebayes.ado
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/fese_fast.ado
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/run_stata_codes.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/NAM Simulations/selection_based_NAM.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/Stata codes/A_counterfactuals.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/Stata codes/A_event_study.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/Stata codes/A_fixed_effects.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/Stata codes/A_group_fixed_effects.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/Stata codes/A_summary_stats.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/run_stata_codes.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/B_counterfactuals.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/B_event_study.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/B_fixed_effects.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/B_gender_moves.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/B_group_fixed_effects.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/Stata codes/B_summary_stats.do
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/A_estimate_fe.R
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/A_estimate_gfe.R
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/B_estimate_fe.R
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeB/B_estimate_gfe.R
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/NAM Simulations/calibrate_NAM.py
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-1/replication-package/Replication/CodeA/NAM Simulations/simulate_selection.py
