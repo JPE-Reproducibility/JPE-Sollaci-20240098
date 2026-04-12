@@ -1,13 +1,13 @@
 clear
 set more off
 
-global path "\\data4\users4\ABalduinoSollaci\My Documents\Research Projects"
+global path "/files/JPE-Sollaci-20240098/replication-package/Replication"
 
-gl data_dir "$path\Manager Productivity\Review\Replication\Data"
-gl code_dir "$path\Manager Productivity\Review\Replication\Code"
-gl res_dir "$path\Manager Productivity\Review\Replication\Results"
+gl data_dir "$path/Data"
+gl code_dir "$path/CodeA"
+gl res_dir "$path/Results"
 
-cd "$res_dir\Figures"
+cd "$res_dir/Figures"
 
 set obs 1000
 set seed 7272022
@@ -41,7 +41,7 @@ gen corr_reshuffle = .
 gen corr_estimated = .
 gen bias = .
 
-save "$data_dir\simulate_match", replace
+save "$data_dir/simulate_match", replace
 
 qui forvalues p = -1(0.1)1 {
 	clear 
@@ -51,7 +51,7 @@ qui forvalues p = -1(0.1)1 {
 	drawnorm m_fe s_fe , means(0, 0) sds(1, 1) corr(C)
 	gen round = 1
 	gen stable_match = m_fe + s_fe > $k 
-	save "$data_dir\temp_base", replace
+	save "$data_dir/temp_base", replace
 
 	// order manager and stores
 	drop if stable_match
@@ -64,7 +64,7 @@ qui forvalues p = -1(0.1)1 {
 		su m_fe, d
 		scalar m_mean = `r(mean)'
 		scalar m_sd = `r(sd)'
-		save "$data_dir\temp_m_order", replace
+		save "$data_dir/temp_m_order", replace
 	restore
 
 	preserve
@@ -75,7 +75,7 @@ qui forvalues p = -1(0.1)1 {
 		su s_fe, d
 		scalar s_mean = `r(mean)'
 		scalar s_sd = `r(sd)'
-		save "$data_dir\temp_s_order", replace
+		save "$data_dir/temp_s_order", replace
 	restore
 
 	// reshuffle managers
@@ -91,14 +91,14 @@ qui forvalues p = -1(0.1)1 {
 	sort aux_s
 	gen s_order = _n
 
-	merge 1:1 m_order using "$data_dir\temp_m_order", nogen
-	merge 1:1 s_order using "$data_dir\temp_s_order", nogen
+	merge 1:1 m_order using "$data_dir/temp_m_order", nogen
+	merge 1:1 s_order using "$data_dir/temp_s_order", nogen
 
 	keep m_fe s_fe
 	gen stable_match = m_fe + s_fe > $k 
 	gen round = 2
 
-	append using "$data_dir\temp_base"
+	append using "$data_dir/temp_base"
 	sort round stable_match
 
 	* correlations
@@ -128,14 +128,14 @@ qui forvalues p = -1(0.1)1 {
 	gen corr_estimated = `=corr_estimated'
 	gen bias = abs(corr_estimated - corr_true)
 
-	append using "$data_dir\simulate_match"
-	save "$data_dir\simulate_match", replace
+	append using "$data_dir/simulate_match"
+	save "$data_dir/simulate_match", replace
 }
 
 drop if mi(corr_true)
-erase "$data_dir\temp_base.dta"
-erase "$data_dir\temp_m_order.dta"
-erase "$data_dir\temp_s_order.dta"
+erase "$data_dir/temp_base.dta"
+erase "$data_dir/temp_m_order.dta"
+erase "$data_dir/temp_s_order.dta"
 
 // Figure D.2
 tw rarea corr_true corr_estimated corr_true, color(red%25) || line corr_true corr_true, color(black) lp(dash) ///
@@ -143,7 +143,7 @@ tw rarea corr_true corr_estimated corr_true, color(red%25) || line corr_true cor
 || bar bias corr_true, barw(.075) color(orange) yaxis(2) ylabel(0 0.25 0.5 .75 1, axis(2)) ///
 xtitle("True Correlation") ytitle("Estimated Correlation", axis(1)) ytitle("Bias", axis(2)) ///
 legend(pos(6) cols(2) order(3 "Estimated Correlation" 4 "Bias"))
-graph export "$res_dir\Figures\Figure_D2.png", width(1200) height(800) replace
+graph export "$res_dir/Figures/Figure_D2.png", width(1200) height(800) replace
 
 
 

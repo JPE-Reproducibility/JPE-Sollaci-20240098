@@ -4,13 +4,13 @@ qui {
 * ### PREPARE DATA ### *
 * #################### *
 
-use "$data_dir\A_dataset", clear
+use "$data_dir/A_dataset", clear
 
 * Fixed effect estimates
-merge m:1 store_id using "$data_dir\A_store_fe", nogen
+merge m:1 store_id using "$data_dir/A_store_fe", nogen
 ren (fe fe_se) (store_fe store_se)
 
-merge m:1 manager_id using "$data_dir\A_manager_fe", nogen
+merge m:1 manager_id using "$data_dir/A_manager_fe", nogen
 ren (fe fe_se) (manager_fe manager_se)
 
 * Replace missing (excluded dummy) with zero
@@ -216,7 +216,7 @@ graph export "$res_dir/Figures/Figure_4.png", width(1200) height(800) replace
 
 * Location X Time FEs
 
-use "$data_dir\A_dataset", clear
+use "$data_dir/A_dataset", clear
 
 * estimate effects
 gen log_prod = log_sales - log_fte_count
@@ -319,7 +319,7 @@ reghdfe log_prod i.time if smpl, absorb(i.store_id i.manager_id) // adj R2 = 0.7
 *** Correlated measurement error ***
 // The following code implements the discussion on correlated measurement error in appendix E.2
 
-use "$data_dir\A_dataset", clear
+use "$data_dir/A_dataset", clear
 
 gen log_prod = log_sales - log_fte_count
 qui reghdfe log_prod i.manager_id, abs(store_id time)

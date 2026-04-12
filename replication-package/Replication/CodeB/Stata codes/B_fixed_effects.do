@@ -4,13 +4,13 @@ qui {
 * ### PREPARE DATA ### *
 * #################### *
 
-use "$data_dir\B_dataset", clear
+use "$data_dir/B_dataset", clear
 
 * Fixed effect estimates
-merge m:1 store_id using "$data_dir\B_store_fe", nogen
+merge m:1 store_id using "$data_dir/B_store_fe", nogen
 ren (fe fe_se) (store_fe store_se)
 
-merge m:1 manager_id using "$data_dir\B_manager_fe", nogen
+merge m:1 manager_id using "$data_dir/B_manager_fe", nogen
 ren (fe fe_se) (manager_fe manager_se)
 
 * Replace missing (excluded dummy) with zero
@@ -216,7 +216,7 @@ graph export "$res_dir/Figures/Figure_4b.png", width(1200) height(800) replace
 
 * Location X Time FEs
 
-use "$data_dir\B_dataset", clear
+use "$data_dir/B_dataset", clear
 
 * estimate effects
 gen log_prod = log_revenue_total - log_fte_count
