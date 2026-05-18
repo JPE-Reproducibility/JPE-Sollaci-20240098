@@ -1,0 +1,516 @@
+                                      Read Me File for:
+
+                        Managers and Productivity in Retail
+
+
+                        Robert D. Metcalfe, Alexandre B. Sollaci, and Chad Syverson
+                                   (Journal of Political Economy, 2026)
+
+
+
+           Overview
+
+           The Replication folder contains 4 sub-folders that include all of the required data and codes to replicate
+           the paper. The codes are separated in the "CodeA" and "CodeB" folders, which perform the analysis for
+           companies A and B, respectively. The "Data" folder contains the two source datasets described below; all
+           auxiliary datasets will be saved here as well. Finally, the "Results" folder contains another two sub-folders:
+           "Figures", where all ﬁgures are saved, and "Tables", where data required to construct the tables in the paper
+           are saved.
+           The code in this replication package constructs the analysis from the data of two large retailers using R,
+           Stata, and Python. Within the "CodeA" and "CodeB" folders, three main ﬁles generate all of the empirical
+           results in the paper. Simulated results are run through the ﬁles in "CodeA/NAM Simulations". The replicator
+           should expect the code to run for about 1 hour for each company.
+
+
+           Data Availability
+
+           Data from the two retailers was provided under the condition that companies remain anonymous. As such, the
+           data used for this paper cannot be made publicly available. The JPE Data Editor has conducted plausibility
+           checks concerning data provenance under an NDA with the authors.
+           The data should be preserved in the restricted-access location of the Journal of Political Economy for as long
+           as necessary for the successful replication of the paper. It should be deleted after the replication is conﬁrmed.
+           The authors commit to preserving the data and code for a period of at least ﬁve years following the publication
+           of the paper and to provide reasonable assistance to requests for clariﬁcation and replication.
+
+
+           Statement of Rights
+
+           I certify that the authors of the manuscript have legitimate access to and permission to use the data used in
+           this manuscript.
+
+
+           Dataset List
+
+           The main data sources for the analysis are the data provided by each company. They are saved on the "Data"
+           folder as Stata data ﬁles: "A_dataset.dta" and "B_dataset.dta". A full data dictionary with the variables
+           included in each of these datasets is provided at the end of this document in Tables 2 and 3 at the end of this
+           ﬁle.           Several other datasets are created for the remainder of the analysis. These are listed and described in the
+           table below. Please note that we use the letter "X" do denote datasets that are available for both companies
+           (e.g., "X_dataset.dta" indicates that the datasets "A_dataset.dta" and "B_dataset.dta" exist for companies
+           A and B, respectively).
+
+
+                                       Table 1: Datasets Used in Paper
+
+                Dataset Origin Description
+                X_dataset.dta Source data              Dataset obtained from retail companies
+                                                         (cleaned)
+                X_connected.dta     Constructed; see ﬁle named: Identiﬁes all connected sets in data
+                                  X_estimate_fe.R
+                X_manager_fe.dta   Constructed; see ﬁle named: Contains the initial manager ﬁxed eﬀect
+                                  X_estimate_fe.R          estimates
+                X_store_fe.dta      Constructed; see ﬁle named: Contains the initial store ﬁxed eﬀect
+                                  X_estimate_fe.R          estimates
+                X_manager_gid.dta   Constructed; see ﬁle named: Contains the manager group id
+                                  X_estimate_gfe.R
+                X_manager_gfe.dta   Constructed; see ﬁle named: Contains the manager grouped ﬁxed ef-
+                                  X_estimate_gfe.R         fect estimates
+                X_store_gid.dta     Constructed; see ﬁle named: Contains the store group id
+                                  X_estimate_gfe.R
+                X_store_gfe.dta     Constructed; see ﬁle named: Contains the store grouped ﬁxed eﬀect
+                                  X_estimate_gfe.R         estimates
+                X_dataset_fe_eb.dta Constructed; see ﬁle named: Matches the manager and store ﬁxed
+                                  X_ﬁxed_eﬀects.do         eﬀects to the source data and computes
+                                                         the EB-adjusted ﬁxed eﬀect estimates
+                X_dataset_gfe.dta    Constructed; see ﬁle named: Matches the manager and store grouped
+                                  X_grouped_ﬁxed_eﬀects.do  ﬁxed eﬀects to the source data
+                X_event_study.dta   Constructed; see ﬁle named: Prepares the "X_dataset_fe_eb.dta" to
+                                  X_event_study.do         run the event studies
+                simulate_match.dta   Constructed; see ﬁle named: Keeps track of simulated manager-store
+                                  selection_based_NAM.do    matches; not used for empirical results
+           Note: None of the datasets can be made publicly available. See below for a description of the code scripts.
+
+
+
+           Computational Requirements
+
+           There are no speciﬁc hardware requirements to run the codes provided, and most modern laptops should
+           be able to complete them in about 1 hour (for each company). For the paper, codes were run on a Lenovo
+           ThinkPad T14s laptop, with 32GB of installed RAM and a 2.00 GHz processor (AMD Ryzen AI 7 PRO 350
+           w/ Radeon 860M). The operating system was Windows 11 Enterprise. The replicator should be able to run
+           scripts on Stata, R, and Python. The speciﬁc libraries and dependencies required in each software are listed
+           below.
+              •R (version 4.4.0) will require the following packages to be installed:
+                  –haven
+                  –rstudioapi
+                  –doBy
+                  –lfe
+
+                                                  2                  –Matrix (this is not explicitly called as a library, but is required for ‘lfe’ to work properly)
+              •Stata (version 19) will require the following packages to be installed (all available through ssc):
+                  –reghdfe
+                  –ftools
+                  –did_imputation
+                  –event_plot
+                  –binscatter
+                  –grc1leg2
+                  –white_tableau scheme (can be installed through: ssc install schemepack)
+              •Python (version 3.11.11) will require the following libraries:
+                  –numpy
+                  –pandas
+                  –scipy
+                  –matplotlib
+                  –os
+           In addition to those, replication will also require theebayes.adoandfese_fast.adoprograms written by
+           Adam Sacarny (see https://sacarny.com/programs/). For convenience, these can be found within the "Stata
+           codes" sub-folder in the "CodeA" and "CodeB" folders.
+
+
+           Instructions to Replicators
+
+           Each "CodeX" folder contains (for X = A, B):
+              •A "Stata codes" folder
+              •Three main scripts
+                  –X_estimate_fe.R
+                  –X_estimate_gfe.R
+                  –run_stata_codes.do
+           The "CodeA" folder also contains a "NAM Simulations" folder, which has the scripts and data required to run
+           the simulations for the NAM results:
+              •selection_based_NAM.do
+              •simulate_selection.py
+              •calibrate_NAM.py
+              •NAM_data.xlsx
+
+
+
+
+
+
+
+
+
+
+                                                  3           Running the Replication Codes
+
+           To successfully replicate the paper, the user should
+              1.Run the two scripts in R ("X_estimate_fe.R" and "X_estimate_gfe.R", X = A,B) to estimate the
+                manager and store ﬁxed eﬀects and grouped ﬁxed eﬀects.
+              2.Run the master ﬁle "run_stata_codes.do". This will call on several other ﬁles contained in the "Stata
+                codes" folder and will provide all of the remaining empirical results discussed in the paper.
+              3.Run the scripts within the "CodeA/NAM Simulations" (no particular order required). This will provide
+                the remaining results pertaining to the simulation exercises.
+
+
+           Description of the Code Scripts
+
+           We provide a detailed description of all scripts and the results they provide below. As before, we use X as a
+           placeholder for A or B in the names of scripts that are used for both companies A and B.
+              •X_estimate_fe.R provides the initial estimates of the manager, store, and time ﬁxed eﬀects from
+                equation 1 in the paper. It also adjusts the variance of the ﬁxed eﬀects for limited mobility bias and
+                computes the variance/covariance shares in the four largest connected sets, as described inTable 1.
+                Constructing Table 1: This script will save the variance/covariance shares in the ﬁles "j-X_cs_covar.txt",
+                for j = 1,...,4 representing the four largest connected sets (for example, "2-A_cs_covar.txt" has the
+                variance/covariance shares for the second largest connected set in Company A). These ﬁles can be
+                found the "Results/Tables" folder.
+                Notes:
+               (a) The number of observations within each connected set shown inTable 1is obtained after merging
+                the "X_store_fe.dta" and "X_manager_fe.dta" datasets back into the original "X_dataset.dta", and is
+                done in the "X_ﬁxed_eﬀects.do" ﬁle (it will be displayed in the Stata window when run).
+               (b) The estimation of the ﬁxed eﬀects involves a random number generator; a seed has been set on line
+                17.
+              •X_estimate_gfe.Rclusters all managers and stores into groups based on observables and estimates
+                the ﬁxed eﬀect of each group using equation 1. As above, it also adjusts the variance and covariance of
+                estimates for limited mobility bias and saves them in the ﬁle "X_covar_group.txt" (in this case there is
+                a single connected set). This ﬁle is again found in the "Results/Tables" folder.
+                Note:
+                The estimation of the ﬁxed eﬀects involves a random number generator; a seed has been set on line 22.
+           A comment on navigating the code ﬁles: The order of the results in the code ﬁles do not always follow
+           the order they are presented in the paper. To facilitate the navigation between code and results, the
+           "run_stata_code.do" ﬁle indicates which results are produced in each do ﬁle it calls. These will appear as a
+           commented coderight before the "do [ﬁle name]" command.
+           For example, the code excerpt below indicates that the ﬁle "A_summary_stats.do" produces Figures A.1 and
+           C.1, and Tables B.1, C.1, and D.1.
+           // Figures A.1 and C.1; Tables B.1, C.1, and D.1
+           do "$code_dir/A_summary_stats.do"
+           In addition, the section of code that produces each result is also identiﬁed with commented code. For example,
+           within the "A_summary_stats.do" ﬁle, Figure A.1 is produced between lines 116 and 158. Line 115 is
+
+
+
+
+                                                  4           therefore a comment:*** Figure A.1: plot pre-move trends ***. A similar pattern holds for all Figures and
+           Tables produced in by ﬁles below.
+              •X_ﬁxed_eﬀects.do[in Stata codes folder] takes the initial estimates of the ﬁxed eﬀects (above)
+                and adjusts them using the Empirical Bayes Adjustment. This is done with the help of the programs
+                ebayes.adoandfese_fast.ado.
+                This script also
+                  –Calculates the number of managers, stores, and overall number of observations in each connected
+                   set. These resuts are used inTable 1and discussed inSection 3.2(see the paragraph that starts
+                   with "Our data contains about [...]").
+                  –Plots the distribution of ﬁxed eﬀects (Figure 3,Figure A.2, andFigure A.3) and the number of
+                   stores and managers in each connected set (Figure A.4);
+                  –Runs the out-of-sample test (Figure 4);
+                  –Performs the series of robustness checks discussed inAppendix C.2. This includesFigure C.2and
+                   Figure C.3, as well as the correlations (paragraph on local shocks) and theR2 numbers (paragraphs
+                   on persistence and learning) inAppendix C.2.
+                  –Estimates the full covariance matrix for manager and store ﬁxed eﬀects and performs the exercises
+                   discussed in the "Correlated Measurement Error" section ofAppendix E.2(see the last paragraph
+                   for the calculated ratios).
+              •X_grouped_ﬁxed_eﬀects.do[in Stata codes folder] analyzes the grouped ﬁxed eﬀects estimates,
+                producing the Figures inAppendix E.1(Figure E.1,Figure E.2, andFigure E.3).
+              •X_event_study.do[in Stata codes folder] runs all of the analysis related to the event studies. This
+                includesFigure 5andFigure 8for Company A,Figure 6andFigure 9company B, and all Figures in
+                Appendix G.
+                Using the estimates from the event studies, this script also produces the results required to construct
+                Table 4, which are displayed in Stata’s interface when the code is run. The replicator can ﬁnd this
+                information next to the headers "### Table 4 (Panel A) ###" and "### Table 4 (Panel B) ###".
+                These will indicate results before and after the change in manager by the indicator "post_change" (=0
+                for before change; =1 for after change). The point estimates named "b_tb" for a top-to-bottom change
+                and "b_bt" for a bottom-to-top change.
+                In addition, the script analyzes what changes for managers and stores when a store switches managers,
+                producingFigure 7andFigure A.5. The tenure gap mentioned inSection 4.1are also calculated here,
+                and will be displayed in the Stata interface under the heaer "Average tenure change (section 4.1)".
+                Finally, after breaking managers and stores into terciles based on their qualities and once again looking
+                at the initial matches and moves, the script producesFigure D.1, as well asTable 2andTable 3. Data
+                for both tables are saved in the "Results/Tables" folder (under "Table_2_X.dta" and "Table_3_X.dta").
+              •X_summary_stats.do[in Stata codes folder] calculates the summary statistics mentioned in the
+                beginning ofsection 2in the paper. These will be displayed in the Stata interface under the heading
+               "number of managers per store".
+                The script also does some of the preliminary analyzes of the diﬀerence between "movers" and "non-
+                movers", plottingFigure A.1and producing all the necessary numbers forTable B.1(displayed in
+                Stata’s interface under the heading "### Table B.1 ###").
+                Next, it estimates how diﬀerent variables impact the probability that a manager moves between stores,
+                running the regressions reported inTable D.1(displayed in the Stata interface under the header "###
+                Table D.1 ###").
+
+
+
+                                                  5                Finally, this script compares diﬀerent measures of productivity, running all of the required analysis
+                for the discussion inAppendix C.1(includingFigure C.1andTable C.1, displayed in Stata’s interface
+                under the header "### Table C.1 ###")
+              •X_counterfactuals.do[in Stata codes folder] does all of the analysis reported inAppendix F, including
+                Table F.1(again displayed in Stata’s interface under the header "### Table F.1 ###").
+              •B_gender_moves.do[in Stata codes folder] (only available for company B) runs the regressions
+                required forTable B.2(displayed in the Stata interface under the header "### Table B.2 ###"). It
+                also calculates the share of male and female movers (displayed in the Stata interface under the header
+               "Prob(mover|female)") to arrive at the 7 percentage point diﬀerence mentioned inFootnote 7.
+           Within the "CodeA/NAM Simulations" folder the replicator will ﬁnd the following ﬁles:
+              •selection_based_NAM.dois a do ﬁle that generatesFigure 2andFigure D.2.
+                Note:
+                The simulation requires random draws from a normal distribution; a seed has been set in line 13.
+              •simulate_selection.py is a python script that generalizes the simulations from the "selec-
+                tion_based_NAM.do" ﬁle into 20 rounds of (re)matching of managers and stores. This is used to
+                produce the three charts inFigure D.3.
+                Note:
+                The simulation requires random draws from a normal distribution; a seed has been set in line 15.
+              •calibrate_NAM.pyuses the observed variances and covariances in the data ("NAM_data.xlsx") to
+                recover the size of the bias in the correlation between managers and stores using the expression derived
+                in the "Discussion and Extensions" part ofSection 3.3and further developed inAppendix D.2.1.
+              •NAM_data.xlsxis an excel ﬁle that simply calculates the weighted averages of covariances from
+                Table B.1. The numbers found in this ﬁle are used in the ’calibrate_NAM.py’ program.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                  6                                    Table 2: Data Dictionary, Company A
+
+                 Variable Name Description
+                 id (manager,store) pair id
+                 store_id store id (numeric)
+                 manager_id manager id (numeric)
+                 time period id
+                 year year of observations
+                 month month of observation (name)
+                 month_num month of observation (numeric)
+                 location name of store’s location
+                 location_num store location (numeric)
+                 state US State of store (name)
+                 state_num US State of store (numeric)
+                 county County of store (name)
+                 countyﬁp County FIP
+                 stateﬁp State FIP
+                 postal_code postal code
+                 timezone time zone of store
+                 remodel indicator if store was remodeled
+                 (comp name)startdate date that mng started in company
+                 positionstartdate date that mng started position
+                 job_description job title
+                 paystatus pay status
+                 supervisor_id
+                 supv_title supervisor title
+                 pos_start_month month that mng started position
+                 pos_start_year year that mng started position
+                 (comp name)_start_month month that mng started in company
+                 (comp name)_start_year year that mng started in company
+                 manager_tenure_pos mng tenure in position
+                 manager_tenure_comp mng tenure in company
+                 sales total sales in month
+                 labor_cost cost of labor
+                 manager_salary manager’s salary
+                 pt_count number of part time employees
+                 ft_count numer of full-time employees
+                 oh_cost_consigned overhead cost (consigned)
+                 oh_cost_owned overhead cost (owned)
+                 oh_cost_total overhead cost (total)
+                 sales_area size of sales area in store
+                 store_area size of store
+                 fte_count number of full-time equivalent employees
+                 log_sales log of sales
+                 log_manager_salary log of manager salary
+                 log_manager_tenure_pos log of tenure in position
+                 log_manager_tenure_comp log of tenure in company
+                 log_ft_count log of full-time employees
+                 log_pt_count log of part-time employees
+                 log_fte_count log of full-time equivalent employees
+                 log_store_area log of store area
+                 log_sales_area log of sales area
+
+
+
+                                                  7                 capital_cost Cost of capital
+                 oh_cost overhead cost (same as oh_cost_total)
+                 log_oh_cost log of overhead cost
+                 closest_competitor distance to closest competitor (miles)
+                 closest_[competitor 1] distance to closest competitor 1 (company’s name in brackets)
+                 closest_[competitor 2] distance to closest competitor 2
+                 closest_[competitor 3] distance to closest competitor 3
+                 closest_[competitor 4] distance to closest competitor 4
+                 num_mng_2019 number of diﬀerent managers in 2019
+                 num_close_competitors number of close competitors (within 1 mile)
+                 sun_open_hour hour that store opens on Sunday
+                 sun_close_hour hour that store closes on Sunday
+                 sun_num_hours number of hours open on Sunday
+                 mon_open_hour hour that store opens on Monday
+                 mon_close_hour similar as above
+                 mon_num_hours
+                 tue_open_hour
+                 tue_close_hour
+                 tue_num_hours
+                 wed_open_hour
+                 wed_close_hour
+                 wed_num_hours
+                 thu_open_hour
+                 thu_close_hour
+                 thu_num_hours
+                 fri_open_hour
+                 fri_close_hour
+                 fri_num_hours
+                 sat_open_hour
+                 sat_close_hour
+                 sat_num_hours
+                 week_num_hours number of hours open during week days
+                 weekend_num_hours number of hours open during weekends
+                 sun_log_hours log of hours open on Sunday
+                 mon_log_hours log oh hours open on Monday
+                 tue_log_hours similar to the above
+                 wed_log_hours
+                 thu_log_hours
+                 fri_log_hours
+                 sat_log_hours
+                 week_log_hours
+                 weekend_log_hours
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                  8                                    Table 3: Data Dictionary: Company B
+
+             Variable Name Description
+             store_id store id (numeric)
+             manager_id manager id (numeric)
+             time time period
+             year year of observation
+             month month of observation
+             elec_consumption consumption of electricity in month
+             elec_cost cost of electricity in month
+             gas_consumption consumption of gas in month
+             gas_cost cost of gas in month
+             competitor_count number of close competitors
+             mean_dist_km mean distance to competitors in kilometers
+             mean_drivetime mean drivetime to competitors
+             mean_dist_drive_km mean driving distance to competitors in kilometers
+             min_distance_km minimum distance to competitor in kilometers
+             min_drivetime minimum drive time to competitor
+             min_dist_drive_km minimum driving distance to competitor in kilometers
+             (competitor 1) distance to (competitor 1) [name of competitor in parenthesis)
+             (competitor 2) distance to (competitor 2)
+             (competitor 3) distance to (competitor 3)
+             (competitor 4) distance to (competitor 4)
+             (competitor 5) distance to (competitor 5)
+             (competitor 6) distance to (competitor 6)
+             (competitor 7) distance to (competitor 7)
+             area_total size of store
+             area_sales size of sales area in store
+             store_name store’s name
+             format store format (ﬂagship, local, others)
+             format_num store format (numeric)
+             type store type (convenience, large, small, others)
+             opening_date store opening date
+             region store region (numeric)
+             region_name store region name
+             area store area (location, numeric)
+             area_name store area name
+             town store town
+             county store county
+             postcode store postal code
+             longitude store’s location longitude
+             latitude store’s location latitude
+             country store country
+             location_code store’s location code
+             saturday_opening Saturday opening hour
+             saturday_closing Saturday closing hour
+             sunday_opening similar to above
+             sunday_closing
+             weekday_opening
+             weekday_closing
+             weekday_hours number of minutes open during weekdays
+             saturday_hours number of minutes open during Saturdays
+
+
+
+                                                  9             sunday_hours number of minutes open during Sundays
+             weekday_hours_total total number of minutes open during weekdays
+             weekend_hours number of minutes open during the full weekend
+             week_hours total number of minutes open over the entire week (including weekends)
+             revenue_total total revenue during month
+             manager_startdate date when manager started job
+             months_on_job number of months that manager has spent on job
+             hc_count number of employees
+             fte_count numer of full-time equivalent employees
+             elec_use_sqft electricity consumption per squared foot in store
+             gas_use_sqft gas consumption per squared foot in store
+             elec_price electricity price (constructed as cost/consumption)
+             gas_price gas price (constructed as cost/consumption)
+             energy_cost energy (electricty + gas) cost
+             log_revenue_total log of total revenue
+             log_energy_cost log of energy cost
+             log_fte_count log of full-time equivalent employees
+             log_hc_count log of number of employees
+             location_id store’s city/location (numeric)
+             location_name store’s city/location name
+             location_type location type (admin county, metropolitan, borough, etc.)
+             number_active_managers number of active manager in store
+             multiple_managers indicator of multiple managers in store
+             number_stores number of store that manager in observation works in
+             multiple_stores indicator of manager that works in multiple stores
+             open_year year when store was opened
+             open_month month when store was opened
+             store_age store’s age
+             log_store_age log of store age
+             log_store_area log of store size
+             log_week_hours log of minutes open during weekdays
+             log_weekend_hours log of minutes open during weekends
+             female indicator of female manager
+             title manager title (Mr., Mrs., Ms., others)
+             ﬁrstname manager’s ﬁrst name
+             lastname manager’s last name
+             doj date when manager joined company
+             join_year year when manager joined company
+             join_month month when manager joined company
+             manager_tenure manager’s tenure in job/position
+             manager_tenure_start manager’s tenure in company
+             log_manager_tenure log of manager tenure in position
+             log_manager_tenure_start log of manager tenure in company when they became a manager
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                  10

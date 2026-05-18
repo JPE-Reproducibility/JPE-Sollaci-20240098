@@ -50,7 +50,11 @@ bys store_id: egen num_managers_store = total(aux)
 drop aux
 
 bys store_id: gen aux = 1 if _n == 1
-tab num_managers_store if aux == 1
+noisily {
+	// number of managers per store
+	tab num_managers_store if aux == 1
+	tab num_managers_store if aux == 1 & num_managers_store > 1
+}
 drop aux
 
 // stores per manager
@@ -151,7 +155,7 @@ tw line log_manager_tenure0 log_manager_tenure1 time, graphregion(color(white)) 
 	xlabel(1 "Apr-14" 6 "Sep-14" 11 "Feb-15" 16 "Jul-15" 21 "Dec-15" 26 "May-16" 31 "Oct-16" 36 "Mar-17", angle(45) labsize(medium)) ///
 	legend(off) name(mng_tenure, replace)
 	
-grc1leg revenue fte area mng_tenure, graphregion(color(white))
+grc1leg2 revenue fte area mng_tenure, graphregion(color(white))
 graph export "$res_dir/Figures/Figure_A1b.png", width(1200) height(800) replace
 
 

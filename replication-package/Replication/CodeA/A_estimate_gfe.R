@@ -106,8 +106,6 @@ store_gfe[store_gfe['fe'] == 0, c('fe', 'fe_se')] <- NA
 manager_gfe[manager_gfe['fe'] == 0, c('fe', 'fe_se')] <- NA
 
 # Save results to Stata
-write_dta(mng_store_gfe, "A_mng_store_gfe.dta")
-
 indx <- sapply(store_gfe, is.factor)
 store_gfe[indx] <- lapply(store_gfe[indx], function(x) as.numeric(as.character(x)))
 write_dta(store_gfe, "A_store_gfe.dta")

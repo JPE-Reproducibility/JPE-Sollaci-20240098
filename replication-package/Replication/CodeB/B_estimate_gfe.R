@@ -37,15 +37,12 @@ indx <- sapply(store_gid, is.factor)
 store_gid[indx] <- lapply(store_gid[indx], function(x) as.numeric(as.character(x)))
 write_dta(store_gid, "B_store_gid.dta")
 
-
                               #### Cluster managers ####
 
 setwd(data_dir)
-df_mng <- summaryBy(log_manager_tenure_start + format_num ~ manager_id, 
-                    FUN=c(mean, mode), data=df)
+df_mng <- summaryBy(log_manager_tenure_start + format_num ~ manager_id, FUN=c(mean, mode), data=df)
 df_mng <- df_mng[complete.cases(df_mng),] # remove NA
-km_mng <- kmeans(c(df_mng$log_manager_tenure_start.mean, df_mng$format_num), 
-                 centers = num_groups_mng, iter.max=100)
+km_mng <- kmeans(c(df_mng$log_manager_tenure_start.mean, df_mng$format_num), centers = num_groups_mng, iter.max=100)
 
 # save group ID's
 manager_gid <- df_mng["manager_id"]
@@ -54,7 +51,6 @@ manager_gid["manager_gid"] <- km_mng[["cluster"]]
 indx <- sapply(manager_gid, is.factor)
 manager_gid[indx] <- lapply(manager_gid[indx], function(x) as.numeric(as.character(x)))
 write_dta(manager_gid, "B_manager_gid.dta")
-
 
 #### ================================================================================== ####
 

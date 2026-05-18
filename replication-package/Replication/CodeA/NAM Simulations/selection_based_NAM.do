@@ -1,16 +1,16 @@
 clear
 set more off
 
-global path "/files/JPE-Sollaci-20240098/replication-package/Replication"
+global path "//data4/users4/ABalduinoSollaci/My Documents/Research Projects"
 
-gl data_dir "$path/Data"
-gl code_dir "$path/CodeA"
-gl res_dir "$path/Results"
+gl data_dir "$path/Manager Productivity/Review/Replication/Data"
+gl code_dir "$path/Manager Productivity/Review/Replication/Code"
+gl res_dir "$path/Manager Productivity/Review/Replication/Results"
 
 cd "$res_dir/Figures"
 
 set obs 1000
-set seed 7272022
+set seed 1702
 gl k = 0
 
 

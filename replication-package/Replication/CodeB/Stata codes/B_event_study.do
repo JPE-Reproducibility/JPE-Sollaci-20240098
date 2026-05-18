@@ -113,7 +113,7 @@ preserve
 restore
 
 compress
-save "event_study_B", replace
+save "B_event_study", replace
 
 					********* Event Study ************
 					
@@ -176,7 +176,7 @@ forvalues n = 1/6 {
 		legend(pos(6) cols(2) lab(1 "Coefficient") lab(2 "95% Confidence Interval") size(medium)) yline(0, lcolor(black) lpattern(dash))
 		xtitle("Months After Change in Mng.", size(medium)) ytitle("`ytitle'", size(medium)) ylabel(,labsize(medium))
 		;
-		graph export "$res_dir/Figures/Figure_6_`filename'_B.png", width(1200) height(800) replace
+		graph export "$res_dir/Figures/Figure_6_`filename'.png", width(1200) height(800) replace
 		;
 		
 		// Figure G.2 (pre-trends)
@@ -186,7 +186,7 @@ forvalues n = 1/6 {
 		legend(pos(6) cols(2) lab(1 "Coefficient") lab(2 "95% Confidence Interval") size(medium)) yline(0, lcolor(black) lpattern(dash))
 		xtitle("Months Before Change in Mng.", size(medium)) ytitle("abc", size(medium)) ylabel(,labsize(medium))
 		;
-		graph export "$res_dir/Figures/Figure_G2_`filename'_pre_B.png", width(1200) height(800) replace
+		graph export "$res_dir/Figures/Figure_G2_`filename'.png", width(1200) height(800) replace
 		;
 		#delimit cr
 	restore	
@@ -393,7 +393,7 @@ restore
 
 *** Average Treatment Effect ***
 cd "$data_dir"
-use "event_study_B", clear
+use "B_event_study", clear
 
 replace time_of_change = time_of_change - 6
 bys store_id: egen was_treated = max(time_of_change)
@@ -449,7 +449,7 @@ noisily {
 					
 *** Manager quality before and after change
 cd "$data_dir"
-use "event_study_B", clear
+use "B_event_study", clear
 
 bys store_id manager_id (time): drop if _n > 1
 drop if num_changes == 0
@@ -518,8 +518,10 @@ graphregion(color(white)) ytitle("Density", size(medium)) ylabel(, labsize(mediu
 xtitle("{&Delta} Manager Tenure (months)", size(medium)) xlabel(, labsize(medium)) legend(off)
 graph export "$res_dir/Figures/Figure_A5b.png", width(1200) height(800) replace
 
+noisily{
 // Average tenure change (section 4.1)
 ttest mng_tenure_start_chg==0
+}
 
 
 // FE (Figure 7, panel B)
@@ -536,7 +538,7 @@ ttest mng_quality_after == mng_quality_before
 
 
 *** Store FE of previous store manager worked at
-use "event_study_B", clear
+use "B_event_study", clear
 
 drop if num_changes == 0
 collapse (mean) store_fe_eb store_gfe log_fte_count log_revenue_total time, by(store_id manager_id)

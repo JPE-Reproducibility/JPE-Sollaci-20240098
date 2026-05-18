@@ -108,7 +108,7 @@ restore
 
 
 compress
-save "event_study_A", replace
+save "A_event_study", replace
 
 
 					********* Event Study ************
@@ -387,7 +387,7 @@ restore
 
 *** Average Treatment Effect ***
 cd "$data_dir"
-use "event_study_A", clear
+use "A_event_study", clear
 
 replace time_of_change = time_of_change - 6
 bys store_id: egen was_treated = max(time_of_change)
@@ -443,7 +443,7 @@ noisily {
 					
 *** Manager quality before and after change
 cd "$data_dir"
-use "event_study_A", clear
+use "A_event_study", clear
 
 bys store_id manager_id (time): drop if _n > 1
 drop if num_changes == 0
@@ -514,8 +514,10 @@ graphregion(color(white)) ytitle("Density", size(medium)) ylabel(, labsize(mediu
 xtitle("{&Delta} Manager Tenure (months)", size(medium)) xlabel(, labsize(medium)) legend(off)
 graph export "$res_dir/Figures/Figure_A5.png", width(1200) height(800) replace
 
+noisily{
 // Average tenure change (section 4.1)
 ttest mng_tenure_pos_chg==0
+}
 
 
 // FE (Figure 7, panel A)
@@ -533,10 +535,10 @@ ttest mng_quality_after == mng_quality_before
 
 
 *** Store FE of previous store manager worked at
-use "event_study_A", clear
+use "A_event_study", clear
 
 drop if num_changes == 0
-collapse (mean) store_fe_eb pop_density log_fte_count log_sales log_manager_salary time, by(store_id manager_id)
+collapse (mean) store_fe_eb log_fte_count log_sales log_manager_salary time, by(store_id manager_id)
 
 bys manager_id: gen num_stores = _N
 keep if num_stores == 2
@@ -555,8 +557,7 @@ gen store_quality_chg = store_quality_last - store_quality_first
 
 
 // store characteristics
-gen log_pop_density = log(pop_density)
-foreach var in log_fte_count log_sales log_manager_salary log_pop_density {
+foreach var in log_fte_count log_sales log_manager_salary {
 
 	bys manager_id (time): gen aux = `var' if _n == 1
 	bys manager_id: egen `var'_first = mean(aux)
@@ -712,7 +713,7 @@ preserve
 	
 	compress
 	drop x y
-	save "$res_dir/Tables/Table_2", replace
+	save "$res_dir/Tables/Table_2_A", replace
 	noisily di "Table 2 saved in Results/Tables folder"
 restore
 
@@ -750,7 +751,7 @@ gen pct = 100*freq/total_mng
 	
 compress
 drop x y
-save "$res_dir/Tables/Table_3", replace
+save "$res_dir/Tables/Table_3_A", replace
 noisily di "Table 3 saved in Results/Tables folder"
 
 }

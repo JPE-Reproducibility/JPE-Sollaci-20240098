@@ -6,12 +6,10 @@ use "B_dataset_fe_eb", clear
 drop if mi(female)
 preserve
 	tab female
-	tab female if london_flag == 1
 	tab female if inlist(town, "london", "glasgow", "bristol", "nottingham", "hull", "manchester", "leeds", "birmingham", "liverpool")
 	bys format: tab female
 	bys manager_id: drop if _n > 1
 	tab female
-	tab female if london_flag == 1
 	tab female if inlist(town, "london", "glasgow", "bristol", "nottingham", "hull", "manchester", "leeds", "birmingham", "liverpool")
 	bys format: tab female
 restore
@@ -38,8 +36,10 @@ foreach var in manager_tenure prod revenue_total fte_count area_total {
 }
 bys manager_id (period): drop if _n > 1
 
-// Prob(female|mover):
-bys female: tab mover
+noisily {
+	// Prob(mover|female):
+	bys female: tab mover
+}
 
 *** Table B.2 ***
 noisily {
@@ -49,7 +49,4 @@ noisily {
 	reghdfe female mover log_manager_tenure log_revenue_total log_fte_count log_area_total if not_left, abs(location_id format_num) vce(robust)
 	reghdfe female mover log_manager_tenure log_revenue_total log_fte_count log_area_total if num_stores > 10, abs(location_id format_num) vce(robust)
 }
-
-
-
 }

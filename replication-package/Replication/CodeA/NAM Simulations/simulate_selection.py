@@ -6,11 +6,13 @@ import os
 
 #%% Set directory
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
+script_dir = os.getcwd()
 parent_dir = os.path.dirname(os.path.dirname(script_dir))
 figures_dir = os.path.join(parent_dir, "Results\Figures")
 
 #%% Parameters
+
+rng = np.random.default_rng(seed=42)
 
 mean_s = 0
 sigma_s = 1

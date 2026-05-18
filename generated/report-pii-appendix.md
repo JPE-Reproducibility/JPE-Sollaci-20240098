@@ -1,6 +1,6 @@
 ## Appendix: Detailed PII Detection Results
 
-*Generated on 2026-04-02 12:30:07*
+*Generated on 2026-05-18 11:01:46*
 
 This appendix lists all detected instances of potential personally identifiable information (PII) in the project files. Each entry shows the matched PII terms and, for data files, sample values to help verify whether the flagged content is indeed sensitive.
 
@@ -8,78 +8,33 @@ This appendix lists all detected instances of potential personally identifiable 
 
 **/replication-package/Replication/Data/A_dataset.dta**
 
-- Variable: `assoc_degree` (label: *(mean) assoc_degree*)
-  - Matched terms: degree
-  - Sample values: 0.10260666161775589, 0.06708451360464096, 0.1084924042224884
-- Variable: `citypop` (label: *(mean) citypop*)
-  - Matched terms: city
-  - Sample values: 0.0, 6583.056348847226, 8801.757677734759
 - Variable: `county` (label: *COUNTYNAME*)
   - Matched terms: name
   - Sample values: Palm Beach County, Miami-Dade County, Harris County
-- Variable: `high_school` (label: *(mean) high_school*)
-  - Matched terms: school
-  - Sample values: 0.4469357430934906, 0.4554300010204315, 0.4771460294723511
 - Variable: `location` (label: *Location Nm*)
   - Matched terms: loc, location
   - Sample values: BOCA RATON FL, HIALEAH FL, HOUSTON TX
 - Variable: `location_num` (label: *group(location)*)
   - Matched terms: loc, location
   - Sample values: 88.0, 334.0, 353.0
-- Variable: `no_high_school` (label: *(mean) no_high_school*)
-  - Matched terms: school
-  - Sample values: 0.1117204949259758, 0.16861650347709656, 0.09216965734958649
 - Variable: `store_id` (label: *Loc*)
   - Matched terms: loc
   - Sample values: 4.0, 7.0, 12.0
 
 **/replication-package/Replication/Data/B_dataset.dta**
 
-- Variable: `address_line_1` (label: *Address_Line_1*)
-  - Matched terms: address
-  - Sample values: 31 High Road, 11-19 Lower Parliament Street, 944 Woodborough Road
-- Variable: `address_line_2` (label: *Address_Line_2*)
-  - Matched terms: address
-  - Sample values: Beeston, , Eastwood
 - Variable: `area_name` (label: *Area_Name*)
   - Matched terms: name
   - Sample values: Nottingham West, Nottingham City, Nottingham North
-- Variable: `coord_x` (label: *coord_x*)
-  - Matched terms: coord
-  - Sample values: 452902.0, 457425.0, 459161.0
-- Variable: `coord_y` (label: *coord_y*)
-  - Matched terms: coord
-  - Sample values: 336983.0, 340143.0, 343415.0
 - Variable: `country` (label: *Country*)
   - Matched terms: country
   - Sample values: England
-- Variable: `display_name` (label: *Display_Name*)
-  - Matched terms: name
-  - Sample values: Nottingham Beeston, Nottingham Victoria Centre, Nottingham Mapperley
-- Variable: `division_name` (label: *Division_Name*)
-  - Matched terms: name
-  - Sample values: SOUTH, NORTH
-- Variable: `elec_consumption_ytd_actual` (label: *YTD Calculated*)
-  - Matched terms: lat
-  - Sample values: 102191.0, 67632.0, 1.276585e6
-- Variable: `elec_cost_ytd_actual` (label: *YTD Calculated*)
-  - Matched terms: lat
-  - Sample values: 10694.0, 7370.0, 124973.0
 - Variable: `elec_use_sqft` (label: *Electricity Consumption by sqft of Sales Area*)
   - Matched terms: city
   - Sample values: 18.310810089111328, 19.461711883544922, 19.76801872253418
-- Variable: `elec_use_sqft2` (label: *Electricity Consumption by sqft of Total Area*)
-  - Matched terms: city
-  - Sample values: 9.155405044555664, 9.730855941772461, 9.88400936126709
 - Variable: `firstname` (label: *(first) firstname*)
   - Matched terms: name
   - Sample values: ALISON, PAUL, MARIE
-- Variable: `gas_consumption_ytd_actual` (label: *YTD Calculated*)
-  - Matched terms: lat
-  - Sample values: 98401.0, 25624.0, 27778.0
-- Variable: `gas_cost_ytd_actual` (label: *YTD Calculated*)
-  - Matched terms: lat
-  - Sample values: 3001.0, 853.0, 1107.0
 - Variable: `lastname` (label: *(first) lastname*)
   - Matched terms: name
   - Sample values: EDWARDS, FLETCHER-READ, BOOTH
@@ -98,9 +53,6 @@ This appendix lists all detected instances of potential personally identifiable 
 - Variable: `location_type` (label: *TYPE_2*)
   - Matched terms: loc, location
   - Sample values: Unitary Authority (city), Administrative County, Unitary Authority
-- Variable: `london_flag` (label: *1(London)*)
-  - Matched terms: lon
-  - Sample values: 0.0
 - Variable: `longitude` (label: *Longitude*)
   - Matched terms: lon
   - Sample values: -1.21, -1.14, -1.12
@@ -113,18 +65,6 @@ This appendix lists all detected instances of potential personally identifiable 
 - Variable: `saturday_hours` (label: *Saturday Opening Time (Minutes)*)
   - Matched terms: minute
   - Sample values: 540.0, 660.0, 510.0
-- Variable: `station_lat` (label: *Latitude (Weather Station)*)
-  - Matched terms: lat
-  - Sample values: 52.83300018310547, 53.165828704833984, 53.38100051879883
-- Variable: `station_lon` (label: *Longitude (Weather Station)*)
-  - Matched terms: lon
-  - Sample values: -1.25, -0.5238900184631348, -1.4900000095367432
-- Variable: `store_lat` (label: *Latitude (Store)*)
-  - Matched terms: lat
-  - Sample values: 52.91999816894531, 52.95000076293945, 52.97999954223633
-- Variable: `store_lon` (label: *Longitude (Store)*)
-  - Matched terms: lon
-  - Sample values: -1.2100000381469727, -1.1399999856948853, -1.1200000047683716
 - Variable: `store_name` (label: *Store_Name*)
   - Matched terms: name
   - Sample values: NOTTINGHAM BEESTON, NOTTINGHAM VICTORIA CTR, NOTTINGHAM MAPPERLEY
@@ -148,61 +88,53 @@ This appendix lists all detected instances of potential personally identifiable 
 
 **/replication-package/Replication/CodeA/A_estimate_fe.R**
 
-- Line 11: name
+- Line 10: name
   ```
   current_dir <- dirname(current_path)
   ```
-- Line 12: name
+- Line 11: name
   ```
   parent_dir <- dirname(current_dir)
   ```
-- Line 24: network
+- Line 23: network
   ```
   #### Define variables and network structures ####
   ```
-- Line 35: name
+- Line 34: name
   ```
   df_cs <- df[,(names(df) %in% keep)]
   ```
-- Line 41: name
+- Line 40: name
   ```
   t <- as.data.frame(table(cs_list), responseName = "freq")
   ```
-- Line 44: name
+- Line 43: name
   ```
   t <- t[, names(t) %in% c("cs_list", "cs_rank")]
   ```
-- Line 62: name
+- Line 61: name
   ```
   names(store_fe) <- c('fe', 'fe_se', 'connected_set', 'store_id')
   ```
-- Line 65: name
+- Line 64: name
   ```
   names(manager_fe) <- c('fe', 'fe_se', 'connected_set', 'manager_id')
   ```
-- Line 85: name
+- Line 84: name
   ```
   names(time_fe) <- c('time_fe', 'time')
   ```
-- Line 106: name
+- Line 105: name
   ```
   file_name <- paste(j, "A_cs_covar.txt", sep = "-")
   ```
-- Line 107: name
+- Line 106: name
   ```
   sink(file_name)
   ```
-- Line 117: lat
+- Line 116: lat
   ```
   # correlations
-  ```
-- Line 148: lat
-  ```
-  cat("====### Correlation ###=====")
-  ```
-- Line 153: lat
-  ```
-  cat("### Correlation - Biased ###")
   ```
 
 **/replication-package/Replication/CodeA/A_estimate_gfe.R**
@@ -235,23 +167,23 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
   names(manager_gfe) <- c('fe', 'fe_se', 'connected_set', 'manager_gid')
   ```
-- Line 129: lat
+- Line 127: lat
   ```
   # correlations
   ```
-- Line 137: name
+- Line 135: name
   ```
   file_name <- "A_covar_group.txt"
   ```
-- Line 138: name
+- Line 136: name
   ```
   sink(file_name)
   ```
-- Line 151: lat
+- Line 149: lat
   ```
   cat("### Correlation ###")
   ```
-- Line 156: lat
+- Line 154: lat
   ```
   cat("### Correlation - Biased ###")
   ```
@@ -271,7 +203,7 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
 - Line 44: lat
   ```
-  save "$data_dir\simulate_match", replace
+  save "$data_dir/simulate_match", replace
   ```
 - Line 104: lat
   ```
@@ -279,7 +211,7 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
 - Line 132: lat
   ```
-  save "$data_dir\simulate_match", replace
+  save "$data_dir/simulate_match", replace
   ```
 - Line 144: lat
   ```
@@ -292,35 +224,31 @@ This appendix lists all detected instances of potential personally identifiable 
 
 **/replication-package/Replication/CodeA/NAM Simulations/simulate_selection.py**
 
-- Line 9: name
-  ```
-  script_dir = os.path.dirname(os.path.abspath(__file__))
-  ```
 - Line 10: name
   ```
   parent_dir = os.path.dirname(os.path.dirname(script_dir))
   ```
-- Line 96: lat
+- Line 98: lat
   ```
   #print("correlation of unstable matches:", np.corrcoef(s_fe[~stable_match], m_fe[~stable_match])[0,1
   ```
-- Line 97: lat
+- Line 99: lat
   ```
   #print("correlation of stable matches:", np.corrcoef(s_fe[stable_match], m_fe[stable_match])[0,1])
   ```
-- Line 167: loc
+- Line 169: loc
   ```
   plt.legend(loc="lower right", ncol=1)
   ```
-- Line 178: lat
+- Line 180: lat
   ```
   plt.ylabel("Correlation")
   ```
-- Line 181: loc
+- Line 183: loc
   ```
   plt.legend(loc="lower right", ncol=2)
   ```
-- Line 182: loc
+- Line 184: loc
   ```
   #plt.legend(loc=(0.1, 1.05), ncol=2)
   ```
@@ -571,15 +499,15 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
   * Manager FE (note that comparison is made in the same store, so also in same CS)
   ```
-- Line 600: lat
+- Line 601: lat
   ```
   // calculate bins
   ```
-- Line 620: lat
+- Line 621: lat
   ```
   // calculate bins
   ```
-- Line 673: lon
+- Line 674: lon
   ```
   || scatter b2 time, mcolor(black) connect(l) lcolor(black) lpattern(longdash) || rcap ci_low2 ci_hig
   ```
@@ -633,39 +561,39 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
   collapse (sum) num_managers (first) state location , by(store_id)
   ```
-- Line 115: lat
+- Line 119: lat
   ```
   bys store_id: ipolate sales time, generate(sales_i)
   ```
-- Line 116: lat
+- Line 120: lat
   ```
   bys store_id: ipolate fte_count time, generate(fte_count_i)
   ```
-- Line 117: lat
+- Line 121: lat
   ```
   bys store_id: ipolate store_area time, generate(store_area_i)
   ```
-- Line 118: lat
+- Line 122: lat
   ```
   bys store_id: ipolate manager_salary time, generate(manager_salary_i)
   ```
-- Line 119: lat
+- Line 123: lat
   ```
   bys store_id: ipolate mover time, generate(mover_i)
   ```
-- Line 139: name
+- Line 143: name
   ```
   legend(pos(6) col(2) lab(1 "Non-movers") lab(2 "Movers") size(medium)) ylabel(,labsize(medium)) name
   ```
-- Line 143: name
+- Line 147: name
   ```
   legend(off) ylabel(,labsize(medium)) name(fte, replace)
   ```
-- Line 147: name
+- Line 151: name
   ```
   legend(off) ylabel(,labsize(medium)) name(area, replace)
   ```
-- Line 151: name
+- Line 155: name
   ```
   legend(off) ylabel(,labsize(medium)) name(mng_salary, replace)
   ```
@@ -1006,14 +934,6 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
   # correlations
   ```
-- Line 147: lat
-  ```
-  cat("====### Correlation ###=====")
-  ```
-- Line 152: lat
-  ```
-  cat("### Correlation - Biased ###")
-  ```
 
 **/replication-package/Replication/CodeB/B_estimate_gfe.R**
 
@@ -1025,43 +945,43 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
   parent_dir <- dirname(current_dir)
   ```
-- Line 65: name
+- Line 61: name
   ```
   current_dir <- dirname(current_path)
   ```
-- Line 66: name
+- Line 62: name
   ```
   parent_dir <- dirname(current_dir)
   ```
-- Line 82: network
+- Line 78: network
   ```
   #### Define variables & network structure ####
   ```
-- Line 103: name
+- Line 99: name
   ```
   names(store_gfe) <- c('fe', 'fe_se', 'connected_set', 'store_gid')
   ```
-- Line 106: name
+- Line 102: name
   ```
   names(manager_gfe) <- c('fe', 'fe_se', 'connected_set', 'manager_gid')
   ```
-- Line 131: lat
+- Line 127: lat
   ```
   # correlations
   ```
-- Line 139: name
+- Line 135: name
   ```
   file_name <- "B_covar_group.txt"
   ```
-- Line 140: name
+- Line 136: name
   ```
   sink(file_name)
   ```
-- Line 153: lat
+- Line 149: lat
   ```
   cat("### Correlation ###")
   ```
-- Line 158: lat
+- Line 154: lat
   ```
   cat("### Correlation - Biased ###")
   ```
@@ -1142,11 +1062,11 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
 - Line 179: name
   ```
-  graph export "$res_dir/Figures/Figure_6_`filename'_B.png", width(1200) height(800) replace
+  graph export "$res_dir/Figures/Figure_6_`filename'.png", width(1200) height(800) replace
   ```
 - Line 189: name
   ```
-  graph export "$res_dir/Figures/Figure_G2_`filename'_pre_B.png", width(1200) height(800) replace
+  graph export "$res_dir/Figures/Figure_G2_`filename'.png", width(1200) height(800) replace
   ```
 - Line 244: loc
   ```
@@ -1312,15 +1232,15 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
   * Manager FE (note that comparison is made in the same store, so also in same CS)
   ```
-- Line 600: lat
+- Line 602: lat
   ```
   // calculate bins
   ```
-- Line 620: lat
+- Line 622: lat
   ```
   // calculate bins
   ```
-- Line 673: lon
+- Line 675: lon
   ```
   || scatter b2 time, mcolor(black) connect(l) lcolor(black) lpattern(longdash) || rcap ci_low2 ci_hig
   ```
@@ -1360,21 +1280,13 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
 - Line 9: lon
   ```
-  tab female if london_flag == 1
+  tab female if inlist(town, "london", "glasgow", "bristol", "nottingham", "hull", "manchester", "leed
   ```
-- Line 10: lon
+- Line 13: lon
   ```
   tab female if inlist(town, "london", "glasgow", "bristol", "nottingham", "hull", "manchester", "leed
   ```
-- Line 14: lon
-  ```
-  tab female if london_flag == 1
-  ```
-- Line 15: lon
-  ```
-  tab female if inlist(town, "london", "glasgow", "bristol", "nottingham", "hull", "manchester", "leed
-  ```
-- Line 31: loc, location
+- Line 29: loc, location
   ```
   collapse (mean) manager_tenure location_id format_num prod revenue_total fte_count area_total time f
   ```
@@ -1401,39 +1313,39 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
   collapse (sum) num_stores, by(region_name)
   ```
-- Line 115: lat
+- Line 119: lat
   ```
   bys store_id: ipolate revenue_total time, generate(revenue_total_i)
   ```
-- Line 116: lat
+- Line 120: lat
   ```
   bys store_id: ipolate fte_count time, generate(fte_count_i)
   ```
-- Line 117: lat
+- Line 121: lat
   ```
   bys store_id: ipolate area_total time, generate(area_total_i)
   ```
-- Line 118: lat
+- Line 122: lat
   ```
   bys store_id: ipolate manager_tenure_start time, generate(manager_tenure_start_i)
   ```
-- Line 119: lat
+- Line 123: lat
   ```
   bys store_id: ipolate mover time, generate(mover_i)
   ```
-- Line 139: name
+- Line 143: name
   ```
   legend(pos(6) col(2) lab(1 "Non-movers") lab(2 "Movers") size(medium)) name(revenue, replace)
   ```
-- Line 143: name
+- Line 147: name
   ```
   legend(off) name(fte, replace)
   ```
-- Line 147: name
+- Line 151: name
   ```
   legend(off) name(area, replace)
   ```
-- Line 152: name
+- Line 156: name
   ```
   legend(off) name(mng_tenure, replace)
   ```
@@ -1726,8 +1638,611 @@ This appendix lists all detected instances of potential personally identifiable 
 
 **/replication-package/Replication/CodeB/run_stata_codes.do**
 
-- Line 31: gender
+- Line 32: gender
   ```
-  do "$code_dir\B_gender_moves.do"
+  do "$code_dir/B_gender_moves.do"
+  ```
+
+**/replication-package/Replication/README.tex**
+
+- Line 3: url
+  ```
+  \PassOptionsToPackage{hyphens}{url}
+  ```
+- Line 10: lon
+  ```
+  \usepackage{longtable}
+  ```
+- Line 37: url
+  ```
+  \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+  ```
+- Line 41: lat
+  ```
+  pdfcreator={LaTeX via pandoc}}
+  ```
+- Line 42: url
+  ```
+  \urlstyle{same} % disable monospaced font for URLs
+  ```
+- Line 43: lon
+  ```
+  \usepackage{longtable,booktabs}
+  ```
+- Line 49: lon
+  ```
+  % Allow footnotes in longtable head/foot
+  ```
+- Line 51: lon
+  ```
+  \makesavenoteenv{longtable}
+  ```
+- Line 77: son
+  ```
+  \author{Robert D. Metcalfe, Alexandre B. Sollaci, and Chad Syverson \\
+  ```
+- Line 94: loc, location, lon
+  ```
+  The data should be preserved in the restricted-access location of the Journal of Political Economy f
+  ```
+- Line 96: son
+  ```
+  The authors commit to preserving the data and code for a period of at least five years following the
+  ```
+- Line 114: name
+  ```
+  X\_connected.dta & Constructed; see file named: X\_estimate\_fe.R & Identifies all connected sets in
+  ```
+- Line 115: name
+  ```
+  X\_manager\_fe.dta & Constructed; see file named: X\_estimate\_fe.R & Contains the initial manager f
+  ```
+- Line 116: name
+  ```
+  X\_store\_fe.dta & Constructed; see file named: X\_estimate\_fe.R & Contains the initial store fixed
+  ```
+- Line 117: name
+  ```
+  X\_manager\_gid.dta & Constructed; see file named: X\_estimate\_gfe.R & Contains the manager group i
+  ```
+- Line 118: name
+  ```
+  X\_manager\_gfe.dta & Constructed; see file named: X\_estimate\_gfe.R & Contains the manager grouped
+  ```
+- Line 119: name
+  ```
+  X\_store\_gid.dta & Constructed; see file named: X\_estimate\_gfe.R & Contains the store group id \\
+  ```
+- Line 120: name
+  ```
+  X\_store\_gfe.dta & Constructed; see file named: X\_estimate\_gfe.R & Contains the store grouped fix
+  ```
+- Line 121: name
+  ```
+  X\_dataset\_fe\_eb.dta & Constructed; see file named: X\_fixed\_effects.do & Matches the manager and
+  ```
+- Line 122: name
+  ```
+  X\_dataset\_gfe.dta & Constructed; see file named: X\_grouped\_fixed\_effects.do & Matches the manag
+  ```
+- Line 123: name
+  ```
+  X\_event\_study.dta & Constructed; see file named: X\_event\_study.do & Prepares the "X\_dataset\_fe
+  ```
+- Line 124: lat, name
+  ```
+  simulate\_match.dta & Constructed; see file named: selection\_based\_NAM.do & Keeps track of simulat
+  ```
+- Line 140: dob
+  ```
+  \item doBy
+  ```
+- Line 180: lat
+  ```
+  The "CodeA" folder also contains a "NAM Simulations" folder, which has the scripts and data required
+  ```
+- Line 183: lat
+  ```
+  \item simulate\_selection.py
+  ```
+- Line 194: lat
+  ```
+  \item Run the scripts within the "CodeA/NAM Simulations" (no particular order required). This will p
+  ```
+- Line 199: name
+  ```
+  We provide a detailed description of all scripts and the results they provide below. As before, we u
+  ```
+- Line 203: second
+  ```
+  \underline{Constructing Table 1}: This script will save the variance/covariance shares in the files 
+  ```
+- Line 218: name
+  ```
+  \underline{\textbf{A comment on navigating the code files}}: The order of the results in the code fi
+  ```
+- Line 233: lat
+  ```
+  \item Calculates the number of managers, stores, and overall number of observations in each connecte
+  ```
+- Line 236: lat, loc
+  ```
+  \item Performs the series of robustness checks discussed in {\color{blue}Appendix C.2}. This include
+  ```
+- Line 237: lat
+  ```
+  \item Estimates the full covariance matrix for manager and store fixed effects and performs the exer
+  ```
+- Line 242: lat
+  ```
+  \item \textbf{X\_event\_study.do} [in Stata codes folder] runs all of the analysis related to the ev
+  ```
+- Line 246: lat
+  ```
+  In addition, the script analyzes what changes for managers and stores when a store switches managers
+  ```
+- Line 250: lat
+  ```
+  \item \textbf{X\_summary\_stats.do} [in Stata codes folder] calculates the summary statistics mentio
+  ```
+- Line 260: gender, lat
+  ```
+  \item \textbf{B\_gender\_moves.do} [in Stata codes folder] (only available for company B) runs the r
+  ```
+- Line 263: lat
+  ```
+  Within the "CodeA/NAM Simulations" folder the replicator will find the following files:
+  ```
+- Line 294: lon
+  ```
+  \begin{longtable}{ll} \caption{Data Dictionary, Company A} \label{tab:data_dictionaryA} \\ \toprule
+  ```
+- Line 295: name
+  ```
+  Variable Name & Description \\ \hline
+  ```
+- Line 301: name
+  ```
+  month & month of observation (name)  \\
+  ```
+- Line 303: loc, location, name
+  ```
+  location & name of store's location \\
+  ```
+- Line 304: loc, location
+  ```
+  location\_num & store location (numeric)  \\
+  ```
+- Line 305: name
+  ```
+  state & US State of store (name) \\
+  ```
+- Line 307: name
+  ```
+  county & County of store (name)  \\
+  ```
+- Line 313: name
+  ```
+  (comp name)startdate & date that mng started in company \\
+  ```
+- Line 321: name
+  ```
+  (comp name)\_start\_month & month that mng started in company  \\
+  ```
+- Line 322: name
+  ```
+  (comp name)\_start\_year & year that mng started in company  \\
+  ```
+- Line 349: name
+  ```
+  closest\_[competitor 1] & distance to closest competitor 1 (company's name in brackets)  \\
+  ```
+- Line 387: lon
+  ```
+  \end{longtable}
+  ```
+- Line 391: lon
+  ```
+  \begin{longtable}{ll} \caption{Data Dictionary: Company B} \label{tab:data_dictionaryB} \\ \toprule
+  ```
+- Line 392: name
+  ```
+  Variable Name & Description \\ \hline
+  ```
+- Line 398: city
+  ```
+  elec\_consumption & consumption of electricity in month \\
+  ```
+- Line 399: city
+  ```
+  elec\_cost & cost of electricity in month \\
+  ```
+- Line 409: name
+  ```
+  (competitor 1) & distance to (competitor 1) [name of competitor in parenthesis) \\
+  ```
+- Line 418: name
+  ```
+  store\_name & store's name \\
+  ```
+- Line 419: loc
+  ```
+  format & store format (flagship, local, others) \\
+  ```
+- Line 424: name
+  ```
+  region\_name & store region name\\
+  ```
+- Line 425: loc, location
+  ```
+  area & store area (location, numeric) \\
+  ```
+- Line 426: name
+  ```
+  area\_name & store area name \\
+  ```
+- Line 430: loc, location, lon
+  ```
+  longitude & store's location longitude \\
+  ```
+- Line 431: lat, loc, location
+  ```
+  latitude & store's location latitude \\
+  ```
+- Line 432: country
+  ```
+  country & store country \\
+  ```
+- Line 433: loc, location
+  ```
+  location\_code & store's location code \\
+  ```
+- Line 440: minute
+  ```
+  weekday\_hours & number of minutes open during weekdays \\
+  ```
+- Line 441: minute
+  ```
+  saturday\_hours & number of minutes open during Saturdays \\
+  ```
+- Line 442: minute
+  ```
+  sunday\_hours & number of minutes open during Sundays \\
+  ```
+- Line 443: minute
+  ```
+  weekday\_hours\_total & total number of minutes open during weekdays \\
+  ```
+- Line 444: minute
+  ```
+  weekend\_hours & number of minutes open during the full weekend \\
+  ```
+- Line 445: minute
+  ```
+  week\_hours & total number of minutes open over the entire week (including weekends) \\
+  ```
+- Line 451: city
+  ```
+  elec\_use\_sqft & electricity consumption per squared foot in store \\
+  ```
+- Line 453: city
+  ```
+  elec\_price & electricity price (constructed as cost/consumption) \\
+  ```
+- Line 460: city, loc, location
+  ```
+  location\_id & store's city/location (numeric) \\
+  ```
+- Line 461: city, loc, location, name
+  ```
+  location\_name & store's city/location name \\
+  ```
+- Line 462: loc, location
+  ```
+  location\_type & location type (admin county, metropolitan, borough, etc.) \\
+  ```
+- Line 472: minute
+  ```
+  log\_week\_hours & log of minutes open during weekdays \\
+  ```
+- Line 473: minute
+  ```
+  log\_weekend\_hours & log of minutes open during weekends \\
+  ```
+- Line 476: name
+  ```
+  firstname & manager's first name \\
+  ```
+- Line 477: name
+  ```
+  lastname & manager's last name \\
+  ```
+- Line 485: lon
+  ```
+  \end{longtable}
+  ```
+- Line 492: lat
+  ```
+  \hypertarget{template-readme-and-guidance}{%
+  ```
+- Line 493: lat
+  ```
+  \section{Template README and
+  ```
+- Line 494: lat
+  ```
+  Guidance}\label{template-readme-and-guidance}}
+  ```
+- Line 499: lat, social
+  ```
+  \href{https://social-science-data-editors.github.io/template_README/Endorsers.html}{Endorsers}.
+  ```
+- Line 501: lat, social
+  ```
+  \href{https://github.com/social-science-data-editors/template_README/blob/master/template-README.htm
+  ```
+- Line 502: lat, social
+  ```
+  \href{https://social-science-data-editors.github.io/template_README/templates/README.docx}{Word},
+  ```
+- Line 503: lat, social
+  ```
+  \href{https://social-science-data-editors.github.io/template_README/templates/README.tex}{LaTeX},
+  ```
+- Line 505: lat, social
+  ```
+  \href{https://social-science-data-editors.github.io/template_README/templates/README.pdf}{PDF}.
+  ```
+- Line 512: loc, name
+  ```
+  non-standard name. This helps replicators immediately locate the
+  ```
+- Line 520: social
+  ```
+  INSTRUCTIONS: The typical README in social science journals serves the
+  ```
+- Line 539: loc, location
+  ```
+  (provenance), location and accessibility (data availability) of the data
+  ```
+- Line 549: lat
+  ```
+  are used or the only data are generated by the authors via simulation
+  ```
+- Line 554: lat
+  ```
+  If box above is checked and if no simulated/synthetic data files are
+  ```
+- Line 561: second
+  ```
+  INSTRUCTIONS: - When the authors are \textbf{secondary data users} (they
+  ```
+- Line 592: social
+  ```
+  \href{https://social-science-data-editors.github.io/guidance/Requested_information_dcas.html}{here},
+  ```
+- Line 602: social
+  ```
+  \href{https://social-science-data-editors.github.io/guidance/Data_citation_guidance.html}{Guidance})
+  ```
+- Line 625: lat, social
+  ```
+  \href{https://social-science-data-editors.github.io/template_README/LICENSE.txt}{LICENSE.txt}
+  ```
+- Line 644: social
+  ```
+  \href{https://social-science-data-editors.github.io/guidance/Licensing_guidance.html}{here}.
+  ```
+- Line 703: name, url
+  ```
+  file name), or at a URL (list the URL). Some formats are
+  ```
+- Line 717: lon
+  ```
+  \begin{longtable}[]{@{}lllll@{}}
+  ```
+- Line 720: name
+  ```
+  Data.Name\strut
+  ```
+- Line 724: loc, location
+  ```
+  Location\strut
+  ```
+- Line 733: lat
+  ```
+  ``Current Population Survey 2018''\strut
+  ```
+- Line 767: lon
+  ```
+  \end{longtable}
+  ```
+- Line 769: name
+  ```
+  where the \texttt{Data.Name} column is then expanded in the subsequent
+  ```
+- Line 779: name
+  ```
+  been deposited in the {[}NAME{]} repository ({[}DOI or OTHER PERSISTENT
+  ```
+- Line 781: lat
+  ```
+  {[}\href{https://www.hindawi.com/research.data/\#statement.templates}{1}{]}.
+  ```
+- Line 794: loc, son
+  ```
+  under ``Personal Income (State and Local)'', select CAINC30: Economic
+  ```
+- Line 855: social
+  ```
+  (\href{https://social-science-data-editors.github.io/guidance/FAQ.html\#data-citation-without-online
+  ```
+- Line 857: son
+  ```
+  (including the role of the particular person, should that person
+  ```
+- Line 865: second
+  ```
+  Elementary and Secondary Education (DESE). Researchers interested in
+  ```
+- Line 866: email, name
+  ```
+  access to the data may contact {[}NAME{]} at {[}EMAIL{]}, also see
+  ```
+- Line 869: son
+  ```
+  will assist with any reasonable replication attempts for two years
+  ```
+- Line 873: census
+  ```
+  \hypertarget{example-for-confidential-census-bureau-data}{%
+  ```
+- Line 874: census
+  ```
+  \subsubsection{Example for confidential Census Bureau
+  ```
+- Line 875: census
+  ```
+  data}\label{example-for-confidential-census-bureau-data}}
+  ```
+- Line 879: census
+  ```
+  Census Bureau. To gain access to the Census microdata, follow the
+  ```
+- Line 882: census
+  ```
+  https://www.census.gov/ces/rdcresearch/howtoapply.html. You must request
+  ```
+- Line 883: lon
+  ```
+  the following datasets in your proposal: 1. Longitudinal Business
+  ```
+- Line 924: lon, name
+  ```
+  variables/columns should have labels (long-form meaningful names), and
+  ```
+- Line 933: lat
+  ```
+  to provide synthetic or simulated data that has some of the key
+  ```
+- Line 940: lon
+  ```
+  \begin{longtable}[]{@{}llll@{}}
+  ```
+- Line 982: lon
+  ```
+  \end{longtable}
+  ```
+- Line 1000: lat
+  ```
+  \href{https://github.com/gslab-econ/template/blob/master/config/config_stata.do}{Stata},
+  ```
+- Line 1001: lat
+  ```
+  \href{https://github.com/labordynamicsinstitute/paper-template/blob/master/programs/global-libraries
+  ```
+- Line 1002: lat
+  ```
+  \href{https://github.com/labordynamicsinstitute/paper-template/blob/master/programs/packages.jl}{Jul
+  ```
+- Line 1017: son
+  ```
+  repositories, Github repos, and personal webpages. In all cases, list
+  ```
+- Line 1039: loc
+  ```
+  locally, and should be run once.
+  ```
+- Line 1054: url
+  ```
+  \url{https://pip.pypa.io/en/stable/user_guide/\#ensuring-repeatability}
+  ```
+- Line 1073: lat
+  ```
+  (latest version), and should be run once prior to running other
+  ```
+- Line 1116: minute
+  ```
+  figures might only take a few minutes. You should also describe how much
+  ```
+- Line 1118: zip
+  ```
+  repository, for instance, because data will be unzipped, data
+  ```
+- Line 1131: minute
+  ```
+  \textless10 minutes
+  ```
+- Line 1133: minute
+  ```
+  10-60 minutes
+  ```
+- Line 1174: loc
+  ```
+  with 1024 GB of RAM, 12 TB of fast local storage}. Computation took
+  ```
+- Line 1193: lat
+  ```
+  \href{https://github.com/AEADataEditor/replication-template/blob/master/tools/linux-system-info.sh}{
+  ```
+- Line 1218: name
+  ```
+  names (\texttt{table5.tex}, \texttt{figure12.png}) and should be easy
+  ```
+- Line 1219: lat
+  ```
+  to correlate with the manuscript.
+  ```
+- Line 1228: lat
+  ```
+  The program \texttt{programs/00\_setup.do} will populate the
+  ```
+- Line 1256: social
+  ```
+  \href{https://social-science-data-editors.github.io/guidance/Licensing_guidance.html}{here}.
+  ```
+- Line 1260: lat, social
+  ```
+  \href{https://social-science-data-editors.github.io/template_README/LICENSE.txt}{LICENSE.txt}
+  ```
+- Line 1287: zip
+  ```
+  download them in. Do not unzip. Scripts are provided in each directory
+  ```
+- Line 1391: lon
+  ```
+  \begin{longtable}[]{@{}lllll@{}}
+  ```
+- Line 1473: lon
+  ```
+  \end{longtable}
+  ```
+- Line 1485: son
+  ```
+  Steven Ruggles, Steven M. Manson, Tracy A. Kugler, David A. Haynes II,
+  ```
+- Line 1487: lat
+  ```
+  Integrated Data on Population and Environment: Version 2
+  ```
+- Line 1488: lat
+  ```
+  {[}dataset{]}.'' Minneapolis, MN: \emph{Minnesota Population Center,
+  ```
+- Line 1491: second
+  ```
+  Department of Elementary and Secondary Education (DESE), 2019. ``Student
+  ```
+- Line 1493: second
+  ```
+  Elementary and Secondary Education (DESE)}. Accessed January 15, 2019.
+  ```
+- Line 1500: country
+  ```
+  al.~(eds.). 2014. World Values Survey: Round Six - Country-Pooled
+  ```
+- Line 1511: lat
+  ```
+  \href{https://www.hindawi.com/research.data/\#statement.templates}{Hindawi}.
   ```
 

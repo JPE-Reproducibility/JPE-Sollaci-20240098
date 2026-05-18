@@ -1,11 +1,11 @@
-cloc|github.com/AlDanial/cloc v 2.02  T=0.04 s (538.3 files/s, 116569.6 lines/s)
+cloc|github.com/AlDanial/cloc v 2.02  T=0.05 s (508.2 files/s, 139599.5 lines/s)
 --- | ---
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Stata|16|1049|273|2561
-R|4|196|80|380
-Python|2|76|48|170
-Markdown|1|110|0|38
+Stata|16|1047|275|2570
+TeX|1|208|5|1318
+R|4|183|80|336
+Python|2|77|48|171
 --------|--------|--------|--------|--------
-SUM:|23|1431|401|3149
+SUM:|23|1515|408|4395

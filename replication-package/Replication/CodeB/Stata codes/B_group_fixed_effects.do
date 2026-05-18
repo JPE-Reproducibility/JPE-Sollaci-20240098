@@ -107,7 +107,7 @@ preserve
 	// Figure E.2 (Panel D)
 	tw hist store_gfe, percent fcolor(gray%25) lcolor(black) bin(12) ///
 	xtitle("Store Group Fixed Effect") ytitle("Share of Stores (%)") graphregion(color(white))
-	graph export "Figure_E2c.png", width(1200) height(800) replace
+	graph export "Figure_E2d.png", width(1200) height(800) replace
 	
 	// Figure E.3 (Panel D)
 	binscatter store_fe store_fe_eb store_gfe log_prod , msymb(oh + x) mcolor(black blue red) ///

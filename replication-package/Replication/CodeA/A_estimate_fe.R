@@ -2,7 +2,6 @@ rm(list = ls())
 
 library(haven)
 library(rstudioapi)
-library(ggplot2)
 library(doBy)
 library(lfe)
 
@@ -129,33 +128,8 @@ for (j in 1:4) {
   
   
   # save output
-  cat("\n===========================")
-  cat("=### Total Variance ###=")
-  cat("===========================\n")
-  print(total_var) 
-  
-  cat("\n===========================")
-  cat("=### Covariance Matrix ###=")
-  cat("===========================\n")
-  print(covar)
-  
-  cat("\n=========================")
-  cat("### Covariance - Biased ###")
-  cat("=========================\n")
-  print(covar_biased)
-
   cat("\n============================")
-  cat("====### Correlation ###=====")
-  cat("============================\n")
-  print(corr)
-
-  cat("\n============================")
-  cat("### Correlation - Biased ###")
-  cat("============================\n")
-  print(corr_biased)
-  
-  cat("\n============================")
-  cat("### Variance Share ###")
+  cat("### Variance Shares ###")
   cat("============================\n")
   print(var_share)
   
