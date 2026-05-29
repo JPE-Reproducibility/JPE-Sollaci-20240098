@@ -42,16 +42,18 @@ In assessing compliance with our [Data and Code Availability Policy](https://www
 # General
 
 
-- [ ] Data Availability and Provenance Statements
-  - [ ] Statement about Rights - Part 1: Right to use the data (e.g. *did the authors lawfully obtain the data*)
+- [x] Data Availability and Provenance Statements
+  - [x] Statement about Rights - Part 1: Right to use the data (e.g. *did the authors lawfully obtain the data*)
   - [ ] Statement about Rights - Part 2: Right to publish the data (e.g. *are human subjects involved and did permission been granted to publish their data?*)
   - [ ] License for Data (optional, but recommended)
   - [ ] Details on each Data Source
-- [ ] Dataset list
-- [ ] Computational requirements
-  - [ ] Software Requirements
-  - [ ] Controlled Randomness (as necessary)
-  - [ ] Memory, Runtime, and Storage Requirements
+- [x] Dataset list
+- [x] Computational requirements
+  - [x] Software Requirements
+  - [x] Controlled Randomness (as necessary)
+  - [x] Memory
+  - [x] Runtime
+  - [ ] and Storage Requirements
 - [x] Description of programs/code
   - [ ] License for Code (Optional, but recommended) 
 - [ ] {REPLICATOR} to Replicators
@@ -82,17 +84,13 @@ In assessing compliance with our [Data and Code Availability Policy](https://www
 
 # Data description
 
+The data was provided to the authors under the condition that the companies the data stems from remain anonymous. The data was provided for replication purposes but data sources, references and access conditions were not provided for this reason. 
 
-For any data that cannot be provided as part of the replication package, please provide the following information as part of the README.
+The authors specified that the data "should be preserved in the restricted-access location of the Journal of Political Economy for as long as necessary for the successful replication of the paper. It should be deleted after the replication is confirmed. The authors commit to preserving the data and code for a period of at least five years following the publication of the paper and to provide reasonable assistance to requests for clarification and replication."
 
-> {REQUIRED}  Please specify how long the data will be preserved in the restricted-access location.
+For any data that cannot be provided as part of the replication package, please provide the following information as part of the README: 
 
-> {REQUIRED} Please provide affirmation of support for replication checks.
-  - As per the [JPE policy](https://jpedataeditor.github.io/policy.html), "In cases where data cannot be published in an openly accessible trusted data repository like the JPE dataverse, authors who have requested an exemption to publish them at the time of first submission must commit to preserving the data and code for a period of no less than five years following the publication of the paper. They should also provide reasonable assistance to requests for clarification and replication."
-
-
-> {REQUIRED} Please provide a codebook for the data.
-  - The codebook should at a minimum describe the variables obtained from the data source, in a manner that will let others verify that they have obtained a substantially similar dataset if successfully obtaining access to the data.
+- The authors provided a codebook for the data describing the variables contained in the datasets. 
 
 
 ## Data Sources
@@ -127,12 +125,11 @@ Data are not cited, no access description provided either, no information regard
 - [x] README is in TXT, MD, or PDF format
 - [x] README is accessible at the root of the package (not inside a folder)
 - [ ] Title conforms to guidance (starts with "Data and Code for: Title of Paper" or "Code for: Title of Paper", is properly capitalized)
-- [ ] Authors (with affiliations) are listed in the same order as on the paper
+- [x] Authors (with affiliations) are listed in the same order as on the paper
 
 
 > {REQUIRED} Please review the title of the deposit as per our guidelines.
 
-> {REQUIRED} Please review authors and affiliations on the deposit. In general, they are the same, and in the same order, as for the manuscript; however, authors can deviate from that order.
 
 
 ## Stated Requirements
@@ -140,13 +137,16 @@ Data are not cited, no access description provided either, no information regard
 
 - [ ] No requirements specified
 - [x] Software Requirements specified as follows:
-  - R, no version specified 
-  - Stata, no version specified 
+  - R (version 4.4.0) 
+  - Stata (version 19)
+  - Python (version 3.11.11) 
 - [x] Computational Requirements specified as follows:
-  - 'reghdfe', 'did_imputation', and 'event_plot'packages (stata)
+  - R: packages: haven, rstudioapi, doBy, lfe, Matrix 
+  - Stata: packages to be installed: reghdfe, ftools, did_imputation, event_plot, binscatter, grc1leg2, white_tableau scheme
+  - Python: libraries:numpy, pandas, scipy, matplotlib, os
   - ebayes.ado and fese_fast.ado (provided in repository)
-- [ ] Time Requirements specified as follows:
-  - Length of necessary computation (hours, weeks, etc.)
+- [x] Time Requirements specified as follows:
+  - ca. 2h
 
 - [ ] Requirements are complete.
 
@@ -191,71 +191,56 @@ For missing requirements, see the list of required changes in @sec-findings
 
 ## Computing Environment of the Replicator
 
-- Nuvolos on an Mac Laptop M1 MacBook Air, MacOS Tahoe 26.3, 8 GB of memory, (M1 Processor, 8 cores)
+- Nuvolos
 
 
-- R 4.5.2
-- Stata/MP 18.0
-- JupyterLab 4.5.4 with Python 3.13 and Julia 1.12.4
+- R 4.4.0
+- Stata/MP 19.5 (version 19 was not available to the replicator on nuvolos.)
+- JupyterLab 4.1.6 with Python 3.11 
 
 
 # Replication
 
 
-
-
-
-
 - Downloaded code and data from dropbox.
 - Commited code to git repo.
-- Installed the doBy, and lfe packages in R, (though it is not detailed in the ReadMe that one needs to install it for the code to run). 
-- Ran code in CodeA folder R-scripts as per README, for company A, the code ran through. 
-- Ran Stata code through the master do-file as per ReadMe, but the code broke: 
+- Installed all R packages mentioned in the ReadMe.
+- Installed all Stata packages mentioned in the ReadMe. 
+- Imported all Python libraries as per ReadMe. 
+- Running R script A_estimate_fe.R in CodeA as per ReadMe resulted in the following error message: 
+```R
+library(haven)
+Error: package or namespace load failed for ‘haven’ in dyn.load(file, DLLpath = DLLpath, ...):
+ unable to load shared object '/usr/local/lib/R/site-library/haven/libs/haven.so':
+  /usr/local/lib/R/site-library/haven/libs/haven.so: undefined symbol: R_getVar
+In addition: Warning message:
+package ‘haven’ was built under R version 4.5.0
+```
+- I switched to R version 4.5.2, even if the authors mentioned R.4.4.0 in the ReadMe. Now the 2 R scripts ran through. 
+
+- Moving on to the STATA code, after adjusting the path file in the stata master file, the code broke due to the require package not being listed in the required packages. After installing it through SSC the code ran to completion. 
+
+- To run the selection_based_NAM.do file I had to adjust the paths in the following manner, as the folder structure is not updated to suit the replication package: 
 
 ```Stata
-.set scheme white_tableau
-scheme white_tableau not found r(111);
+global path "/files/JPE-Sollaci-20240098/replication-package/Replication"
+
+gl data_dir "$path/Data"
+gl code_dir "$path/CodeA"
+gl res_dir "$path/Results"
 ```
 
-- I turned to running the individual do-files the master calls upon. Starting with stata file A_summary_stats.do but code broke for Table B.1: 
-
-```Stata
-command grcl1leg is unrecognized r(199);
-```
-- Ran Stata file A_fixed_effects.do and had to fix "\" in path lines, code broke due to "ftools", "require" packages not being installed. After installing these packages the code broke with the following error message: 
-
-```Stata
-command binscatter is unrecognized r(199);
-```
-
-- Ran Stata do file A_group_fixed_effects.do and the same error message as above broke the code. 
-
-- Stata do file A_event_study.do ran to completion.
-
-- Stata do file A_counterfactuals ran to completion. 
-
-- Moving on to the simulation folder, I amended the paths in the selection_based_NAM.do file after which it ran to completion. 
-
-- Moving to the Python scripts which I run in JupyterLab, the calibrate_NAM.py file runs to completion. The simulate_selection.py file broke of due to the paths not being correctly specified. Concretely I changed the set directory lines in the following way:
+- Moving to the Python scripts which I run in JupyterLab, the calibrate_NAM.py file runs to completion. The simulate_selection.py file broke because I needed to specify the path in the following fashion, where-after the code ran to completion. 
 
 ```Python
 #%% Set directory
 
 os.chdir("/files/JPE-Sollaci-20240098/replication-package/Replication/CodeA/NAM Simulations")
-script_dir = os.getcwd()
-parent_dir = os.path.dirname(os.path.dirname(script_dir))
-figures_dir = os.path.join(parent_dir, "Results", "Figures")
+etc.
 ```
 
-- Next, I move on to company B, in the CodeB folder. The R scripts run to completion. The master do file for the stata code has the same break as for company A. The same goes for the B_summary_stats which breaks for the same reasons detailed above for company A. 
+- Next, I move on to company B, in the CodeB folder. The R scripts run to completion. The master do file for the stata code ran to completion. 
 
-- The B_fixed_effects.do and B_group_fixed_effects.do broke for the same reason the A_fixed_effects.do broke. 
-
-- B_event_study.do ran to completion. 
-
-- B_counterfactuals.do ran to completion. 
-
-- B_gender_moves.do ran to completion. 
 
 
 # Findings {#sec-findings}
@@ -265,12 +250,10 @@ figures_dir = os.path.join(parent_dir, "Results", "Figures")
 
 
 - [ ] Software Requirements 
-  - [ ] Stata
-    - [ ] Version (missing)
+  - [x] Stata
+    - package: require (was missing from the required packages list)
   - [ ] R
-    - [ ] Version (missing)
-    - doBy
-    - lfe
+    - [ ] Version mentioned in ReadMe (4.4.0) was not compatible with the haven package. 
   - [ ] Python
     - [ ] Version (missing)
 - [ ] Computational Requirements specified as follows:
@@ -285,42 +268,71 @@ You can copy the section above, amended if necessary.
 
 ## Data Preparation Code
 
-There are no files that seperately prepare the data, the data preparation is handeled inside the same scripts as the analysis is done. 
+A_estimate_fe.R prepares the following datasets: A_connected.dta, A_manager_fe.dta, A_store_fe.dta. 
+
+A_estimate_gfe.R prepares the following datasets: A_manager_gid.dta, A_manager_gfe.dta, A_store_gid.dta, A_store_gfe.dta.   
+
+A_fixed_effects.do prepares A_dataset_fe_eb.dta.
+
+A_grouped_fixed_effects.do prepares A_dataset_gfe.dta. 
+
+A_event_study.do prepares A_event_study.dta.
+
+B_estimate_fe.R prepares the following datasets: B_connected.dta, B_manager_fe.dta, B_store_fe.dta. 
+
+B_estimate_gfe.R prepares the following datasets: B_manager_gid.dta, B_manager_gfe.dta, B_store_gid.dta, B_store_gfe.dta.   
+
+B_fixed_effects.do prepares B_dataset_fe_eb.dta.
+
+B_grouped_fixed_effects.do prepares B_dataset_gfe.dta. 
+
+B_event_study.do prepares B_event_study.dta.
+
+selection_based_NAM.do prepares simulate_match.dta. 
 
 ## Tables and Figures
 
 
-- Table 1: Table 1: The ReadMe states that the information displayed in table 1 is saved in 8 different files in the results folder. While these files are created running the R code for both company A and company B, the information displayed in these files does not match the information displayed in table 1. The result below in the screenshot is supposed to correspond with line 2 of table 1. 
+- Table 1: There are small deviations in the variance table. See below: 
 
-![Output on the left should correspond with line 2 of manuscript table 1 on the right](images/table1.png)
+|Company|Line|Column| Original Value| Reproduced | 
+| ----| ---| ---| ---| ---|    
+| A| 2| 3| 1.80| 1.82|  
+| A| 2| 4| 1.03| 1.05|  
+| A| 2| 5| -1.16| -1.14|  
+| B| 1| 3| 1.63| 1.65|  
+| B| 1| 4| 1.52| 1.51|  
+| B| 2| 3| 0.72|0.74|  
+| B| 3| 3| 1.04|1.05|  
+| B| 3| 4| 0.76|0.77|  
+| B| 4| 5| -0.03|-0.02|  
 
-- Table 2: The numbers reproduced do not match the table in the manuscript. See screenshot below: 
+
+
+  
+
+
+
+- Table 2: The numbers reproduced do not match the table in the manuscript. See screenshots below: 
 
 ::: {#fig-three layout-ncol=3}
 
-![Reproduced output should correspond to the company A side of table 2](images/table2.png)
+![Reproduced output should correspond to the company A side of table 2](images/Table_2_A_R2.png)
 
-![Reproduced output should correspond to the company B side of table 2](images/table2b.png)
+![Reproduced output should correspond to the company B side of table 2](images/Table_2_B_R2.png)
 
 
-![Paper version](images/table2paper.png)
+![Paper version](images/Table_2_paper_R2.png)
 
 :::
 
 - Figure 2: looks the same. 
 
-- Figure 3: Reproduced but it looks different (I include (a) as an example though the others look different as well: 
+- Figure 3: There are 4 figures that are called figure 3a, figure 3b, etc. It's not clear to the replicator which figure corresponds to which. For instance, the authors might consider creating a table in the ReadMe which maps the outputs to the corresponding figures. This would greatly reduce the time burden for the replicator. 
 
-::: {#fig-three layout-ncol=2}
+- Figure 4: Looks the same.  
 
-![Reproduced output for a)](replication-package/Replication/Results/Figures/Figure_3a_CS1.png)
-
-![Paper version](images/figure3paper.png)
-:::
-
-- Figure 4: not reproduced due to code breaking off (see above). 
-
-- Figure 5: looks the same. 
+- Figure 5: looks the same (mostly), but in the paper full-time employment and full-time/part-time ratio are being confused (there are two figures with the ratio in the y-axis), but the titles are different. The replicator can't attribute which of the figures is correct and which isn't. 
 
 - Figure 6: looks the same. 
 
@@ -330,114 +342,100 @@ There are no files that seperately prepare the data, the data preparation is han
 
 ![Reproduced output for a)](replication-package/Replication/Results/Figures/Figure_7a.png)
 
-![Paper version](images/figure7apaper.png)
+![Paper version](images/Figure_7_paper_R2.png)
 
 :::
 
-- Table 3: Numbers diverge: 
+- Table 3: Numbers diverge similar as table 2.  
 
-::: {#fig-three layout-ncol=3}
 
-![Reproduced output for company A](images/table3a.png)
-
-![Reproduced output for company B](images/table3b.png)
-
-![Paper version](images/table3paper.png)
-
-:::
-
-- Figure 8: Some of the event graphs look different. I included b) as an example below. The other graphs with divergences are c) and e).  
+- Figure 8: Some of the event graphs look different. I included b) as an example below.
 
 ![Reproduced figure 8 b)](replication-package/Replication/Results/Figures/Figure_8_sales.png)
-![Paper version](images/figure8bpaper.png)
+![Paper version](images/Figure_8_b_paper.png)
 
-- Figure 9: Some of the event graphs display discrepancies. See example (b) "Sales" below, other parts of the figure that displays discrepencies are e) and f).  
+- Figure 9: Some of the event graphs display discrepancies similar to figure 8.
 
+- Table 4 was not saved in the results folder. The results displayed in stata were diverging as well, for example company B After Change Standard Deviation reproduced displayed 0.066 while the paper reads 0.64 for that number. 
 
-
-![Reproduced figure 9 b)](replication-package/Replication/Results/Figures/Figure_9_sales.png)
-![Paper version](images/figure9bpaper.png)
-
-
-- Table 4 not reproduced or not saved in the results folder. 
-
-- Figure A1 was not saved in the results folder. 
+- Figure A1 looks the same.
 
 - Figure A2 is showing discrepancies:
 
-
 ![Reproduced figure A2 Company A](replication-package/Replication/Results/Figures/Figure_A2.png)
-![Paper version Company A](images/figureA2apaper.png)
+![Paper version Company A](images/Figure_A2_paper_R2.png)
 
 
 ![Reproduced figure A2 Company B](replication-package/Replication/Results/Figures/Figure_A2b.png)
-![Paper version Company B](images/figureA2bpaper.png)
+![Paper version Company B](images/Figure_A2B_paper_R2.png)
 
 - Figure A3 showcases similar discrepancies as figure A2. 
 
 - Figure A4 Company A showcases discrepancies: 
 
-
 ![Reproduced figure A4 Company A](replication-package/Replication/Results/Figures/Figure_A4.png)
-![Paper version Company A](images/figureA4.png)
-
+![Paper version Company A](images/Figure_A4_paper_R2.png)
 
 - Figure A5: Looks the same. 
 
-- Table B.1 not reproduced or not saved in the results folder. 
+- Table B.1 was not saved in the results folder. The numbers were displayed in the stata console.
 
-- Table B.2 not reproduced or not saved in the results folder.  
+- Table B.2 was not saved in the results folder.  The numbers were displayed in the stata console.
 
-- Table C.1 not reproduced or not saved in the results folder. 
+- Table C.1 was not saved in the results folder.  The numbers were displayed in the stata console.
 
-- Figure C.1 not reproduced. 
+- Figure C.1 looks the same. 
 
-- Figure C.2 not reproduced. 
+- Figure C.2 looks the same. 
 
-- Figure C.3 not reproduced. 
+- Figure C.3 looks the same. 
 
-- Table D1 not reproduced or not saved in the results folder. 
+- Table D1 was not saved in the results folder.  The numbers were displayed in the stata console, company B has a diverging coefficient -0.211 (reproduced) vs -0.212 (manuscript).
 
 - Figure D1 displays discrepancies for both companies: 
 
 
 ![Reproduced figure D1 Company A](replication-package/Replication/Results/Figures/Figure_D1.png)
-![Paper version Company A](images/figured1apaper.png)
+![Paper version Company A](images/Figure_D1_paper_R2.png)
 
 
 ![Reproduced figure D1 Company B](replication-package/Replication/Results/Figures/Figure_D1b.png)
-![Paper version Company B](images/figured1bpaper.png)
-
+![Paper version Company B](images/Figure_D1b_paper_R2.png)
 
 - Figure D2 looks the same. 
 
-- Figure D3 showcases same discrepancies, but the figures are based on a randomised simulation, which I could explain reasonably minor differences: 
-
-![Figure D3 (b) reproduced on the left, paper version on the right](images/figured3.png)
+- Figure D3 showcases some discrepancies, but the figures are based on a randomised simulation, which could explain reasonably minor differences: 
 
 - Figure E1: looks the same. 
 
-- Figure E2: a) and c) look the same, b) and d) not reproduced. 
+- Figure E2: looks the same. 
 
-- Figure E3 was not reproduced. 
+- Figure E3 was reproduced, but showcases discrepancies.
+![Reproduced figure E3 (b)](replication-package/Replication/Results/Figures/Figure_E3b.png)
+![Manuscript figure E3 (b)](images/Figure_E3b_paper_R2.png)
+![Reproduced figure E3 (d)](replication-package/Replication/Results/Figures/Figure_E3d.png)
 
-- Table F.1 was not reproduces. 
+![Manuscript figure E3 (d)](images/Figure_E3d_paper_R2.png)
+
+- Table F.1 was not saved in the results folder, the number displayed in the stata console for Company A, percent estimate slightly diverges form the manuscript (0.66 vs 0.65)  
 
 - Figure G.1: looks the same. 
 
 - Figure G.2: looks the same. 
 
-- Figure G.3: looks the same.
+- Figure G.3: discrepancy in (c) full-time employment.
+
+![Reproduced figure G3 (c)](replication-package/Replication/Results/Figures/Figure_G3_ft.png)
+
+![Manuscript figure G3 (c)](images/Figure_G3c_paper_R2.png)
+
 
 - Figure G.4: looks the same. 
 
 - Figure G.5: looks the same. 
 
-- Figure G.6: showcases discrepancies in all graphs a) below as an example:
+- Figure G.6: looks the same. 
 
-
-![Reproduced figure G6 a)](replication-package/Replication/Results/Figures/Figure_G6_prod.png)
-![Paper version](images/figureg6apaper.png)
 
 
 
@@ -446,29 +444,43 @@ There are no files that seperately prepare the data, the data preparation is han
 
 > {REPLICATOR}: list page and line number of in-text numbers. If ambiguous, cite the surrounding text, i.e., "the rate fell to 52% of all jobs: verified".
 
-- [x] There are in-text numbers, but they are not identified in the code
+- p. 11 "Our data contains about 890 connected sets in Company A and just over 1,200 connected sets for Company B": verified
 
+- p. 11 "The four largest connected sets in Company A have between 13 and 18 managers and 7 to 10 stores.": verified
+
+- p. 12 "Company B. The largest set has 202 managers": verified "and 130 stores.": NOT verified, the replication excerise returns 131 stores. 
+
+- p.12 "Set sizes to [this reads like a typo?] drop quickly, however, with the next 3 largest connected sets respectively containing 100, 66, and 55 managers and 67, 44, and 32 stores.": verified.  
+
+- p.52 "In Company A the correlation between store fixed effects under the two methods is 0.98, and the correlation between manager fixed effects is 0.76. In Company B, these correlations are 0.93 and 0.80, respectively": Not verified. Did not see those numbers in the referenced code from the ReadMe. 
+
+- p. 72 "Averaging these ratios, we find that the mean of r90m stands at about 0.005, with a standard deviation of 0.112. Increasing the percentile to 99 changes the average ratio r99m to about 0.021, with a standard deviation of 0.568.": verified, but the code that displays these numbers is referenced wrongly as Appenix C.2 and not E.2. 
+
+- p. 31 "In Company A the tenure gap is 14 months and significantly different from zero at the 1% level. The gap is smaller in Company B, only 3.4 months and not statistically significant at the usual levels.": verified. 
+
+- p. 8 "60% change managers only once, 30% change managers twice, and the remainder more frequently than that. Similarly, 14 or 23% of managers (depending on the company) work in two different stores, and a small fraction move through three or more. Between 20 and 30% of each company’s manager changes are internal": not verified, didn't find the numbers under the heading in the code indicated in the ReadMe. 
+
+- p. 73 "almost USD 700,000 each month": not verified, I found over 700 000 USD not under."
+
+- p.73 "about GBP 4 million": verified. 
+
+- p.10 footnote 7 "Female managers are about 7% less likely to move to another store than male managers, a gap that cannot be explained by manager tenure or store characteristics": verified. 
 
 
 ## Other Issues
 
 - Title of the Readme needs to be adjusted. 
 
-- Details on data sources missing.
-
-- Details on in-text numbers are missing in the ReadMe. 
-
 - Line of code where results are reproduced in the codes are not provided in the ReadMe. 
 
-- Paths are written with backs-lashes in the Stata do files. 
-
+- There is no clear mapping of tables/figures in the manuscripts to the tables and figure names in the results folder. Many tables and results are not saved in the results folder which makes the replication time consuming. The lines of codes were tables and figures are reproduced need to be checked in the code files. 
 
 # Classification
 
 
 - [ ] full reproduction
-- [ ] full reproduction with minor issues
-- [x] partial reproduction (see above)
+- [x] full reproduction with minor issues
+- [ ] partial reproduction (see above)
 - [ ] not able to reproduce most or all of the results (reasons see above)
 
 ## Reason for incomplete reproducibility
@@ -478,7 +490,7 @@ There are no files that seperately prepare the data, the data preparation is han
 - [x] `Bugs in code` that were fixable by the replicator (but should be fixed in the final deposit)
 - [ ] `Code missing`, in particular if it prevented the replicator from completing the reproducibility check
   - [ ] `Data preparation code missing` should be checked if the code missing seems to be data preparation code
-- [x] `Code not functional` is more severe than a simple bug: it prevented the replicator from completing the reproducibility check
+- [ ] `Code not functional` is more severe than a simple bug: it prevented the replicator from completing the reproducibility check
 - [ ] `Software not available to replicator` may happen for a variety of reasons, but in particular (a) when the software is commercial, and the replicator does not have access to a licensed copy, or (b) the software is open-source, but a specific version required to conduct the reproducibility check is not available.
 - [ ] `Insufficient time available to replicator` is applicable when (a) running the code would take weeks or more (b) running the code might take less time if sufficient compute resources were to be brought to bear, but no such resources can be accessed in a timely fashion (c) the replication package is very complex, and following all (manual and scripted) steps would take too long.
 - [ ] `Data missing` is marked when data *should* be available, but was erroneously not provided, or is not accessible via the procedures described in the replication package
