@@ -142,7 +142,7 @@ Data are not cited, no access description provided either, no information regard
   - Python (version 3.11.11) 
 - [x] Computational Requirements specified as follows:
   - R: packages: haven, rstudioapi, doBy, lfe, Matrix 
-  - Stata: packages to be installed: reghdfe, ftools, did_imputation, event_plot, binscatter, grc1leg2, white_tableau scheme
+  - Stata: packages to be installed: reghdfe, ftools, did_imputation, event_plot, binscatter, grc1leg2, schemepack
   - Python: libraries:numpy, pandas, scipy, matplotlib, os
   - ebayes.ado and fese_fast.ado (provided in repository)
 - [x] Time Requirements specified as follows:
@@ -230,13 +230,13 @@ gl code_dir "$path/CodeA"
 gl res_dir "$path/Results"
 ```
 
-- Moving to the Python scripts which I run in JupyterLab, the calibrate_NAM.py file runs to completion. The simulate_selection.py file broke because I needed to specify the path in the following fashion, where-after the code ran to completion. 
+- Moving to the Python scripts which I run in JupyterLab, the calibrate_NAM.py file runs to completion. The simulate_selection.py file broke because I needed to specify the path in the following fashion, where-after the code ran to completion. Moreover, I had to fix a backlash in a path in this file. 
 
 ```Python
 #%% Set directory
 
 os.chdir("/files/JPE-Sollaci-20240098/replication-package/Replication/CodeA/NAM Simulations")
-etc.
+
 ```
 
 - Next, I move on to company B, in the CodeB folder. The R scripts run to completion. The master do file for the stata code ran to completion. 
