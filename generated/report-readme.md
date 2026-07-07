@@ -3,7 +3,7 @@
 👉 We are considering the file at 
 
 ```
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-2/replication-package/Replication/README.pdf 
+/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/README.pdf 
 ```
 to be the relevant `README`.
 
@@ -19,12 +19,12 @@ The `README` file needs to be placed at the root of your replication package. **
 _Replicator_: The line numbers refer to the readme file printed above.
 
 
-Line 30 : The data should be preserved in the restricted-access location of the Journal of Political Economy for as long
-Line 45 : folder as Stata data ﬁles: "A_dataset.dta" and "B_dataset.dta". A full data dictionary with the variables
-Line 169 : (b) The estimation of the ﬁxed eﬀects involves a random number generator; a seed has been set on line
-Line 176 : The estimation of the ﬁxed eﬀects involves a random number generator; a seed has been set on line 22.
-Line 232 : Next, it estimates how diﬀerent variables impact the probability that a manager moves between stores,
-Line 250 : The simulation requires random draws from a normal distribution; a seed has been set in line 13.
-Line 255 : The simulation requires random draws from a normal distribution; a seed has been set in line 15.
-Line 294 : Variable Name Description
-Line 406 : Variable Name Description
+Line 50 : folder as Stata data ﬁles: "A_dataset.dta" and "B_dataset.dta". A full data dictionary with the variables
+Line 105 : scripts do not take any of the global variables from Stata, and can thus be run independently if
+Line 118 : In the case of the event study ﬁgures, they are named based on the their outcome variable: e.g., "Fig-
+Line 121 : Outcome variable Figure name (suﬃx)
+Line 273 : sl = r(sales_level), reps(100) seed($seed_num): assortative_match
+Line 337 : 7                          Table 2: Data Dictionary: Variables Contained in "A_dataset"
+Line 340 : Variable Name Description
+Line 449 : 9                          Table 3: Data Dictionary: Variables Contained in "B_dataset"
+Line 452 : Variable Name Description

@@ -19,30 +19,51 @@
 
 ### R
 
-[ADVISORY] `merge()` called without explicit `all=`, `all.x=`, or `all.y=` argument — defaults to inner join, which may silently drop rows. (A_estimate_fe.R, line 86)
-  → df2 <- merge(df, time_fe, by = 'time')
+[ADVISORY] `merge()` called without explicit `all=`, `all.x=`, or `all.y=` argument — defaults to inner join, which may silently drop rows. (A_estimate_fe.R, line 74)
+  → df2 <- merge(df, time_fe, by = 'time', sort = FALSE)
 
-[ADVISORY] `merge()` called without explicit `all=`, `all.x=`, or `all.y=` argument — defaults to inner join, which may silently drop rows. (B_estimate_fe.R, line 86)
-  → df2 <- merge(df, time_fe, by = 'time')
+[ADVISORY] `merge()` called without explicit `all=`, `all.x=`, or `all.y=` argument — defaults to inner join, which may silently drop rows. (B_estimate_fe.R, line 74)
+  → df2 <- merge(df, time_fe, by = 'time', sort = FALSE)
+
+[ADVISORY] `merge()` called without explicit `all=`, `all.x=`, or `all.y=` argument — defaults to inner join, which may silently drop rows. (B_estimate_gfe.R, line 44)
+  → df_mng <- merge(df_mng_tenure, df_mng_format,
 
 ### Stata
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (selection_based_NAM.do, line 135)
+[CRITICAL] Hardcoded absolute path detected — the package will not run on another machine. (ftab.ado, line 173)
+  → net install ftools, from("C:/git/ftools/src")
+
+[CRITICAL] Hardcoded absolute path detected — the package will not run on another machine. (02_main.do, line 17)
+  → global root "C:/Users/abalduinosollaci/OneDrive - International Monetary Fund (PRD)/Desktop/Replication_for_Managers_and_Productivity_in_Retail"
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (selection_based_NAM.do, line 127)
   → drop if mi(corr_true)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_counterfactuals.do, line 17)
-  → drop if mi(manager_fe_eb, store_fe_eb)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_analyze_FE.do, line 114)
+  → drop if mi(manager_fe)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_counterfactuals.do, line 30)
-  → drop if mi(manager_fe_eb, store_fe_eb)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_analyze_FE.do, line 115)
+  → drop if cs_rank > 4
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 9)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_analyze_FE.do, line 145)
+  → drop if mi(store_fe)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_analyze_FE.do, line 146)
+  → drop if cs_rank > 4
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_analyze_GFE.do, line 80)
+  → drop if mi(manager_gfe)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_analyze_GFE.do, line 107)
+  → drop if mi(store_gfe)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 10)
   → drop if mi(store_id, time)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 25)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 26)
   → drop if num_changes > 1
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 53)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 54)
   → drop if mi(manager_fe_eb)
 
 [ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 282)
@@ -52,110 +73,104 @@
   → drop if time > 11 // periods 0 - 10
 
 [ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 408)
-  → drop if time > 11 // periods 0 - 10
+  → drop if time > 11      // periods 0 - 10
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 449)
-  → drop if num_changes == 0
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 540)
-  → drop if num_changes == 0
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 486)
+  → drop if mi(top_bottom_mng)
 
 [ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 544)
+  → drop if num_changes == 0
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 635)
+  → drop if num_changes == 0
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 639)
   → keep if num_stores == 2
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 591)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 686)
   → drop if mi(manager_fe_eb, store_fe_eb)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 599)
-  → drop if total_mng < 3
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 692)
+  → drop if missing(manager_id, manager_fe_eb, connected_set)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 619)
-  → drop if total_store < 3
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_event_study.do, line 721)
+  → drop if missing(store_id, store_fe_eb, connected_set)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_fixed_effects.do, line 112)
-  → drop if mi(manager_fe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_fixed_effects.do, line 113)
-  → drop if cs_rank > 4
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_fixed_effects.do, line 144)
-  → drop if mi(store_fe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_fixed_effects.do, line 145)
-  → drop if cs_rank > 4
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_group_fixed_effects.do, line 79)
-  → drop if mi(manager_gfe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_group_fixed_effects.do, line 106)
-  → drop if mi(store_gfe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_summary_stats.do, line 83)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_prelim_analysis.do, line 93)
   → keep if time==time_of_change
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_counterfactuals.do, line 15)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_revenue_counterfactuals.do, line 15)
   → drop if mi(manager_fe_eb, store_fe_eb)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_counterfactuals.do, line 28)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (A_revenue_counterfactuals.do, line 28)
   → drop if mi(manager_fe_eb, store_fe_eb)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 9)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_analyze_FE.do, line 114)
+  → drop if mi(manager_fe)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_analyze_FE.do, line 115)
+  → drop if cs_rank > 4
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_analyze_FE.do, line 145)
+  → drop if mi(store_fe)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_analyze_FE.do, line 146)
+  → drop if cs_rank > 4
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_analyze_GFE.do, line 79)
+  → drop if mi(manager_gfe)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_analyze_GFE.do, line 106)
+  → drop if mi(store_gfe)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 10)
   → drop if mi(store_id, time)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 25)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 26)
   → drop if num_changes > 1
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 53)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 54)
   → drop if mi(manager_fe_eb)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 289)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 288)
   → drop if time > 11 // periods 0 - 10
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 368)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 367)
   → drop if time > 11 // periods 0 - 10
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 414)
-  → drop if time > 11 // periods 0 - 10
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 413)
+  → drop if time > 11      // periods 0 - 10
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 455)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 490)
+  → drop if mi(top_bottom_mng)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 549)
   → drop if num_changes == 0
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 543)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 637)
   → drop if num_changes == 0
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 547)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 641)
   → keep if num_stores == 2
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 592)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 686)
   → drop if mi(manager_fe_eb, store_fe_eb)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 600)
-  → drop if total_mng < 3
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 692)
+  → drop if missing(manager_id, manager_fe_eb, connected_set)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 620)
-  → drop if total_store < 3
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_event_study.do, line 721)
+  → drop if missing(store_id, store_fe_eb, connected_set)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_fixed_effects.do, line 112)
-  → drop if mi(manager_fe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_fixed_effects.do, line 113)
-  → drop if cs_rank > 4
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_fixed_effects.do, line 144)
-  → drop if mi(store_fe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_fixed_effects.do, line 145)
-  → drop if cs_rank > 4
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_gender_moves.do, line 6)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_gender_moves.do, line 9)
   → drop if mi(female)
 
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_group_fixed_effects.do, line 69)
-  → drop if mi(manager_gfe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_group_fixed_effects.do, line 96)
-  → drop if mi(store_gfe)
-
-[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_summary_stats.do, line 83)
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_prelim_analysis.do, line 93)
   → keep if time==time_of_change
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_revenue_counterfactuals.do, line 15)
+  → drop if mi(manager_fe_eb, store_fe_eb)
+
+[ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (B_revenue_counterfactuals.do, line 28)
+  → drop if mi(manager_fe_eb, store_fe_eb)
 
