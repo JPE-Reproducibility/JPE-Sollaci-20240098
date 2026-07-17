@@ -23,6 +23,7 @@
 *.DTA
 *.csv
 *.CSV
+*.docx
 *.tsv
 *.TSV
 *.RData

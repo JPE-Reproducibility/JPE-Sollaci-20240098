@@ -15,12 +15,6 @@ format:
 | Title  |  {{< var title >}} |
 | Iteration |  {{< var round >}} |
 
-
-
-
-
-
-
 Some useful information up front:
 
 - [JPE Data and Code Availability Policy](https://www.journals.uchicago.edu/journals/jpe/datapolicy)
@@ -90,7 +84,7 @@ The authors specified that the data "should be preserved in the restricted-acces
 
 For any data that cannot be provided as part of the replication package, please provide the following information as part of the README: 
 
-- The authors provided a codebook for the data describing the variables contained in the datasets. 
+- The authors provided a codebook for the data describing the variables contained in the datasets.
 
 
 ## Data Sources
@@ -176,75 +170,56 @@ For missing requirements, see the list of required changes in @sec-findings
 
 
 - Folder A contains 2 R scripts, a master Stata do-file which references to 5 seperate stata files. Additionally it contains 2 python files and another separate stata do-file for the simulation part of the study. Folder B replicates the same structure of folder A for the analysis for company B instead of company A, excluding the simulation. 
-
-- It is unclear from the ReadMe which in-text numbers are replicated where. It would be very helpful if the authors provided more details. For instance, "the numbers cited in the related discussion in the text" is not precise enough for the replicator to associate the code with specific numbers in the text. 
-
-
+ 
 {{< include generated/report-cloc.md >}}
 
 
-- [ ] The replication package contains a "main" or "master" file(s) which calls all other auxiliary programs.
-
-> {SUGGESTED} We strongly advise the use of a single (or a small number of) main control file(s) to automatically reproduce all figures and tables in the paper, without manual interaction.
-
-> NOTE: In-text numbers that reference numbers in tables do not need to be listed. Only in-text numbers that correspond to no table or figure need to be listed.
+- [X] The replication package contains a "main" or "master" file(s) which calls all other auxiliary programs.
 
 ## Computing Environment of the Replicator
 
-- Nuvolos
+- MacBook Pro 24Go RAM M4Pro 
+- R 4.5.1
+- Stata/MP 19
+- Positron with Python 3.14 
 
+Replication time : ~33 mn (25mn for R/7mn for Stata/<1mn for Python)
 
-- R 4.4.0
-- Stata/MP 19.5 (version 19 was not available to the replicator on nuvolos.)
-- JupyterLab 4.1.6 with Python 3.11 
+and
 
+Nuvolos 4 CPU threads and 16Go RAM
+- R 4.4.1
+- Stata/MP 18
+- VSCode
+
+Replication time : 1h05 (51 mn for R/15 mn for Stata/<1mn for Python)
 
 # Replication
-
 
 - Downloaded code and data from dropbox.
 - Commited code to git repo.
 - Installed all R packages mentioned in the ReadMe.
 - Installed all Stata packages mentioned in the ReadMe. 
-- Imported all Python libraries as per ReadMe. 
-- Running R script A_estimate_fe.R in CodeA as per ReadMe resulted in the following error message: 
-```R
-library(haven)
-Error: package or namespace load failed for ‘haven’ in dyn.load(file, DLLpath = DLLpath, ...):
- unable to load shared object '/usr/local/lib/R/site-library/haven/libs/haven.so':
-  /usr/local/lib/R/site-library/haven/libs/haven.so: undefined symbol: R_getVar
-In addition: Warning message:
-package ‘haven’ was built under R version 4.5.0
-```
-- I switched to R version 4.5.2, even if the authors mentioned R.4.4.0 in the ReadMe. Now the 2 R scripts ran through. 
+- Imported all Python libraries as per ReadMe. As running Python directly from Stata leads to break and procedure to put Python and Stata on the same path can be cumbersome, I propose the following manipulations. First, open the Python scripts in VSCode/RStudio/Positron. Second create a venv (`python3 -m venv .venv`) and activate it. After that you can download the packages with command (`pip install -r requirements.txt`). Also, get rid of `os`in the requirements as it is a built-in package of Python.
 
-- Moving on to the STATA code, after adjusting the path file in the stata master file, the code broke due to the require package not being listed in the required packages. After installing it through SSC the code ran to completion. 
+- Running R scripts on MacBookPro and Nuvolos : ok.
 
-- To run the selection_based_NAM.do file I had to adjust the paths in the following manner, as the folder structure is not updated to suit the replication package: 
+- Running Stata scripts on MacBookPro and Nuvolos : ok.
 
-```Stata
-global path "/files/JPE-Sollaci-20240098/replication-package/Replication"
-
-gl data_dir "$path/Data"
-gl code_dir "$path/CodeA"
-gl res_dir "$path/Results"
-```
-
-- Moving to the Python scripts which I run in JupyterLab, the calibrate_NAM.py file runs to completion. The simulate_selection.py file broke because I needed to specify the path in the following fashion, where-after the code ran to completion. Moreover, I had to fix a backlash in a path in this file. 
+- Running Python scripts on MacbookPro and Nuvolos without issue : run without issue but we need to change the path system in `simulate_selection.py` (see below):
 
 ```Python
 #%% Set directory
 
-os.chdir("/files/JPE-Sollaci-20240098/replication-package/Replication/CodeA/NAM Simulations")
-
+script_dir = os.getcwd()
+# parent_dir = os.path.dirname(os.path.dirname(script_dir))
+figures_dir = os.path.join(script_dir, "Results/Figures")
 ```
-
-- Next, I move on to company B, in the CodeB folder. The R scripts run to completion. The master do file for the stata code ran to completion. 
-
-
+We commented `parent_dir` and replaced it by `script_dir` in `figures_dir`. Otherwise the path wrongly located at the root of the folder (`JPE-SOLLACI-20240098`).
 
 # Findings {#sec-findings}
 
+It seems that table 1 is not outputed directly but must be written inline in the latex file. I generated a code outputing the table `create_table_1_clean_from_fe.R`. Same issue for table 2, I did not produce compiling code.
 
 ## Missing Requirements
 
@@ -252,75 +227,56 @@ os.chdir("/files/JPE-Sollaci-20240098/replication-package/Replication/CodeA/NAM 
 - [ ] Software Requirements 
   - [x] Stata
     - package: require (was missing from the required packages list)
-  - [ ] R
-    - [ ] Version mentioned in ReadMe (4.4.0) was not compatible with the haven package. 
+  - [X] R
   - [ ] Python
-    - [ ] Version (missing)
-- [ ] Computational Requirements specified as follows:
-  - Cluster size, disk size, memory size, etc. (not specified)
-- [ ] Time Requirements 
-  - Length of necessary computation (hours, weeks, etc.) (not specified)
+    - [ ] Packages Version (missing)
+- [X] Computational Requirements specified as follows:
+  - Lenovo Thinkpad T14s, AMD Rizen AI 7 PRO with Radeon 860M, 32Go of RAM
+- [X] Time Requirements 
+  - ~1 hour for complete reproduction
 
 > [REQUIRED] Please amend README to contain complete requirements. 
 
 You can copy the section above, amended if necessary.
 
-
 ## Data Preparation Code
 
-A_estimate_fe.R prepares the following datasets: A_connected.dta, A_manager_fe.dta, A_store_fe.dta. 
+`A_estimate_fe.R` prepares the following datasets: `A_connected.dta`, `A_manager_fe.dta`, `A_store_fe.dta`. 
 
-A_estimate_gfe.R prepares the following datasets: A_manager_gid.dta, A_manager_gfe.dta, A_store_gid.dta, A_store_gfe.dta.   
+`A_estimate_gfe.R` prepares the following datasets: `A_manager_gid.dta`, `A_manager_gfe.dta`, `A_store_gid.dta`, `A_store_gfe.dta`.   
 
-A_fixed_effects.do prepares A_dataset_fe_eb.dta.
+`A_fixed_effects.do` prepares `A_dataset_fe_eb.dta`.
 
-A_grouped_fixed_effects.do prepares A_dataset_gfe.dta. 
+`A_grouped_fixed_effects.do` prepares `A_dataset_gfe.dta`. 
 
-A_event_study.do prepares A_event_study.dta.
+`A_event_study.do` prepares `A_event_study.dta`.
 
-B_estimate_fe.R prepares the following datasets: B_connected.dta, B_manager_fe.dta, B_store_fe.dta. 
+`B_estimate_fe.R` prepares the following datasets: `B_connected.dta`, `B_manager_fe.dta`, `B_store_fe.dta`. 
 
-B_estimate_gfe.R prepares the following datasets: B_manager_gid.dta, B_manager_gfe.dta, B_store_gid.dta, B_store_gfe.dta.   
+`B_estimate_gfe.R` prepares the following datasets: `B_manager_gid.dta`, `B_manager_gfe.dta`, `B_store_gid.dta`, `B_store_gfe.dta`.   
 
-B_fixed_effects.do prepares B_dataset_fe_eb.dta.
+`B_fixed_effects.do` prepares `B_dataset_fe_eb.dta`.
 
-B_grouped_fixed_effects.do prepares B_dataset_gfe.dta. 
+`B_grouped_fixed_effects.do` prepares `B_dataset_gfe.dta`. 
 
-B_event_study.do prepares B_event_study.dta.
+`B_event_study.do` prepares `B_event_study.dta`.
 
-selection_based_NAM.do prepares simulate_match.dta. 
+`selection_based_NAM.do` prepares `simulate_match.dta`. 
 
 ## Tables and Figures
 
 
-- Table 1: There are small deviations in the variance table. See below: 
+- Table 1: Results slightly diverge : we only 132 obs for A 4 instead of 142 and the cov/var ratio is different for compagny B
 
-|Company|Line|Column| Original Value| Reproduced | 
-| ----| ---| ---| ---| ---|    
-| A| 2| 3| 1.80| 1.82|  
-| A| 2| 4| 1.03| 1.05|  
-| A| 2| 5| -1.16| -1.14|  
-| B| 1| 3| 1.63| 1.65|  
-| B| 1| 4| 1.52| 1.51|  
-| B| 2| 3| 0.72|0.74|  
-| B| 3| 3| 1.04|1.05|  
-| B| 3| 4| 0.76|0.77|  
-| B| 4| 5| -0.03|-0.02|  
-
-
-
-  
-
-
+![Table 1](images/Table1_comparison.png)
 
 - Table 2: The numbers reproduced do not match the table in the manuscript. See screenshots below: 
 
 ::: {#fig-three layout-ncol=3}
 
-![Reproduced output should correspond to the company A side of table 2](images/Table_2_A_R2.png)
+![Reproduced output should correspond to the company A side of table 2](images/tab2_A_R3.png)
 
-![Reproduced output should correspond to the company B side of table 2](images/Table_2_B_R2.png)
-
+![Reproduced output should correspond to the company B side of table 2](images/tab2_B_R3.png)
 
 ![Paper version](images/Table_2_paper_R2.png)
 
@@ -332,57 +288,56 @@ selection_based_NAM.do prepares simulate_match.dta.
 
 - Figure 4: Looks the same.  
 
-- Figure 5: looks the same (mostly), but in the paper full-time employment and full-time/part-time ratio are being confused (there are two figures with the ratio in the y-axis), but the titles are different. The replicator can't attribute which of the figures is correct and which isn't. 
+- Figure 5: looks the same
 
 - Figure 6: looks the same. 
 
-- Figure 7: Reproduced, but with differences: 
+- Figure 7: looks the same.
 
-::: {#fig-three layout-ncol=2}
+- Table 3: Numbers diverge similar as table 2.
 
-![Reproduced output for a)](replication-package/Replication/Results/Figures/Figure_7a.png)
+::: {#fig-four layout-ncol="3"}
+![Reproduced output should correspond to the company A side of table 3](images/tab3a_R3.png)
 
-![Paper version](images/Figure_7_paper_R2.png)
+![Reproduced output should correspond to the company B side of table 3](images/tab3b_R3.png)
+
+![Paper version](images/Table_2_paper_R2.png)
 
 :::
 
-- Table 3: Numbers diverge similar as table 2.  
+- Figure 8: looks the same.
 
+- Figure 9: looks the same.
 
-- Figure 8: Some of the event graphs look different. I included b) as an example below.
-
-![Reproduced figure 8 b)](replication-package/Replication/Results/Figures/Figure_8_sales.png)
-![Paper version](images/Figure_8_b_paper.png)
-
-- Figure 9: Some of the event graphs display discrepancies similar to figure 8.
-
-- Table 4 was not saved in the results folder. The results displayed in stata were diverging as well, for example company B After Change Standard Deviation reproduced displayed 0.066 while the paper reads 0.64 for that number. 
+- Table 4 results return 0 for each estimation. Probably a mistake.
 
 - Figure A1 looks the same.
 
 - Figure A2 is showing discrepancies:
 
-![Reproduced figure A2 Company A](replication-package/Replication/Results/Figures/Figure_A2.png)
-![Paper version Company A](images/Figure_A2_paper_R2.png)
+::: {#fig-seven layout-ncol="2"}
+![Reproduced figure A2 Company A](replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Figures/Figure_A2_panel_A.png)
 
+![Paper version Company A](images/figureA2_paper.png)
+:::
 
-![Reproduced figure A2 Company B](replication-package/Replication/Results/Figures/Figure_A2b.png)
-![Paper version Company B](images/Figure_A2B_paper_R2.png)
+::: {#fig-six layout-ncol="2"}
+![Reproduced figure A2 Company B](replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Figures/Figure_A2_panel_B.png)
+
+![Paper version Company B](images/figureA2_b_paper.png)
+:::
 
 - Figure A3 showcases similar discrepancies as figure A2. 
 
-- Figure A4 Company A showcases discrepancies: 
-
-![Reproduced figure A4 Company A](replication-package/Replication/Results/Figures/Figure_A4.png)
-![Paper version Company A](images/Figure_A4_paper_R2.png)
+- Figure A4 looks the same.
 
 - Figure A5: Looks the same. 
 
-- Table B.1 was not saved in the results folder. The numbers were displayed in the stata console.
+- Table B.1 does not procuded the paper version of the table.
 
-- Table B.2 was not saved in the results folder.  The numbers were displayed in the stata console.
+- Table B.2 does not procuded the paper version of the table.
 
-- Table C.1 was not saved in the results folder.  The numbers were displayed in the stata console.
+- Table C.1 looks the same.
 
 - Figure C.1 looks the same. 
 
@@ -390,17 +345,15 @@ selection_based_NAM.do prepares simulate_match.dta.
 
 - Figure C.3 looks the same. 
 
-- Table D1 was not saved in the results folder.  The numbers were displayed in the stata console, company B has a diverging coefficient -0.211 (reproduced) vs -0.212 (manuscript).
+- Table D1 are similar.
 
 - Figure D1 displays discrepancies for both companies: 
 
+::: {#fig-seven layout-ncol="2"}
 
-![Reproduced figure D1 Company A](replication-package/Replication/Results/Figures/Figure_D1.png)
-![Paper version Company A](images/Figure_D1_paper_R2.png)
-
-
-![Reproduced figure D1 Company B](replication-package/Replication/Results/Figures/Figure_D1b.png)
-![Paper version Company B](images/Figure_D1b_paper_R2.png)
+![Reproduced figure D1 Company A](replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Figures/Figure_D1_panel_A.png)
+![Paper version Company A](images/figureD1_A_paper.png)
+:::
 
 - Figure D2 looks the same. 
 
@@ -410,14 +363,19 @@ selection_based_NAM.do prepares simulate_match.dta.
 
 - Figure E2: looks the same. 
 
-- Figure E3 was reproduced, but showcases discrepancies.
-![Reproduced figure E3 (b)](replication-package/Replication/Results/Figures/Figure_E3b.png)
-![Manuscript figure E3 (b)](images/Figure_E3b_paper_R2.png)
-![Reproduced figure E3 (d)](replication-package/Replication/Results/Figures/Figure_E3d.png)
+- Figure E3 look the same.
 
-![Manuscript figure E3 (d)](images/Figure_E3d_paper_R2.png)
+- Table F.1 shows discrepencies :
 
-- Table F.1 was not saved in the results folder, the number displayed in the stata console for Company A, percent estimate slightly diverges form the manuscript (0.66 vs 0.65)  
+:::{#fig-eight layout-ncol="3"}
+
+![Reproduction of Company A](images/F1_A_R3.png)
+
+![Reproduction of Company B](images/F1_B_R3.png)
+
+![Paper](images/F1_paper.png)
+
+:::
 
 - Figure G.1: looks the same. 
 
@@ -425,19 +383,17 @@ selection_based_NAM.do prepares simulate_match.dta.
 
 - Figure G.3: discrepancy in (c) full-time employment.
 
-![Reproduced figure G3 (c)](replication-package/Replication/Results/Figures/Figure_G3_ft.png)
+::: {#fig-nine layout-ncol="2"}
+![Reproduced figure G3 (c)](replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Figures/Figure_G3_ft.png)
 
-![Manuscript figure G3 (c)](images/Figure_G3c_paper_R2.png)
-
+![Manuscript figure G3 (c)](images/FigureG3_paper.png)
+:::
 
 - Figure G.4: looks the same. 
 
 - Figure G.5: looks the same. 
 
 - Figure G.6: looks the same. 
-
-
-
 
 
 ## In-Text Numbers
@@ -466,7 +422,6 @@ selection_based_NAM.do prepares simulate_match.dta.
 
 - p.10 footnote 7 "Female managers are about 7% less likely to move to another store than male managers, a gap that cannot be explained by manager tenure or store characteristics": verified. 
 
-
 ## Other Issues
 
 - Title of the Readme needs to be adjusted. 
@@ -475,8 +430,9 @@ selection_based_NAM.do prepares simulate_match.dta.
 
 - There is no clear mapping of tables/figures in the manuscripts to the tables and figure names in the results folder. Many tables and results are not saved in the results folder which makes the replication time consuming. The lines of codes were tables and figures are reproduced need to be checked in the code files. 
 
-# Classification
+- There is no systemic output of tables as they are shown in the paper.
 
+# Classification
 
 - [ ] full reproduction
 - [x] full reproduction with minor issues
@@ -487,7 +443,7 @@ selection_based_NAM.do prepares simulate_match.dta.
 
 - [ ] None.
 - [x] `Discrepancy in output` (either figures or numbers in tables or text differ)
-- [x] `Bugs in code` that were fixable by the replicator (but should be fixed in the final deposit)
+- [ ] `Bugs in code` that were fixable by the replicator (but should be fixed in the final deposit)
 - [ ] `Code missing`, in particular if it prevented the replicator from completing the reproducibility check
   - [ ] `Data preparation code missing` should be checked if the code missing seems to be data preparation code
 - [ ] `Code not functional` is more severe than a simple bug: it prevented the replicator from completing the reproducibility check

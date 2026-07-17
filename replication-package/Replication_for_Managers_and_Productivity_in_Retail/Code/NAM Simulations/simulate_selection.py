@@ -7,8 +7,8 @@ import os
 #%% Set directory
 
 script_dir = os.getcwd()
-parent_dir = os.path.dirname(os.path.dirname(script_dir))
-figures_dir = os.path.join(parent_dir, "Results/Figures")
+# parent_dir = os.path.dirname(os.path.dirname(script_dir))
+figures_dir = os.path.join(script_dir, "Results/Figures")
 
 #%% Parameters
 

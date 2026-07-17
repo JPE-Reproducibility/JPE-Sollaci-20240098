@@ -14,7 +14,7 @@ timer on 1
 * ########################################
 
 // Set path to replication file
-global root "C:/Users/abalduinosollaci/OneDrive - International Monetary Fund (PRD)/Desktop/Replication_for_Managers_and_Productivity_in_Retail"
+global root "/Users/GARSON/JPE/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail"
 
 gl data_dir "$root/Data"
 gl code_dir "$root/Code/Stata codes"
@@ -116,10 +116,10 @@ display in red "============ Running NAM Simulations ============"
 do "selection_based_NAM.do"
 
 * Calibration the NAM algorithm to match observed data
-python script "calibrate_NAM.py"
+// python script "calibrate_NAM.py"
 
 * General simulation with multiple rounds: Produces Figure D.3
-python script "simulate_selection.py"
+// python script "simulate_selection.py"
 
 
 display in red "============ Replication finished ============"
