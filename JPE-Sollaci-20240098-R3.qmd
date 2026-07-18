@@ -33,6 +33,11 @@ Some useful information up front:
 
 In assessing compliance with our [Data and Code Availability Policy](https://www.journals.uchicago.edu/journals/jpe/datapolicy), our reproducibility team has identified the following issues, which we ask you to address:
 
+1. We still find a large number of non-corresponding exhibits. Our most benign hypothesis is that you did not update some exhibits in your paper and those are out of date. Please check. Particularly worrying are the non-agreeing counts in table 2. Table 3 does not correspond as a direct consequence, I presume.
+2. Table 4 is full of zeros.
+3. Fig A2 is different.
+4. We document plenty more differences.
+
 # General
 
 
