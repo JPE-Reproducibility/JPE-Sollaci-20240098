@@ -28,13 +28,16 @@
 [ADVISORY] `merge()` called without explicit `all=`, `all.x=`, or `all.y=` argument — defaults to inner join, which may silently drop rows. (B_estimate_gfe.R, line 44)
   → df_mng <- merge(df_mng_tenure, df_mng_format,
 
+[ADVISORY] `merge()` called without explicit `all=`, `all.x=`, or `all.y=` argument — defaults to inner join, which may silently drop rows. (create_table_1_clean_from_fe.R, line 211)
+  → obs_check <- merge(
+
 ### Stata
 
 [CRITICAL] Hardcoded absolute path detected — the package will not run on another machine. (ftab.ado, line 173)
   → net install ftools, from("C:/git/ftools/src")
 
 [CRITICAL] Hardcoded absolute path detected — the package will not run on another machine. (02_main.do, line 17)
-  → global root "C:/Users/abalduinosollaci/OneDrive - International Monetary Fund (PRD)/Desktop/Replication_for_Managers_and_Productivity_in_Retail"
+  → global root "/Users/GARSON/JPE/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail"
 
 [ADVISORY] Sample drop (`drop if` / `keep if`) not preceded by a comment within 2 lines — consider adding a comment explaining the criterion. (selection_based_NAM.do, line 127)
   → drop if mi(corr_true)

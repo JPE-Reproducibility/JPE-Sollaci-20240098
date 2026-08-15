@@ -1,77 +1,79 @@
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/ebayes.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/fese_fast.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/_/_eststo.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/b/binscatter.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/d/did_imputation.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estadd.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estfe.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estout.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estpost.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/eststo.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/esttab.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/event_plot.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fcollapse.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fegen.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fegen_group.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fisid.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/flevelsof.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fmerge.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/freshape.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fsort.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/ftab.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/ftools.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/g/grc1leg2.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/g/grc1leg2_examples.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/j/join.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/l/local_inlist.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_add_comma.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_compile_mata.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_expand_varlist.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_fvstrip.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_fvunab.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_get_version.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_absvars.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_depvar.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_varlist.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_vce.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/p/parallel_map.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/p/parallel_map_template.do.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3_estat.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3_footnote.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3_p.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_estat.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_footnote.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_header.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_p.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_parse.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_estat.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_footnote.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_header.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_p.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/require.ado
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/02_main.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/selection_based_NAM.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_FE.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_GFE.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_event_study.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_prelim_analysis.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_revenue_counterfactuals.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_FE.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_GFE.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_event_study.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_gender_moves.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_prelim_analysis.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_revenue_counterfactuals.do
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/01_main.R
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_fe.R
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_gfe.R
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_fe.R
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_gfe.R
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/calibrate_NAM.py
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/simulate_selection.py
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Tables/Table_B2.tex
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Tables/Table_D1_Company_A.tex
-/var/folders/5q/yhcyv3z55wvg6lhgc3h22kk00000gq/T/20240098-3/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Tables/Table_D1_Company_B.tex
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/ebayes.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/fese_fast.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/_/_eststo.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/b/binscatter.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/d/did_imputation.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estadd.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estfe.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estout.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/estpost.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/eststo.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/esttab.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/e/event_plot.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fcollapse.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fegen.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fegen_group.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fisid.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/flevelsof.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fmerge.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/freshape.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/fsort.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/ftab.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/f/ftools.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/g/grc1leg2.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/g/grc1leg2_examples.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/j/join.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/l/local_inlist.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_add_comma.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_compile_mata.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_expand_varlist.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_fvstrip.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_fvunab.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_get_version.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_absvars.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_depvar.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_varlist.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/m/ms_parse_vce.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/p/parallel_map.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/p/parallel_map_template.do.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3_estat.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3_footnote.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe3_p.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_estat.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_footnote.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_header.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_p.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe5_parse.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_estat.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_footnote.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_header.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/reghdfe_p.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/ado/plus/r/require.ado
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/02_main.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/selection_based_NAM.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_FE.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_GFE.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_event_study.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_prelim_analysis.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_revenue_counterfactuals.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_FE.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_GFE.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_event_study.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_gender_moves.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_prelim_analysis.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_revenue_counterfactuals.do
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/01_main.R
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_fe.R
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_gfe.R
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_fe.R
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_gfe.R
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/create_table_1_clean_from_fe.R
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/calibrate_NAM.py
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/simulate_selection.py
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/03_main.sh
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Tables/Table_B2.tex
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Tables/Table_D1_Company_A.tex
+/Users/florianoswald/actions-runner/_work/JPE-Sollaci-20240098/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Results/Tables/Table_D1_Company_B.tex

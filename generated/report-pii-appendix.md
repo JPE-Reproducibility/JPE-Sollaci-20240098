@@ -1,322 +1,87 @@
 ## Appendix: Detailed PII Detection Results
 
-*Generated on 2026-07-07 11:40:19*
+*Generated on 2026-08-15 19:39:44*
 
 This appendix lists all detected instances of potential personally identifiable information (PII) in the project files. Each entry shows the matched PII terms and, for data files, sample values to help verify whether the flagged content is indeed sensitive.
 
-### Data Files
+### Full Summary Table
 
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/A_dataset.dta**
-
-- Variable: `county` (label: *COUNTYNAME*)
-  - Matched terms: name
-  - Sample values: Palm Beach County, Miami-Dade County, Harris County
-- Variable: `location` (label: *Location Nm*)
-  - Matched terms: loc, location
-  - Sample values: BOCA RATON FL, HIALEAH FL, HOUSTON TX
-- Variable: `location_num` (label: *group(location)*)
-  - Matched terms: loc, location
-  - Sample values: 88.0, 334.0, 353.0
-- Variable: `store_id` (label: *Loc*)
-  - Matched terms: loc
-  - Sample values: 4.0, 7.0, 12.0
-
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/A_dataset_fe_eb.dta**
-
-- Variable: `county` (label: *COUNTYNAME*)
-  - Matched terms: name
-  - Sample values: St. Charles County, St. Louis County, Madison County
-- Variable: `location` (label: *Location Nm*)
-  - Matched terms: loc, location
-  - Sample values: ST PETERS MO, CREVE COEUR MO, RICHMOND HEIGHTS MO
-- Variable: `location_num` (label: *group(location)*)
-  - Matched terms: loc, location
-  - Sample values: 763.0, 175.0, 668.0
-- Variable: `store_id` (label: *Loc*)
-  - Matched terms: loc
-  - Sample values: 34.0, 44.0, 635.0
-
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/A_dataset_gfe.dta**
-
-- Variable: `county` (label: *COUNTYNAME*)
-  - Matched terms: name
-  - Sample values: DeKalb County, Harris County, Olmsted County
-- Variable: `location` (label: *Location Nm*)
-  - Matched terms: loc, location
-  - Sample values: SANDY SPRINGS GA, HOUSTON TX, ROCHESTER MN
-- Variable: `location_num` (label: *group(location)*)
-  - Matched terms: loc, location
-  - Sample values: 717.0, 353.0, 674.0
-- Variable: `store_id` (label: *Loc*)
-  - Matched terms: loc
-  - Sample values: 2194.0, 6289.0, 6191.0
-
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/A_event_study.dta**
-
-- Variable: `county` (label: *COUNTYNAME*)
-  - Matched terms: name
-  - Sample values: Palm Beach County, Miami-Dade County, Harris County
-- Variable: `location` (label: *Location Nm*)
-  - Matched terms: loc, location
-  - Sample values: BOCA RATON FL, HIALEAH FL, HOUSTON TX
-- Variable: `location_num` (label: *group(location)*)
-  - Matched terms: loc, location
-  - Sample values: 88.0, 334.0, 353.0
-- Variable: `store_id` (label: *Loc*)
-  - Matched terms: loc
-  - Sample values: 4.0, 7.0, 12.0
-
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/B_dataset.dta**
-
-- Variable: `area_name` (label: *Area_Name*)
-  - Matched terms: name
-  - Sample values: Nottingham West, Nottingham City, Nottingham North
-- Variable: `country` (label: *Country*)
-  - Matched terms: country
-  - Sample values: England
-- Variable: `elec_use_sqft` (label: *Electricity Consumption by sqft of Sales Area*)
-  - Matched terms: city
-  - Sample values: 18.310810089111328, 19.461711883544922, 19.76801872253418
-- Variable: `firstname` (label: *(first) firstname*)
-  - Matched terms: name
-  - Sample values: ALISON, PAUL, MARIE
-- Variable: `lastname` (label: *(first) lastname*)
-  - Matched terms: name
-  - Sample values: EDWARDS, FLETCHER-READ, BOOTH
-- Variable: `latitude` (label: *Latitude*)
-  - Matched terms: lat
-  - Sample values: 52.92, 52.95, 52.98
-- Variable: `location_code`
-  - Matched terms: loc, location
-  - Sample values: BTC0005, , BTC0011
-- Variable: `location_id` (label: *ID_2*)
-  - Matched terms: loc, location
-  - Sample values: 73.0, 72.0, 20.0
-- Variable: `location_name` (label: *NAME_2*)
-  - Matched terms: loc, location, name
-  - Sample values: Nottingham, Nottinghamshire, Derbyshire
-- Variable: `location_type` (label: *TYPE_2*)
-  - Matched terms: loc, location
-  - Sample values: Unitary Authority (city), Administrative County, Unitary Authority
-- Variable: `longitude` (label: *Longitude*)
-  - Matched terms: lon
-  - Sample values: -1.21, -1.14, -1.12
-- Variable: `manager_tenure_start` (label: *How long has individual been a manager as of April 2014 (start of sample)*)
-  - Matched terms: lon
-  - Sample values: 210.0, 288.0, 340.0
-- Variable: `region_name` (label: *Region_Name*)
-  - Matched terms: name
-  - Sample values: Midlands, Yorkshire & Lincs, Central
-- Variable: `saturday_hours` (label: *Saturday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 540.0, 660.0, 510.0
-- Variable: `store_name` (label: *Store_Name*)
-  - Matched terms: name
-  - Sample values: NOTTINGHAM BEESTON, NOTTINGHAM VICTORIA CTR, NOTTINGHAM MAPPERLEY
-- Variable: `sunday_hours` (label: *Sunday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 360.0, 0.0, 240.0
-- Variable: `week_hours` (label: *Total Opening Time all Week (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 3600.0, 4020.0, 3240.0
-- Variable: `weekday_hours` (label: *Weekday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 540.0, 600.0, 660.0
-- Variable: `weekday_hours_total` (label: *Total Opening Time on Weekdays (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 2700.0, 3000.0, 3300.0
-- Variable: `weekend_hours` (label: *Total Opening Time on Weekends (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 900.0, 1020.0, 540.0
-
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/B_dataset_fe_eb.dta**
-
-- Variable: `area_name` (label: *Area_Name*)
-  - Matched terms: name
-  - Sample values: Buckinghamshire, Bristol Outer, East Berkshire
-- Variable: `country` (label: *Country*)
-  - Matched terms: country
-  - Sample values: England
-- Variable: `elec_use_sqft` (label: *Electricity Consumption by sqft of Sales Area*)
-  - Matched terms: city
-  - Sample values: 27.82978630065918, 29.088146209716797, 27.838905334472656
-- Variable: `firstname` (label: *(first) firstname*)
-  - Matched terms: name
-  - Sample values: ILONA, SPENCER, JEANIE
-- Variable: `lastname` (label: *(first) lastname*)
-  - Matched terms: name
-  - Sample values: LUKKONEN, CLIFF, MINING
-- Variable: `latitude` (label: *Latitude*)
-  - Matched terms: lat
-  - Sample values: 51.74, 51.48, 51.62
-- Variable: `location_code`
-  - Matched terms: loc, location
-  - Sample values: BTC0242, BTC0246, BTC0247
-- Variable: `location_id` (label: *ID_2*)
-  - Matched terms: loc, location
-  - Sample values: 74.0, 10.0, 12.0
-- Variable: `location_name` (label: *NAME_2*)
-  - Matched terms: loc, location, name
-  - Sample values: Oxfordshire, Bristol, Buckinghamshire
-- Variable: `location_type` (label: *TYPE_2*)
-  - Matched terms: loc, location
-  - Sample values: Administrative County, Unitary Authority (city), Unitary Authority
-- Variable: `longitude` (label: *Longitude*)
-  - Matched terms: lon
-  - Sample values: -0.97, -2.67, -0.75
-- Variable: `manager_tenure_start` (label: *How long has individual been a manager as of April 2014 (start of sample)*)
-  - Matched terms: lon
-  - Sample values: 103.0, 145.0, 119.0
-- Variable: `region_name` (label: *Region_Name*)
-  - Matched terms: name
-  - Sample values: Central, South West, North of England
-- Variable: `saturday_hours` (label: *Saturday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 510.0, 570.0, 600.0
-- Variable: `store_name` (label: *Store_Name*)
-  - Matched terms: name
-  - Sample values: THAME HIGH ST, SHIREHAMPTON HIGH ST, HIGH WYCOMBE EDEN CTR
-- Variable: `sunday_hours` (label: *Sunday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 360.0, 0.0, 420.0
-- Variable: `week_hours` (label: *Total Opening Time all Week (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 3420.0, 3060.0, 3780.0
-- Variable: `weekday_hours` (label: *Weekday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 510.0, 570.0, 600.0
-- Variable: `weekday_hours_total` (label: *Total Opening Time on Weekdays (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 2550.0, 2850.0, 3000.0
-- Variable: `weekend_hours` (label: *Total Opening Time on Weekends (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 870.0, 510.0, 930.0
-
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/B_dataset_gfe.dta**
-
-- Variable: `area_name` (label: *Area_Name*)
-  - Matched terms: name
-  - Sample values: Warwickshire, Mid Wales, Kingston Upon Thames
-- Variable: `country` (label: *Country*)
-  - Matched terms: country
-  - Sample values: England
-- Variable: `elec_use_sqft` (label: *Electricity Consumption by sqft of Sales Area*)
-  - Matched terms: city
-  - Sample values: 19.586734771728516, 0.0, 34.761192321777344
-- Variable: `firstname` (label: *(first) firstname*)
-  - Matched terms: name
-  - Sample values: BRIAN, SIAN, TRISHA
-- Variable: `lastname` (label: *(first) lastname*)
-  - Matched terms: name
-  - Sample values: FRODSHAM, PETTMAN, PULLEN
-- Variable: `latitude` (label: *Latitude*)
-  - Matched terms: lat
-  - Sample values: 52.09, 51.82, 51.39
-- Variable: `location_code`
-  - Matched terms: loc, location
-  - Sample values: BTC0252, BTC0332, BTC0847
-- Variable: `location_id` (label: *ID_2*)
-  - Matched terms: loc, location
-  - Sample values: 111.0, 183.0, 49.0
-- Variable: `location_name` (label: *NAME_2*)
-  - Matched terms: loc, location, name
-  - Sample values: Worcestershire, Monmouthshire, Kingston upon Thames
-- Variable: `location_type` (label: *TYPE_2*)
-  - Matched terms: loc, location
-  - Sample values: Administrative County, Unitary Authority (wales), London Borough (royal)
-- Variable: `longitude` (label: *Longitude*)
-  - Matched terms: lon
-  - Sample values: -1.94, -3.01, -0.3
-- Variable: `manager_tenure_start` (label: *How long has individual been a manager as of April 2014 (start of sample)*)
-  - Matched terms: lon
-  - Sample values: 560.0, 452.0, 463.0
-- Variable: `region_name` (label: *Region_Name*)
-  - Matched terms: name
-  - Sample values: Central, Wales, Greater London
-- Variable: `saturday_hours` (label: *Saturday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 510.0, 540.0, 600.0
-- Variable: `store_name` (label: *Store_Name*)
-  - Matched terms: name
-  - Sample values: EVESHAM BRIDGE ST, ABERGAVENNY CROSS ST, SURBITON VICTORIA RD
-- Variable: `sunday_hours` (label: *Sunday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 0.0, 360.0, 900.0
-- Variable: `week_hours` (label: *Total Opening Time all Week (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 3060.0, 3240.0, 3960.0
-- Variable: `weekday_hours` (label: *Weekday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 510.0, 540.0, 600.0
-- Variable: `weekday_hours_total` (label: *Total Opening Time on Weekdays (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 2550.0, 2700.0, 3000.0
-- Variable: `weekend_hours` (label: *Total Opening Time on Weekends (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 510.0, 540.0, 960.0
-
-**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Data/B_event_study.dta**
-
-- Variable: `area_name` (label: *Area_Name*)
-  - Matched terms: name
-  - Sample values: Nottingham West, Nottingham City, Nottingham North
-- Variable: `country` (label: *Country*)
-  - Matched terms: country
-  - Sample values: England
-- Variable: `elec_use_sqft` (label: *Electricity Consumption by sqft of Sales Area*)
-  - Matched terms: city
-  - Sample values: 18.310810089111328, 19.461711883544922, 19.76801872253418
-- Variable: `firstname` (label: *(first) firstname*)
-  - Matched terms: name
-  - Sample values: ALISON, PAUL, MARIE
-- Variable: `lastname` (label: *(first) lastname*)
-  - Matched terms: name
-  - Sample values: EDWARDS, FLETCHER-READ, BOOTH
-- Variable: `latitude` (label: *Latitude*)
-  - Matched terms: lat
-  - Sample values: 52.92, 52.95, 53.01
-- Variable: `location_code`
-  - Matched terms: loc, location
-  - Sample values: BTC0005, , BTC0011
-- Variable: `location_id` (label: *ID_2*)
-  - Matched terms: loc, location
-  - Sample values: 73.0, 72.0, 20.0
-- Variable: `location_name` (label: *NAME_2*)
-  - Matched terms: loc, location, name
-  - Sample values: Nottingham, Nottinghamshire, Derbyshire
-- Variable: `location_type` (label: *TYPE_2*)
-  - Matched terms: loc, location
-  - Sample values: Unitary Authority (city), Administrative County, Unitary Authority
-- Variable: `longitude` (label: *Longitude*)
-  - Matched terms: lon
-  - Sample values: -1.21, -1.14, -1.3
-- Variable: `manager_tenure_start` (label: *How long has individual been a manager as of April 2014 (start of sample)*)
-  - Matched terms: lon
-  - Sample values: 210.0, 288.0, 340.0
-- Variable: `region_name` (label: *Region_Name*)
-  - Matched terms: name
-  - Sample values: Midlands, Yorkshire & Lincs, Central
-- Variable: `saturday_hours` (label: *Saturday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 540.0, 660.0, 510.0
-- Variable: `store_name` (label: *Store_Name*)
-  - Matched terms: name
-  - Sample values: NOTTINGHAM BEESTON, NOTTINGHAM VICTORIA CTR, NOTTINGHAM EASTWOOD
-- Variable: `sunday_hours` (label: *Sunday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 360.0, 0.0, 240.0
-- Variable: `week_hours` (label: *Total Opening Time all Week (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 3600.0, 4020.0, 3900.0
-- Variable: `weekday_hours` (label: *Weekday Opening Time (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 540.0, 600.0, 510.0
-- Variable: `weekday_hours_total` (label: *Total Opening Time on Weekdays (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 2700.0, 3000.0, 2550.0
-- Variable: `weekend_hours` (label: *Total Opening Time on Weekends (Minutes)*)
-  - Matched terms: minute
-  - Sample values: 900.0, 1020.0, 540.0
+| File Type | File | Variables/References | PII Categories |
+|-----------|------|----------------------|----------------|
+| Code | `01_main.R` | 5 | name, loc |
+| Code | `02_main.do` | 12 | son, lat, name, gender |
+| Code | `03_main.sh` | 2 | lat |
+| Code | `A_analyze_FE.do` | 10 | name, lat, loc, location, lon |
+| Code | `A_estimate_fe.R` | 8 | network, name |
+| Code | `A_estimate_gfe.R` | 8 | network, name, lat |
+| Code | `A_event_study.do` | 80 | loc, name, lon, son, lat |
+| Code | `A_prelim_analysis.do` | 10 | loc, location, lat, name |
+| Code | `A_revenue_counterfactuals.do` | 8 | loc |
+| Code | `B_analyze_FE.do` | 6 | name, lat, loc, location |
+| Code | `B_estimate_fe.R` | 8 | network, name |
+| Code | `B_estimate_gfe.R` | 9 | lat, network, name |
+| Code | `B_event_study.do` | 80 | loc, name, lon, son, lat |
+| Code | `B_gender_moves.do` | 7 | gender, lon, loc, location |
+| Code | `B_prelim_analysis.do` | 11 | name, lat |
+| Code | `B_revenue_counterfactuals.do` | 8 | loc |
+| Code | `_eststo.ado` | 8 | loc, lon |
+| Code | `binscatter.ado` | 209 | lat, name, loc, lon, lname, block, coord |
+| Code | `calibrate_NAM.py` | 1 | lat |
+| Code | `create_table_1_clean_from_fe.R` | 11 | name, block, loc, lon, lname |
+| Code | `did_imputation.ado` | 207 | lon, name, loc, son, lat, degree, lname |
+| Code | `ebayes.ado` | 52 | name, loc, lat, second, degree, lon |
+| Code | `estadd.ado` | 737 | loc, lon, name, lname, lat |
+| Code | `estfe.ado` | 47 | name, loc, lname |
+| Code | `estout.ado` | 1787 | loc, name, son, lat, lname, block, lon |
+| Code | `estpost.ado` | 702 | lat, loc, name, lon, lname, son |
+| Code | `eststo.ado` | 100 | loc, lon, name |
+| Code | `esttab.ado` | 645 | loc, lon, name, second |
+| Code | `event_plot.ado` | 114 | lat, name, loc, lname |
+| Code | `fcollapse.ado` | 68 | loc, name, lat, lon |
+| Code | `fegen.ado` | 16 | loc, name |
+| Code | `fegen_group.ado` | 31 | name, lname, loc, lon |
+| Code | `fese_fast.ado` | 18 | lat, city, name, loc |
+| Code | `fisid.ado` | 12 | loc, name |
+| Code | `flevelsof.ado` | 15 | name, loc |
+| Code | `fmerge.ado` | 4 | loc |
+| Code | `freshape.ado` | 6 | lon, loc |
+| Code | `fsort.ado` | 6 | loc |
+| Code | `ftab.ado` | 26 | loc, name, lname, lon |
+| Code | `ftools.ado` | 8 | loc |
+| Code | `grc1leg2.ado` | 324 | name, loc, location, lat, son, fname, lname, compound, lon |
+| Code | `grc1leg2_examples.ado` | 120 | name, loc, lon, second, country, location, coord |
+| Code | `join.ado` | 108 | name, loc, country, dob, lon |
+| Code | `local_inlist.ado` | 10 | loc, name |
+| Code | `ms_add_comma.ado` | 6 | loc, name |
+| Code | `ms_compile_mata.ado` | 37 | loc, name, son |
+| Code | `ms_expand_varlist.ado` | 23 | loc |
+| Code | `ms_fvstrip.ado` | 51 | name, lat, loc |
+| Code | `ms_fvunab.ado` | 15 | name, lon, loc |
+| Code | `ms_get_version.ado` | 9 | name, loc |
+| Code | `ms_parse_absvars.ado` | 117 | name, loc |
+| Code | `ms_parse_depvar.ado` | 7 | loc |
+| Code | `ms_parse_varlist.ado` | 8 | loc |
+| Code | `ms_parse_vce.ado` | 24 | loc, name |
+| Code | `parallel_map.ado` | 74 | loc, lon, name, lat, son |
+| Code | `parallel_map_template.do.ado` | 6 | loc, name |
+| Code | `reghdfe.ado` | 175 | loc, url, name, degree, lat, block, lname |
+| Code | `reghdfe3.ado` | 972 | loc, name, block, lon, lat, zip, url, degree, second, district, son, city, lname, fname, email |
+| Code | `reghdfe3_estat.ado` | 3 | loc |
+| Code | `reghdfe3_footnote.ado` | 32 | loc, degree |
+| Code | `reghdfe3_p.ado` | 20 | loc, name |
+| Code | `reghdfe5.ado` | 86 | loc, lat, url, name, degree, lname |
+| Code | `reghdfe5_estat.ado` | 3 | loc |
+| Code | `reghdfe5_footnote.ado` | 18 | name, loc, degree |
+| Code | `reghdfe5_header.ado` | 38 | name, loc |
+| Code | `reghdfe5_p.ado` | 8 | loc, name |
+| Code | `reghdfe5_parse.ado` | 47 | loc, name, degree, lat |
+| Code | `reghdfe_estat.ado` | 3 | loc |
+| Code | `reghdfe_footnote.ado` | 18 | name, loc, degree |
+| Code | `reghdfe_header.ado` | 38 | name, loc |
+| Code | `reghdfe_p.ado` | 8 | loc, name |
+| Code | `require.ado` | 170 | name, loc, network, son, url, email |
+| Code | `selection_based_NAM.do` | 6 | lat |
+| Code | `simulate_selection.py` | 7 | name, lat, loc |
 
 ### Code Files
 
@@ -345,6 +110,10 @@ This appendix lists all detected instances of potential personally identifiable 
 
 **/replication-package/Replication_for_Managers_and_Productivity_in_Retail/02_main.do**
 
+- Line 17: son
+  ```
+  global root "/Users/GARSON/JPE/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and
+  ```
 - Line 21: lat
   ```
   gl simul_dir "$root/Code/NAM Simulations"
@@ -387,7 +156,18 @@ This appendix lists all detected instances of potential personally identifiable 
   ```
 - Line 122: lat
   ```
-  python script "simulate_selection.py"
+  // python script "simulate_selection.py"
+  ```
+
+**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/03_main.sh**
+
+- Line 6: lat
+  ```
+  python "Code/NAM Simulations/calibrate_NAM.py"
+  ```
+- Line 7: lat
+  ```
+  python "Code/NAM Simulations/simulate_selection.py"
   ```
 
 **/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/calibrate_NAM.py**
@@ -428,7 +208,7 @@ This appendix lists all detected instances of potential personally identifiable 
 
 - Line 10: name
   ```
-  parent_dir = os.path.dirname(os.path.dirname(script_dir))
+  # parent_dir = os.path.dirname(os.path.dirname(script_dir))
   ```
 - Line 98: lat
   ```
@@ -597,6 +377,53 @@ This appendix lists all detected instances of potential personally identifiable 
 - Line 162: lat
   ```
   cat("### Correlation - Biased ###")
+  ```
+
+**/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/create_table_1_clean_from_fe.R**
+
+- Line 3: name
+  ```
+  !vapply(required_packages, requireNamespace, logical(1), quietly = TRUE)
+  ```
+- Line 50: name
+  ```
+  project_dir <- normalizePath(file.path(dirname(script_path), "..", ".."))
+  ```
+- Line 67: block, loc
+  ```
+  stop("Could not find the variance-share block in: ", path, call. = FALSE)
+  ```
+- Line 71: lon
+  ```
+  seq_along(lines) > tail(variance_idx, 1) &
+  ```
+- Line 128: name
+  ```
+  if (!all(merge_keys %in% names(dataset))) {
+  ```
+- Line 131: name
+  ```
+  if (!all(c(merge_keys, "cs_rank") %in% names(connected))) {
+  ```
+- Line 152: name
+  ```
+  rownames(counts) <- NULL
+  ```
+- Line 196: name
+  ```
+  names(table_display) <- c(
+  ```
+- Line 258: name
+  ```
+  write.csv(table_display, csv_path, row.names = FALSE)
+  ```
+- Line 298: name
+  ```
+  panel_data <- panel_data[, -match("Company", names(panel_data))]
+  ```
+- Line 310: lname, name
+  ```
+  colNames = TRUE
   ```
 
 **/replication-package/Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_FE.do**
