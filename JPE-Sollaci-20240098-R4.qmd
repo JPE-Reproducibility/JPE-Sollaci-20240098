@@ -3,7 +3,7 @@ title: JPE Replication Report
 date: today
 number-sections: true
 format:
-  pdf: typst
+  pdf: default
 ---
 
 # Paper Identification
