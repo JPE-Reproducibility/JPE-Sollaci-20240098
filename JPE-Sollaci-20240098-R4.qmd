@@ -3,7 +3,7 @@ title: JPE Replication Report
 date: today
 number-sections: true
 format:
-  pdf: default
+  html: default
 ---
 
 # Paper Identification
@@ -235,9 +235,9 @@ You can copy the section above, amended if necessary.
 
 ::: {#fig-three layout-ncol=3}
 
-![Reproduced output should correspond to the company A side of table 2](images/tab2_A_R4.png)
+![Reproduced output should correspond to the company A side of table 2](images/tab2_B_R4.png)
 
-![Reproduced output should correspond to the company B side of table 2](images/tab2_B_R4.png)
+![Reproduced output should correspond to the company B side of table 2](images/tab2_A_R4.png)
 
 ![Paper version](images/Table_2_paper_R2.png)
 
