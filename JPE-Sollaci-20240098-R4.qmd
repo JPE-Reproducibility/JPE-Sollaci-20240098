@@ -23,6 +23,17 @@ Some useful information up front:
 
 # Summary
 
+1. We were surprised to find a very large number of non-reproducing outputs in your package. We checked against the latest version of your paper included in the package. At round 4 of a replication package that is quite striking. 
+2. I went and checked the content of your data files between round 3 and 4. The actual data is identical, but the sort order of the rows is different. After sorting they are identical:
+
+   - Shape: both 2,053 rows × 4 columns
+   - Columns/dtypes: identical — connected_set (float64), store_id (float64), manager_id (float64), cs_rank (int32)
+   - Direct row-by-row comparison: not equal (710 differing cells) — because rows are ordered differently between the two files
+   - After sorting both by all columns: fully equal — no differences at all
+
+   So round 3 and round 4 of A_connected.dta contain the exact same data (same connected components, store IDs, manager IDs, and ranks); only the row ordering differs, which is likely just an artifact of a re-run (e.g., different sort stability or generation order) rather than any substantive change.
+  
+3. It's my hunch that this is why the results are different. Please check this and make sure you check the output before you submit the next and hopefully final time.
 
 
 # General
