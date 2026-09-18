@@ -1,0 +1,1037 @@
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/01_main.R round4_Code_for_Managers_and_Productivity_in_Retail/01_main.R
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/01_main.R	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/01_main.R	2026-09-18 15:45:14
+@@ -1,43 +1,69 @@
+ rm(list = ls())
+ start_time <- Sys.time()
+ 
++#### Set environment ####
++Sys.setenv(OMP_NUM_THREADS = "1",
++           OPENBLAS_NUM_THREADS = "1",
++           MKL_NUM_THREADS = "1",
++           VECLIB_MAXIMUM_THREADS = "1")
++
++#### Call libraries ####
+ library(haven)
+-library(rstudioapi)
+-library(doBy)
+ library(lfe)
++library(doBy)
++library(RhpcBLASctl)
+ 
+-#### Set working directory ####
+-current_path <- getActiveDocumentContext()$path 
+-current_dir <- dirname(current_path)
++#### Thread caps and RNG  ####
++RhpcBLASctl::blas_set_num_threads(1)
++RhpcBLASctl::omp_set_num_threads(1)
+ 
+-code_dir <- paste(current_dir, "/Code/R codes", sep="")
+-data_dir <- paste(current_dir, "/Data", sep="")
+-tables_dir <-  paste(current_dir, "/Results/Tables", sep="")
+-figures_dir <-  paste(current_dir, "/Results/Figures", sep="")
++Sys.setlocale("LC_COLLATE", "C")
++RNGkind("Mersenne-Twister", "Inversion", "Rejection")
+ 
+-set.seed(42)
+-tol_fe = 0.005
++#### lfe options ####
++options(lfe.threads      = 1,
++        lfe.eps          = 1e-10,
++        lfe.usecg        = FALSE,
++        stringsAsFactors = FALSE)
+ 
+-### Run estimation of FEs for Company A ####
++#### Set paths ####
++proj_root  <- "/Users/GARSON/JPE/JPE-Sollaci-20240098/replication-package/Code_for_Managers_and_Productivity_in_Retail/"
++data_dir   <- file.path(proj_root, "Data")
++code_dir   <- file.path(proj_root, "Code", "R codes")
++tables_dir <- file.path(proj_root, "Results", "Tables")
++
++#### Global variables used in scripts ####
++seed <- 42
++tol_fe <- 0.005 # tolerance for var/covar calculations
++
++#### Log the environment ####
++sink(file.path(proj_root, "Results", "sessionInfo.log"), split = TRUE)
++cat("Run date:", format(Sys.time()), "\n\n")
++print(sessionInfo())
++cat("\nlfe version:", as.character(packageVersion("lfe")), "\n")
++cat("BLAS threads:", RhpcBLASctl::blas_get_num_procs(), "\n")
++sink()
++
++### Run estimation of FEs ####
++print(">>> Running _estimate_fe.R")
++source(file.path(code_dir, "A_estimate_fe.R"), echo = TRUE)
++source(file.path(code_dir, "B_estimate_fe.R"), echo = TRUE)
++
++
++### Run estimation of group-FEs for Company A ####
+ num_groups_store <- 20
+ num_groups_mng   <- 20
++source(file.path(code_dir, "A_estimate_gfe.R"), echo = TRUE)
+ 
+-source(file.path(code_dir, "A_estimate_fe.R"),  echo = TRUE, local = TRUE)
+-source(file.path(code_dir, "A_estimate_gfe.R"), echo = TRUE, local = TRUE)
+-
+-#### Run estimation of FEs for Company B ####
++#### Run estimation of group-FEs for Company B ####
+ num_groups_store <- 50
+ num_groups_mng   <- 50
++source(file.path(code_dir, "B_estimate_gfe.R"), echo = TRUE)
+ 
+-source(file.path(code_dir, "B_estimate_fe.R"),  echo = TRUE, local = TRUE)
+-source(file.path(code_dir, "B_estimate_gfe.R"), echo = TRUE, local = TRUE)
+ 
+-
+-
+ end_time <- Sys.time()
+ 
+ cat("\n=========================\n")
+ cat("Total runtime:\n")
+ print(end_time - start_time)
+-cat("=========================\n")
+-
++cat("=========================\n")
+\ No newline at end of file
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/02_main.do round4_Code_for_Managers_and_Productivity_in_Retail/02_main.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/02_main.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/02_main.do	2026-09-18 15:45:14
+@@ -14,7 +14,7 @@
+ * ########################################
+ 
+ // Set path to replication file
+-global root "/Users/GARSON/JPE/JPE-Sollaci-20240098/replication-package/Replication_for_Managers_and_Productivity_in_Retail"
++global root "/Users/GARSON/JPE/JPE-Sollaci-20240098/replication-package/Code_for_Managers_and_Productivity_in_Retail/"
+ 
+ gl data_dir "$root/Data"
+ gl code_dir "$root/Code/Stata codes"
+@@ -57,7 +57,12 @@
+ global seed_num 42
+ set seed $seed_num
+ 
++// keep logs of results
++capture mkdir "$root/logs"
++capture log close
++log using "$root/logs/log_of_results.txt", text replace
+ 
++
+ * ########################################
+ * ##### Run estimation for Company A #####
+ * ########################################
+@@ -65,7 +70,7 @@
+ display in red "============ Running estimates for Company A ============"
+ 
+ * Preliminary look at the data: Produces Figures A.1 and C.1; Tables B.1, C.1, and D.1
+-do "$code_dir/A_prelim_analysis.do" 
++do "$code_dir/A_prelim_analysis.do"
+ 
+ * EB-adjustment and analysis of the FEs: Produces Figures 3, 4, A.2, A.3, A.4, C.2 and C.3; R2 numbers discussed in Appendix C.3; Ratios discussed in Appendix E.2
+ do "$code_dir/A_analyze_FE.do"
+@@ -116,15 +121,17 @@
+ do "selection_based_NAM.do"
+ 
+ * Calibration the NAM algorithm to match observed data
+-// python script "calibrate_NAM.py"
++python script "calibrate_NAM.py"
+ 
+ * General simulation with multiple rounds: Produces Figure D.3
+-// python script "simulate_selection.py"
++python script "simulate_selection.py"
+ 
+ 
+ display in red "============ Replication finished ============"
++
++
+ timer off 1
+ timer list
+-
++log close
+ 
+ 
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/simulate_selection.py round4_Code_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/simulate_selection.py
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/simulate_selection.py	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/NAM Simulations/simulate_selection.py	2026-09-18 15:45:14
+@@ -7,8 +7,8 @@
+ #%% Set directory
+ 
+ script_dir = os.getcwd()
+-# parent_dir = os.path.dirname(os.path.dirname(script_dir))
+-figures_dir = os.path.join(script_dir, "Results/Figures")
++parent_dir = os.path.dirname(os.path.dirname(script_dir))
++figures_dir = os.path.join(parent_dir, "Results/Figures")
+ 
+ #%% Parameters
+ 
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_fe.R round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_fe.R
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_fe.R	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_fe.R	2026-09-18 15:45:14
+@@ -1,6 +1,5 @@
+ 
+-setwd(data_dir)
+-df <- read_dta("A_dataset.dta")
++df <- read_dta(file.path(data_dir, "A_dataset.dta"))
+ 
+ 
+                               #### Define variables and network structures ####
+@@ -9,8 +8,14 @@
+ df$prod <- df$sales/df$fte_count
+ df$log_prod <- log(df$prod)
+ 
++# Determine row order
++df <- df[order(df$store_id, df$manager_id, df$time), ]
++df$store_id <- factor(df$store_id, levels = sort(unique(df$store_id)))
++df$manager_id <- factor(df$manager_id, levels = sort(unique(df$manager_id)))
++df$time <- factor(df$time, levels = sort(unique(df$time)))
++
+ # Find connected sets
+-cs <- compfactor(list(factor(df$store_id), factor(df$manager_id)))
++cs <- compfactor(list(df$store_id, df$manager_id))
+ df$connected_set <- as.numeric(as.character(cs))
+ 
+ keep <- c("store_id", "manager_id", "connected_set")
+@@ -34,16 +39,20 @@
+ df <- merge(df, t, by = "connected_set", all.x = TRUE, sort = FALSE)
+ 
+ # Save results to Stata
+-write_dta(df_cs, "A_connected.dta")
++df_cs$store_id <- as.numeric(as.character(df_cs$store_id))
++df_cs$manager_id <- as.numeric(as.character(df_cs$manager_id))
++write_dta(df_cs, file.path(data_dir, "A_connected.dta"))
+ 
+ 
+                               #### Estimate fixed effects ####
+ 
++set.seed(seed)
+ reg <- felm(log_prod ~ 1 | manager_id + store_id + time, data=df, cmethod='reghdfe')
+ print(summary(reg))
+ 
+ # Recover estimates
+-mng_store_fe <- getfe(reg, se=TRUE)
++set.seed(seed)
++mng_store_fe <- getfe(reg, se=TRUE, bN = 100)
+ 
+ store_fe <- subset(mng_store_fe, fe == 'store_id', select=c('effect','se','comp','idx'))
+ names(store_fe) <- c('fe', 'fe_se', 'connected_set', 'store_id')
+@@ -58,11 +67,11 @@
+ # Save results to Stata
+ indx <- sapply(store_fe, is.factor)
+ store_fe[indx] <- lapply(store_fe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(store_fe, "A_store_fe.dta")
++write_dta(store_fe, file.path(data_dir, "A_store_fe.dta"))
+ 
+ indx <- sapply(manager_fe, is.factor)
+ manager_fe[indx] <- lapply(manager_fe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(manager_fe, "A_manager_fe.dta")
++write_dta(manager_fe, file.path(data_dir, "A_manager_fe.dta"))
+ 
+ 
+                               #### Variance-covariance decomposition ####
+@@ -72,25 +81,27 @@
+ names(time_fe) <- c('time_fe', 'time')
+ 
+ df2 <- merge(df, time_fe, by = 'time', sort = FALSE)
++df2 <- df2[order(df2$store_id, df2$manager_id, df2$time), ]
+ df2$log_prod_time <- df2$log_prod - df2$time_fe
+ 
+ # Subset data into connected components
+ for (j in 1:4) {
+   
+-  cat("\nComputing covariance in set rank =", j)
+-  cat("\n")
++  cat("\nComputing covariance in set rank =", j, "\n")
+   
+   # subset to largest connected set (rank = j)
+   lcs <- j
+   df_sub <- subset(df2, cs_rank == lcs)
+  
+   # Fixed effects inside LCS
++  set.seed(seed + j)
+   reg_sub <- felm(log_prod_time ~ 1 | manager_id + store_id, data=df_sub, cmethod='reghdfe')
+-  fe_sub <- getfe(reg_sub, se=TRUE)
+   
++  set.seed(seed + j)
++  fe_sub <- getfe(reg_sub, se=TRUE, bN = 100)
++  
+   # save printed output to file
+-  setwd(tables_dir)
+-  file_name <- paste(j, "A_cs_covar.txt", sep = "-")
++  file_name <- file.path(tables_dir, paste(j, "A_cs_covar.txt", sep = "-"))
+   sink(file_name)
+   
+   print(summary(reg_sub))
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_gfe.R round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_gfe.R
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_gfe.R	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/A_estimate_gfe.R	2026-09-18 15:45:14
+@@ -1,16 +1,15 @@
+ 
+-setwd(data_dir)
+-df <- read_dta("A_dataset.dta")
+-store_fe <- read_dta("A_store_fe.dta")
+-manager_fe <- read_dta("A_manager_fe.dta")
++df <- as.data.frame(read_dta(file.path(data_dir, "A_dataset.dta")))
++store_fe   <- read_dta(file.path(data_dir, "A_store_fe.dta"))
++manager_fe <- read_dta(file.path(data_dir, "A_manager_fe.dta"))
+ 
+ 
+                               #### Cluster stores ####
+ 
+-df <- as.data.frame(df)
+ df_store <- summaryBy(log_fte_count ~ store_id, FUN=mean, data=df)
++df_store <- df_store[order(df_store$store_id), ]
+ 
+-set.seed(42)
++set.seed(seed)
+ km_store <- kmeans(df_store$log_fte_count.mean,
+                    centers = num_groups_store,
+                    iter.max = 100,
+@@ -22,15 +21,15 @@
+ 
+ indx <- sapply(store_gid, is.factor)
+ store_gid[indx] <- lapply(store_gid[indx], function(x) as.numeric(as.character(x)))
+-write_dta(store_gid, "A_store_gid.dta")
++write_dta(store_gid, file.path(data_dir, "A_store_gid.dta"))
+ 
+                               #### Cluster managers ####
+ 
+-setwd(data_dir)
+ df_mng <- summaryBy(log_manager_salary ~ manager_id, FUN=mean, data=df)
+ df_mng <- df_mng[complete.cases(df_mng),] # remove NA
++df_mng <- df_mng[order(df_mng$manager_id), ]
+ 
+-set.seed(42)
++set.seed(seed + 1)
+ km_mng <- kmeans(df_mng$log_manager_salary.mean,
+                  centers = num_groups_mng,
+                  iter.max = 100,
+@@ -42,27 +41,32 @@
+ 
+ indx <- sapply(manager_gid, is.factor)
+ manager_gid[indx] <- lapply(manager_gid[indx], function(x) as.numeric(as.character(x)))
+-write_dta(manager_gid, "A_manager_gid.dta")
++write_dta(manager_gid, file.path(data_dir, "A_manager_gid.dta"))
+ 
+ #### ================================================================================== ####
+ 
+                               #### Read data ####
+-setwd(data_dir)
+-df <- read_dta("A_dataset.dta")
+-df_store <- read_dta("A_store_gid.dta")
+-df_mng <- read_dta("A_manager_gid.dta")
+ 
+-df <- merge(df, df_store, by="store_id", all.x = TRUE, sort = FALSE)
+-df <- merge(df, df_mng, by="manager_id", all.x = TRUE, sort = FALSE)
+-df <- df[complete.cases(df$manager_gid, df$store_gid),]
++df       <- read_dta(file.path(data_dir, "A_dataset.dta"))
++df_store <- read_dta(file.path(data_dir, "A_store_gid.dta"))
++df_mng   <- read_dta(file.path(data_dir, "A_manager_gid.dta"))
+ 
++df <- merge(df, df_store, by = "store_id",   all.x = TRUE, sort = FALSE)
++df <- merge(df, df_mng,   by = "manager_id", all.x = TRUE, sort = FALSE)
++df <- df[complete.cases(df$manager_gid, df$store_gid), ]
+ 
++
+                               #### Define variables & network structure ####
+ 
+ # Define productivity
+ df$prod <- df$sales/df$fte_count
+ df$log_prod <- log(df$prod)
+ 
++df <- df[order(df$store_gid, df$manager_gid, df$time), ]
++df$store_gid   <- factor(df$store_gid,   levels = sort(unique(df$store_gid)))
++df$manager_gid <- factor(df$manager_gid, levels = sort(unique(df$manager_gid)))
++df$time        <- factor(df$time,        levels = sort(unique(df$time)))
++
+ # Find connected sets
+ cs <- compfactor(list(factor(df$store_gid), factor(df$manager_gid)))
+ df$connected_set <- as.numeric(as.character(cs))
+@@ -71,11 +75,13 @@
+ 
+                               #### Estimate Fixed Effects ####
+ 
++set.seed(seed)
+ reg <- felm(log_prod ~ 1 | manager_gid + store_gid + time, data=df, cmethod='reghdfe')
+ print(summary(reg))
+ 
+ # Recover estimates
+-mng_store_gfe <- getfe(reg, se=TRUE) 
++set.seed(seed)
++mng_store_gfe <- getfe(reg, se = TRUE, bN = 100)
+ 
+ store_gfe = subset(mng_store_gfe, fe == 'store_gid', select=c('effect','se','comp','idx'))
+ names(store_gfe) <- c('fe', 'fe_se', 'connected_set', 'store_gid')
+@@ -90,53 +96,12 @@
+ # Save results to Stata
+ indx <- sapply(store_gfe, is.factor)
+ store_gfe[indx] <- lapply(store_gfe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(store_gfe, "A_store_gfe.dta")
++write_dta(store_gfe, file.path(data_dir, "A_store_gfe.dta"))
+ 
+ indx <- sapply(manager_gfe, is.factor)
+ manager_gfe[indx] <- lapply(manager_gfe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(manager_gfe, "A_manager_gfe.dta")
++write_dta(manager_gfe, file.path(data_dir, "A_manager_gfe.dta"))
+ 
+-
+-                              #### Variance-covariance decomposition ####
+-
+-
+-# Bias corrected var-cov matrix
+-covar <- fevcov(reg, mng_store_gfe, tol = tol_fe)
+-
+-covar_biased <- covar + attr(covar, 'bias')
+-attr(covar_biased, 'bias') <- NULL
+-
+-# correlations
+-corr <- cov2cor(covar)
+-attr(corr, 'bias') <- NULL
+-
+-corr_biased <- cov2cor(covar_biased)
+-
+-
+-setwd(tables_dir)
+-file_name <- "A_covar_group.txt"
+-sink(file_name)
+-
+-cat("=========================")
+-cat("### Covariance Matrix ###")
+-cat("=========================")
+-print(covar)
+-
+-cat("=========================")
+-cat("### Covariance - Biased ###")
+-cat("=========================")
+-print(covar_biased)
+-
+-cat("=========================")
+-cat("### Correlation ###")
+-cat("=========================")
+-print(corr)
+-
+-cat("=========================")
+-cat("### Correlation - Biased ###")
+-cat("=========================")
+-print(corr_biased)
+-sink()
+ 
+ 
+ 
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_fe.R round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_fe.R
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_fe.R	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_fe.R	2026-09-18 15:45:14
+@@ -1,6 +1,5 @@
+ 
+-setwd(data_dir)
+-df <- read_dta("B_dataset.dta")
++df <- read_dta(file.path(data_dir, "B_dataset.dta"))
+ 
+ 
+                               #### Define variables and network structures ####
+@@ -9,6 +8,12 @@
+ df$prod <- df$revenue_total/df$fte_count
+ df$log_prod <- log(df$prod)
+ 
++# Determine row order
++df <- df[order(df$store_id, df$manager_id, df$time), ]
++df$store_id <- factor(df$store_id, levels = sort(unique(df$store_id)))
++df$manager_id <- factor(df$manager_id, levels = sort(unique(df$manager_id)))
++df$time <- factor(df$time, levels = sort(unique(df$time)))
++
+ # Find connected sets
+ cs <- compfactor(list(factor(df$store_id), factor(df$manager_id)))
+ df$connected_set <- as.numeric(as.character(cs))
+@@ -34,16 +39,20 @@
+ df <- merge(df, t, by = "connected_set", all.x = TRUE, sort = FALSE)
+ 
+ # Save results to Stata
+-write_dta(df_cs, "B_connected.dta")
++df_cs$store_id <- as.numeric(as.character(df_cs$store_id))
++df_cs$manager_id <- as.numeric(as.character(df_cs$manager_id))
++write_dta(df_cs, file.path(data_dir, "B_connected.dta"))
+ 
+ 
+                               #### Estimate fixed effects ####
+ 
++set.seed(seed)
+ reg <- felm(log_prod ~ 1 | manager_id + store_id + time, data=df, cmethod='reghdfe')
+ print(summary(reg))
+ 
+ # Recover estimates
+-mng_store_fe <- getfe(reg, se=TRUE) #, robust=TRUE)
++set.seed(seed)
++mng_store_fe <- getfe(reg, se=TRUE, bN = 100)
+ 
+ store_fe <- subset(mng_store_fe, fe == 'store_id', select=c('effect','se','comp','idx'))
+ names(store_fe) <- c('fe', 'fe_se', 'connected_set', 'store_id')
+@@ -58,11 +67,11 @@
+ # Save results to Stata
+ indx <- sapply(store_fe, is.factor)
+ store_fe[indx] <- lapply(store_fe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(store_fe, "B_store_fe.dta")
++write_dta(store_fe, file.path(data_dir, "B_store_fe.dta"))
+ 
+ indx <- sapply(manager_fe, is.factor)
+ manager_fe[indx] <- lapply(manager_fe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(manager_fe, "B_manager_fe.dta")
++write_dta(manager_fe, file.path(data_dir, "B_manager_fe.dta"))
+ 
+ 
+                               #### Variance-covariance decomposition ####
+@@ -72,25 +81,27 @@
+ names(time_fe) <- c('time_fe', 'time')
+ 
+ df2 <- merge(df, time_fe, by = 'time', sort = FALSE)
++df2 <- df2[order(df2$store_id, df2$manager_id, df2$time), ]
+ df2$log_prod_time <- df2$log_prod - df2$time_fe
+ 
+ # Subset data into connected components
+ for (j in 1:4) {
+   
+-  cat("\nComputing covariance in set rank =", j)
+-  cat("\n")
++  cat("\nComputing covariance in set rank =", j, "\n")
+   
+   # subset to largest connected set (rank = j)
+   lcs <- j
+   df_sub <- subset(df2, cs_rank == lcs)
+   
+   # Fixed effects inside LCS
++  set.seed(seed + j)
+   reg_sub <- felm(log_prod_time ~ 1 | manager_id + store_id, data=df_sub, cmethod='reghdfe')
+-  fe_sub <- getfe(reg_sub, se=TRUE)
++ 
++  set.seed(seed + j)
++  fe_sub <- getfe(reg_sub, se=TRUE, bN = 100)
+   
+   # save printed output to file
+-  setwd(tables_dir)
+-  file_name <- paste(j, "B_cs_covar.txt", sep = "-")
++  file_name <- file.path(tables_dir, paste(j, "B_cs_covar.txt", sep = "-"))
+   sink(file_name)
+   
+   print(summary(reg_sub))
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_gfe.R round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_gfe.R
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_gfe.R	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/R codes/B_estimate_gfe.R	2026-09-18 15:45:14
+@@ -1,16 +1,15 @@
+ 
+-setwd(data_dir)
+-df <- read_dta("B_dataset.dta")
+-store_fe <- read_dta("B_store_fe.dta")
+-manager_fe <- read_dta("B_manager_fe.dta")
++df <- as.data.frame(read_dta(file.path(data_dir, "B_dataset.dta")))
++store_fe   <- read_dta(file.path(data_dir, "B_store_fe.dta"))
++manager_fe <- read_dta(file.path(data_dir, "B_manager_fe.dta"))
+ 
+ 
+                               #### Cluster stores ####
+ 
+-df <- as.data.frame(df)
+ df_store <- summaryBy(log_fte_count ~ store_id, FUN=mean, data=df)
++df_store <- df_store[order(df_store$store_id), ]
+ 
+-set.seed(42)
++set.seed(seed)
+ km_store <- kmeans(df_store$log_fte_count.mean,
+                    centers = num_groups_store,
+                    iter.max = 100,
+@@ -22,45 +21,36 @@
+ 
+ indx <- sapply(store_gid, is.factor)
+ store_gid[indx] <- lapply(store_gid[indx], function(x) as.numeric(as.character(x)))
+-write_dta(store_gid, "B_store_gid.dta")
++write_dta(store_gid, file.path(data_dir, "B_store_gid.dta"))
+ 
+                               #### Cluster managers ####
+-setwd(data_dir)
+ 
+ # average tenure
+ df_mng_tenure <- summaryBy(log_manager_tenure_start ~ manager_id,
+                            FUN = mean, data = df)
+ 
+-# mode store format
++# mode of store format
+ get_mode <- function(x) {
+   ux <- unique(x)
+   ux[which.max(tabulate(match(x, ux)))]
+ }
+-df_mng_format <- aggregate(format_num ~ manager_id,
+-                           data = df,
+-                           FUN = get_mode)
++df_mng_format <- aggregate(format_num ~ manager_id, data = df, FUN = get_mode)
+ 
+ # merge and remove NA
+-df_mng <- merge(df_mng_tenure, df_mng_format,
+-                by = "manager_id",
+-                sort = FALSE)
++df_mng <- merge(df_mng_tenure, df_mng_format, by = "manager_id", sort = FALSE)
+ df_mng <- df_mng[complete.cases(df_mng),]
++df_mng$format_num <- factor(df_mng$format_num, levels = sort(unique(df_mng$format_num)))
+ 
+ # concatenate for clustering
+-X <- cbind(
+-  df_mng$log_manager_tenure_start.mean,
+-  model.matrix(~ factor(df_mng$format_num) - 1)
+-)
++X <- cbind( df_mng$log_manager_tenure_start.mean, model.matrix(~ factor(df_mng$format_num) - 1))
+ X_scaled <- scale(X)
+ 
+ # run k-means
+-set.seed(42)
+-km_mng <- kmeans(
+-  X_scaled,
+-  centers = num_groups_mng,
+-  iter.max = 100,
+-  nstart = 20
+-)
++set.seed(seed + 1)
++km_mng <- kmeans(X_scaled,
++                 centers = num_groups_mng,
++                 iter.max = 100,
++                 nstart = 20)
+ 
+ # save group ID's
+ manager_gid <- df_mng["manager_id"]
+@@ -68,16 +58,16 @@
+ 
+ indx <- sapply(manager_gid, is.factor)
+ manager_gid[indx] <- lapply(manager_gid[indx], function(x) as.numeric(as.character(x)))
+-write_dta(manager_gid, "B_manager_gid.dta")
++write_dta(manager_gid, file.path(data_dir, "B_manager_gid.dta"))
+ 
+ #### ================================================================================== ####
+ 
+                               #### Read data ####
+-setwd(data_dir)
+-df <- read_dta("B_dataset.dta")
+-df_store <- read_dta("B_store_gid.dta")
+-df_mng <- read_dta("B_manager_gid.dta")
+ 
++df       <- read_dta(file.path(data_dir, "B_dataset.dta"))
++df_store <- read_dta(file.path(data_dir, "B_store_gid.dta"))
++df_mng   <- read_dta(file.path(data_dir, "B_manager_gid.dta"))
++
+ df <- merge(df, df_store, by="store_id", all.x = TRUE, sort = FALSE)
+ df <- merge(df, df_mng, by="manager_id", all.x = TRUE, sort = FALSE)
+ df <- df[complete.cases(df$manager_gid, df$store_gid),]
+@@ -89,6 +79,11 @@
+ df$prod <- df$revenue_total/df$fte_count
+ df$log_prod <- log(df$prod)
+ 
++df <- df[order(df$store_gid, df$manager_gid, df$time), ]
++df$store_gid   <- factor(df$store_gid,   levels = sort(unique(df$store_gid)))
++df$manager_gid <- factor(df$manager_gid, levels = sort(unique(df$manager_gid)))
++df$time        <- factor(df$time,        levels = sort(unique(df$time)))
++
+ # Find connected sets
+ cs <- compfactor(list(factor(df$store_gid), factor(df$manager_gid)))
+ df$connected_set <- as.numeric(as.character(cs))
+@@ -97,11 +92,13 @@
+ 
+                               #### Estimate Fixed Effects ####
+ 
++set.seed(seed)
+ reg <- felm(log_prod ~ 1 | manager_gid + store_gid + time, data=df, cmethod='reghdfe')
+ print(summary(reg))
+ 
+ # Recover estimates
+-mng_store_gfe <- getfe(reg, se=TRUE) 
++set.seed(seed)
++mng_store_gfe <- getfe(reg, se = TRUE, bN = 100)
+ 
+ store_gfe = subset(mng_store_gfe, fe == 'store_gid', select=c('effect','se','comp','idx'))
+ names(store_gfe) <- c('fe', 'fe_se', 'connected_set', 'store_gid')
+@@ -116,53 +113,13 @@
+ # Save results to Stata
+ indx <- sapply(store_gfe, is.factor)
+ store_gfe[indx] <- lapply(store_gfe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(store_gfe, "B_store_gfe.dta")
++write_dta(store_gfe, file.path(data_dir, "B_store_gfe.dta"))
+ 
+ indx <- sapply(manager_gfe, is.factor)
+ manager_gfe[indx] <- lapply(manager_gfe[indx], function(x) as.numeric(as.character(x)))
+-write_dta(manager_gfe, "B_manager_gfe.dta")
++write_dta(manager_gfe, file.path(data_dir, "B_manager_gfe.dta"))
+ 
+ 
+-                              #### Variance-covariance decomposition ####
+-
+-
+-# Bias corrected var-cov matrix
+-covar <- fevcov(reg, mng_store_gfe, tol = tol_fe)
+-
+-covar_biased <- covar + attr(covar, 'bias')
+-attr(covar_biased, 'bias') <- NULL
+-
+-# correlations
+-corr <- cov2cor(covar)
+-attr(corr, 'bias') <- NULL
+-
+-corr_biased <- cov2cor(covar_biased)
+-
+-
+-setwd(tables_dir)
+-file_name <- "B_covar_group.txt"
+-sink(file_name)
+-
+-cat("=========================")
+-cat("### Covariance Matrix ###")
+-cat("=========================")
+-print(covar)
+-
+-cat("=========================")
+-cat("### Covariance - Biased ###")
+-cat("=========================")
+-print(covar_biased)
+-
+-cat("=========================")
+-cat("### Correlation ###")
+-cat("=========================")
+-print(corr)
+-
+-cat("=========================")
+-cat("### Correlation - Biased ###")
+-cat("=========================")
+-print(corr_biased)
+-sink()
+ 
+ 
+ 
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_FE.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_FE.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_FE.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_analyze_FE.do	2026-09-18 15:45:14
+@@ -117,16 +117,14 @@
+ 	bys connected_set: egen mean_fe = mean(manager_fe_eb)
+ 	replace manager_fe_eb = manager_fe_eb - mean_fe
+ 	
+-	* Figure 3 (the following plots the densities in CS 1-4, though Figure 3 only shows CS=1)
+-	forvalues cs = 1/4 {
+-		kdensity manager_fe_eb if cs_rank == `cs', lcolor(black) lwidth(medthick) ///
+-		ytitle("Density", size(medium)) xtitle("Manager Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
+-		legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
+-		graph export "Figure_3_panel_A_CS`cs'.png", width(1200) height(800) replace
+-		
+-		su manager_fe_eb if cs_rank==`cs', d
+-	}
++	* Figure 3
++	kdensity manager_fe_eb if cs_rank == 1, lcolor(black) lwidth(medthick) ///
++	ytitle("Density", size(medium)) xtitle("Manager Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
++	legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
++	graph export "Figure_3_panel_A.png", width(1200) height(800) replace
+ 	
++	su manager_fe_eb if cs_rank==1, d
++	
+ 	// Figure A.2
+ 	forvalues  r = 1/4 {
+ 		hist manager_fe_eb if cs_rank == `r', percent width(0.025) lcolor(black) fcolor(gray%25) ///
+@@ -148,15 +146,13 @@
+ 	bys connected_set: egen mean_fe = mean(store_fe_eb)
+ 	replace store_fe_eb = store_fe_eb - mean_fe
+ 	
+-	* Figure 3 (the following plots the densities in CS 1-4, though Figure 3 only shows CS=1)
+-	forvalues cs = 1/4 {
+-		kdensity store_fe_eb if cs_rank == `cs', lcolor(black) lwidth(medthick) ///
+-		ytitle("Density", size(medium)) xtitle("Store Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
+-		legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
+-		graph export "Figure_3_panel_B_CS`cs'.png", width(1200) height(800) replace
+-		
+-		su store_fe_eb if cs_rank==`cs', d		
+-	}
++	* Figure 3
++	kdensity store_fe_eb if cs_rank == 1, lcolor(black) lwidth(medthick) ///
++	ytitle("Density", size(medium)) xtitle("Store Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
++	legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
++	graph export "Figure_3_panel_B.png", width(1200) height(800) replace
++	
++	su store_fe_eb if cs_rank== 1, d		
+ 	
+ 	// Figure A.3
+ 	forvalues  r = 1/4 {
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_event_study.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_event_study.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_event_study.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_event_study.do	2026-09-18 15:45:14
+@@ -469,6 +469,8 @@
+ 	
+ 	// save table
+     export excel using "$res_dir/Tables/Table_4_panel_A_Company_A.xlsx", firstrow(variables) replace
++	putexcel set "$res_dir/Tables/Table_4_panel_A_Company_A.xlsx", modify
++	putexcel B2:E4, nformat("0.000")
+ restore
+ 
+ 
+@@ -532,6 +534,8 @@
+     }
+ 	// save table
+     export excel using "$res_dir/Tables/Table_4_panel_B_Company_A.xlsx", firstrow(variables) replace
++	putexcel set "$res_dir/Tables/Table_4_panel_B_Company_A.xlsx", modify
++	putexcel B2:E4, nformat("0.000")
+ restore
+ 
+ 					********* Descriptive Stats ************					
+@@ -858,9 +862,11 @@
+ // percentages
+ bys start_in: egen total_mng = total(freq)
+ gen pct = 100*freq/total_mng
++gen pct_round = round(pct)
+ 	
+ compress
+ drop x y
++sort move_to start_in
+ save "$res_dir/Tables/Table_3_Company_A", replace
+ 
+ noisily {
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_prelim_analysis.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_prelim_analysis.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_prelim_analysis.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_prelim_analysis.do	2026-09-18 15:45:14
+@@ -113,7 +113,7 @@
+ 	collapse (sum) N (mean) sales fte_count store_area manager_salary, by(mover)
+ 	sort mover
+ 	
+-	gen pct_mover  = N[2]/(N[1]+N[2])
++	gen pct_mover  = 100*N[2]/(N[1]+N[2])
+ 	gen pct_sales  = 100*(sales[2]-sales[1])/sales[1]
+ 	gen pct_fte    = 100*(fte_count[2]-fte_count[1])/fte_count[1]
+ 	gen pct_area   = 100*(store_area[2]-store_area[1])/store_area[1]
+@@ -223,7 +223,8 @@
+ 	display in red "============ Table D.1 ============"
+ 	logit change_mng log_prod i.quarter#i.year
+ }	
+-	esttab using "$res_dir/Tables/Table_D1_Company_A.tex", replace se label
++	esttab using "$res_dir/Tables/Table_D1_Company_A.tex", replace ///
++	b(3) se(3) label stats(N r2_p, fmt(0 3) labels("N" "Pseudo $R^2$"))
+ 
+ 
+ 
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_revenue_counterfactuals.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_revenue_counterfactuals.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_revenue_counterfactuals.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/A_revenue_counterfactuals.do	2026-09-18 15:45:14
+@@ -1,6 +1,8 @@
+ qui {
+ 	
++cap set processors 1
+ set seed $seed_num
++set sortseed $seed_num
+ 
+ *** Optimal distriution of managers in stores
+ 
+@@ -14,9 +16,15 @@
+ keep manager_id store_id manager_fe_eb store_fe_eb connected_set time
+ drop if mi(manager_fe_eb, store_fe_eb)
+ 
+-bys connected_set time (manager_fe_eb): gen mng_pos = _n
+-bys connected_set time (store_fe_eb): gen store_pos = _n
++sort connected_set time manager_fe_eb manager_id
++by connected_set time: gen mng_pos = _n
+ 
++sort connected_set time store_fe_eb store_id
++by connected_set time: gen store_pos = _n
++
++isid connected_set time mng_pos
++isid connected_set time store_pos
++
+ ren (manager_id store_id manager_fe_eb store_fe_eb) (manager_id_rank store_id_rank manager_fe_rank store_fe_rank)
+ save "mng_store_rank", replace
+ 
+@@ -27,7 +35,11 @@
+ replace store_fe_eb = 0 if store_fe == 0
+ drop if mi(manager_fe_eb, store_fe_eb)
+ 
+-bys connected_set time (store_fe_eb): gen mng_pos = _n
++sort connected_set time store_fe_eb store_id
++by connected_set time: gen mng_pos = _n
++
++isid connected_set time mng_pos
++
+ merge 1:1 connected_set time mng_pos using "mng_store_rank", nogen
+ 
+ erase "mng_store_rank.dta"
+@@ -88,9 +100,9 @@
+ replace ci_lower = `sg_lo' in 1
+ replace ci_upper = `sg_hi' in 1
+ 
+-replace estimate = `sl' in 2
+-replace ci_lower = `sl_lo' in 2
+-replace ci_upper = `sl_hi' in 2
++replace estimate = `sl'/1000000 in 2
++replace ci_lower = `sl_lo'/1000000 in 2
++replace ci_upper = `sl_hi'/1000000 in 2
+ 
+ format estimate %9.2f
+ format ci_lower %9.2f
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_FE.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_FE.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_FE.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_analyze_FE.do	2026-09-18 15:45:14
+@@ -117,16 +117,14 @@
+ 	bys connected_set: egen mean_fe = mean(manager_fe_eb)
+ 	replace manager_fe_eb = manager_fe_eb - mean_fe
+ 	
+-	* Figure 3 (the following plots the densities in CS 1-4, though Figure 3 shows only the largest CS)
+-	forvalues cs = 1/4 {
+-		kdensity manager_fe_eb if cs_rank == `cs', lcolor(black) lwidth(medthick) ///
+-		ytitle("Density", size(medium)) xtitle("Manager Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
+-		legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
+-		graph export "Figure_3_panel_C_CS`cs'.png", width(1200) height(800) replace
+-		
+-		su manager_fe_eb if cs_rank==`cs', d
+-	}
++	* Figure 3
++	kdensity manager_fe_eb if cs_rank == 1, lcolor(black) lwidth(medthick) ///
++	ytitle("Density", size(medium)) xtitle("Manager Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
++	legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
++	graph export "Figure_3_panel_C.png", width(1200) height(800) replace
+ 	
++	su manager_fe_eb if cs_rank== 1, d
++	
+ 	// Figure A.2
+ 	forvalues  r = 1/4 {
+ 		hist manager_fe_eb if cs_rank == `r', percent width(0.1) lcolor(black) fcolor(gray%25) ///
+@@ -149,14 +147,12 @@
+ 	replace store_fe_eb = store_fe_eb - mean_fe
+ 	
+ 	* Figure 3 (the following plots the densities in CS 1-4, though Figure 3 shows only the largest CS)
+-	forvalues cs = 1/4 {
+-		kdensity store_fe_eb if cs_rank == `cs', lcolor(black) lwidth(medthick) ///
+-		ytitle("Density", size(medium)) xtitle("Store Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
+-		legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
+-		graph export "Figure_3_panel_D_CS`cs'.png", width(1200) height(800) replace
++	kdensity store_fe_eb if cs_rank == 1, lcolor(black) lwidth(medthick) ///
++	ytitle("Density", size(medium)) xtitle("Store Fixed Effect (EB-Adjusted)", size(medium)) title("") note("") ///
++	legend(off) graphregion(color(white)) ylabel(,labsize(medium)) xlabel(,labsize(medium))
++	graph export "Figure_3_panel_D.png", width(1200) height(800) replace
+ 
+-		su store_fe_eb if cs_rank==`cs', d		
+-	}
++	su store_fe_eb if cs_rank== 1, d		
+ 	
+ 	// Figure A.3
+ 	forvalues  r = 1/4 {
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_event_study.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_event_study.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_event_study.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_event_study.do	2026-09-18 15:45:14
+@@ -474,6 +474,8 @@
+ 	
+ 	// save table
+     export excel using "$res_dir/Tables/Table_4_panel_A_Company_B.xlsx", firstrow(variables) replace
++	putexcel set "$res_dir/Tables/Table_4_panel_A_Company_B.xlsx", modify
++	putexcel B2:E4, nformat("0.000")
+ restore
+ 
+ * Average change in FE
+@@ -536,6 +538,8 @@
+     }
+ 	// save table
+     export excel using "$res_dir/Tables/Table_4_panel_B_Company_B.xlsx", firstrow(variables) replace
++	putexcel set "$res_dir/Tables/Table_4_panel_B_Company_B.xlsx", modify
++	putexcel B2:E4, nformat("0.000")
+ restore
+ 
+ 
+@@ -858,9 +862,11 @@
+ // percentages
+ bys start_in: egen total_mng = total(freq)
+ gen pct = 100*freq/total_mng
+-
++gen pct_round = round(pct)
++	
+ compress
+ drop x y
++sort move_to start_in
+ save "$res_dir/Tables/Table_3_Company_B", replace
+ 
+ noisily {
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_gender_moves.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_gender_moves.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_gender_moves.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_gender_moves.do	2026-09-18 15:45:14
+@@ -59,12 +59,12 @@
+ 
+ // save output
+ esttab m1 m2 m3 m4 using "$res_dir/Tables/Table_B2.tex", replace ///
+-    se star(* 0.1 ** 0.05 *** 0.01) ///
++    b(%9.3f) se(%9.3f) star(* 0.1 ** 0.05 *** 0.01) ///
+     label compress ///
+     keep(mover log_manager_tenure) ///
+     order(mover log_manager_tenure) ///
+     mtitle("(1)" "(2)" "(3)" "(4)") ///
+-    stats(N r2_a sample, ///
++    stats(N r2_a sample, fmt(0 3 0) ///
+         labels("N" "Within $R^2$" "Sample"))
+ 
+ 
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_prelim_analysis.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_prelim_analysis.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_prelim_analysis.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_prelim_analysis.do	2026-09-18 15:45:14
+@@ -113,7 +113,7 @@
+ 	collapse (sum) N (mean) revenue_total fte_count area_total manager_tenure_start, by(mover)
+ 	sort mover
+ 	
+-	gen pct_mover  = N[2]/(N[1]+N[2])
++	gen pct_mover  = 100*N[2]/(N[1]+N[2])
+ 	gen pct_sales  = 100*(revenue_total[2]-revenue_total[1])/revenue_total[1]
+ 	gen pct_fte    = 100*(fte_count[2]-fte_count[1])/fte_count[1]
+ 	gen pct_area   = 100*(area_total[2]-area_total[1])/area_total[1]
+@@ -222,7 +222,8 @@
+ 	display in red "============ Table D.1 ============"
+ 	logit change_mng log_prod i.quarter#i.year
+ }	
+-	esttab using "$res_dir/Tables/Table_D1_Company_B.tex", replace se label
++	esttab using "$res_dir/Tables/Table_D1_Company_B.tex", replace ///
++	b(3) se(3) label stats(N r2_p, fmt(0 3) labels("N" "Pseudo $R^2$"))
+ 
+ }
+ 
+diff -ru round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_revenue_counterfactuals.do round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_revenue_counterfactuals.do
+--- round3_Replication_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_revenue_counterfactuals.do	2026-09-18 15:45:14
++++ round4_Code_for_Managers_and_Productivity_in_Retail/Code/Stata codes/B_revenue_counterfactuals.do	2026-09-18 15:45:14
+@@ -1,6 +1,8 @@
+ qui {
+ 
++cap set processors 1
+ set seed $seed_num
++set sortseed $seed_num
+ 
+ *** Optimal distriution of managers in stores
+ 
+@@ -14,9 +16,15 @@
+ keep manager_id store_id manager_fe_eb store_fe_eb connected_set time
+ drop if mi(manager_fe_eb, store_fe_eb)
+ 
+-bys connected_set time (manager_fe_eb): gen mng_pos = _n
+-bys connected_set time (store_fe_eb): gen store_pos = _n
++sort connected_set time manager_fe_eb manager_id
++by connected_set time: gen mng_pos = _n
+ 
++sort connected_set time store_fe_eb store_id
++by connected_set time: gen store_pos = _n
++
++isid connected_set time mng_pos
++isid connected_set time store_pos
++
+ ren (manager_id store_id manager_fe_eb store_fe_eb) (manager_id_rank store_id_rank manager_fe_rank store_fe_rank)
+ save "mng_store_rank", replace
+ 
+@@ -27,7 +35,11 @@
+ replace store_fe_eb = 0 if store_fe == 0
+ drop if mi(manager_fe_eb, store_fe_eb)
+ 
+-bys connected_set time (store_fe_eb): gen mng_pos = _n
++sort connected_set time store_fe_eb store_id
++by connected_set time: gen mng_pos = _n
++
++isid connected_set time mng_pos
++
+ merge 1:1 connected_set time mng_pos using "mng_store_rank", nogen
+ 
+ erase "mng_store_rank.dta"
+@@ -88,9 +100,9 @@
+ replace ci_lower = `sg_lo' in 1
+ replace ci_upper = `sg_hi' in 1
+ 
+-replace estimate = `sl' in 2
+-replace ci_lower = `sl_lo' in 2
+-replace ci_upper = `sl_hi' in 2
++replace estimate = `sl'/1000000 in 2
++replace ci_lower = `sl_lo'/1000000 in 2
++replace ci_upper = `sl_hi'/1000000 in 2
+ 
+ format estimate %9.2f
+ format ci_lower %9.2f
